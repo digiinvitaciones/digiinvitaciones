@@ -373,12 +373,12 @@ const IMG_SRC={'paloma-celeste':'img/paloma-celeste.jpg','paloma-rosa':'img/palo
 const IMGS={};
 
 const BASE={kicker:'',titulo:'',nombre:'',letra:'Great Vibes',numero:'',frase:'',fecha:'2027-03-13',hora:'11:00',lugar:'',direccion:'',lugar2:'',hora2:'',direccion2:'',padres:'',wa:'',limite:'',dress:'',alias:'',showConfirm:false};
-const D_BAU={kicker:'Te invito a mi',titulo:'Bautismo',frase:'Con la bendición de Dios y el amor de mi familia',fecha:'2027-03-13',hora:'11:00',lugar:'Parroquia San José',direccion:'Av. Rivadavia 1234, CABA',lugar2:'Salón Las Acacias',hora2:'13:00',direccion2:'Belgrano 560, CABA',padres:'Mis papás: Lucía y Diego\nMis padrinos: Carla y Juan',wa:'5491155555555',limite:'2027-03-01',alias:'mateo.bautismo'};
+const D_BAU={kicker:'Te invito a mi',titulo:'Bautismo',frase:'Con la bendición de Dios y el amor de mi familia',fecha:'2027-03-13',hora:'11:00',lugar:'Parroquia San José',direccion:'Av. Rivadavia 1234, CABA',lugar2:'Salón Las Acacias',hora2:'13:00',direccion2:'Belgrano 560, CABA',wa:'5491155555555',limite:'2027-03-01',alias:'mateo.bautismo'};
 const D_BODA={kicker:'Nos casamos',titulo:'',nombre:'Sofía & Martín',frase:'Queremos compartir con vos el comienzo de nuestra historia',fecha:'2027-04-17',hora:'20:00',lugar:'Estancia La Candelaria',direccion:'Ruta 6 km 12, Lobos',padres:'',wa:'5491155555555',limite:'2027-03-20',dress:'Elegante',alias:'sofiaymartin.boda'};
-const D_XV={kicker:'Te invito a festejar',titulo:'Mis 15 años',nombre:'Valentina',numero:'XV',frase:'Una noche para recordar',fecha:'2027-05-22',hora:'21:30',lugar:'Salón Imperial',direccion:'Av. del Libertador 4500, CABA',padres:'Mis papás: Laura y Pablo',wa:'5491155555555',limite:'2027-05-01',dress:'Elegante',alias:'vale.xv'};
+const D_XV={kicker:'Te invito a festejar',titulo:'Mis 15 años',nombre:'Valentina',numero:'XV',frase:'Una noche para recordar',fecha:'2027-05-22',hora:'21:30',lugar:'Salón Imperial',direccion:'Av. del Libertador 4500, CABA',wa:'5491155555555',limite:'2027-05-01',dress:'Elegante',alias:'vale.xv'};
 const D_INF={kicker:'Te invito a festejar',titulo:'Mis 5 años',frase:'¡Vení a jugar y divertirte conmigo!',fecha:'2027-04-10',hora:'17:00',lugar:'Salón Pelotero Mundo Mágico',direccion:'Av. Siempre Viva 742',wa:'5491155555555',limite:'2027-04-01'};
 const D_PRIMER={kicker:'Festejamos',numero:'1',titulo:'Mi primer añito',fecha:'2027-04-10',hora:'17:00',lugar:'Salón Pequeños Sueños',direccion:'Belgrano 560',wa:'5491155555555',limite:'2027-04-01'};
-const D_BABY={kicker:'Baby shower',titulo:'Estamos esperando a',nombre:'Emma',frase:'Vení a celebrar con nosotros la llegada de nuestro bebé',fecha:'2027-02-20',hora:'16:00',lugar:'Casa de la familia',direccion:'Los Aromos 345, Córdoba',padres:'Papás: Lucía y Diego',wa:'5491155555555',limite:'2027-02-10'};
+const D_BABY={kicker:'Baby shower',titulo:'Estamos esperando a',nombre:'Emma',frase:'Vení a celebrar con nosotros la llegada de nuestro bebé',fecha:'2027-02-20',hora:'16:00',lugar:'Casa de la familia',direccion:'Los Aromos 345, Córdoba',wa:'5491155555555',limite:'2027-02-10'};
 const D_CUMPLE={kicker:'Te invito a mi',titulo:'Cumpleaños',nombre:'Lucas',numero:'40',frase:'Brindemos juntos por una nueva década',fecha:'2027-06-12',hora:'21:00',lugar:'Terraza Palermo',direccion:'Honduras 5800, CABA',wa:'5491155555555',limite:'2027-06-01',dress:'Elegante sport'};
 
 const TEMPLATES=[
@@ -415,11 +415,11 @@ const TEMPLATES=[
  {id:'inf-superheroe',ev:'Infantiles',name:'Superhéroe',img:'inf-superheroe',zone:[0.4, 0.8],cx:0.5,maxW:0.46,ink:'#0d2b6b',soft:'#1d4fa0',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#d62828',nameW:'600',d:{...D_INF,nombre:'Tomi',letra:'Fredoka'}},
  {id:'inf-unicornio',ev:'Infantiles',name:'Unicornio',img:'inf-unicornio',zone:[0.2, 0.58],cx:0.52,maxW:0.62,ink:'#6b2f5a',soft:'#8a4f78',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#c2549b',d:{...D_INF,nombre:'Emma'}},
  {id:'inf-invierno',ev:'Infantiles',name:'Invierno mágico',img:'inf-invierno',zone:[0.1, 0.5],cx:0.5,maxW:0.66,ink:'#24386b',soft:'#3d5a99',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#3d5a99',d:{...D_INF,nombre:'Olivia'}},
- {id:'inf-primer-luna',ev:'Primer año',name:'Luna y conejito',img:'inf-primer-luna',zone:[0.197, 0.503],cx:0.506,maxW:0.503,ink:'#3f4f63',soft:'#5f6f83',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Benjamín'}},
- {id:'inf-primer-ciervo',ev:'Primer año',name:'Ciervo y flores',img:'inf-primer-ciervo',zone:[0.325, 0.586],cx:0.51,maxW:0.429,ink:'#5a4636',soft:'#7a6656',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Emma'}},
- {id:'inf-primer-ovejita',ev:'Primer año',name:'Ovejita y arcoíris',img:'inf-primer-ovejita',zone:[0.318, 0.642],cx:0.5,maxW:0.533,ink:'#5a4636',soft:'#7a6656',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Mía'}},
+ {id:'inf-primer-luna',noCard:true,ev:'Primer año',name:'Luna y conejito',img:'inf-primer-luna',zone:[0.197, 0.503],cx:0.506,maxW:0.503,ink:'#3f4f63',soft:'#5f6f83',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Benjamín'}},
+ {id:'inf-primer-ciervo',noCard:true,ev:'Primer año',name:'Ciervo y flores',img:'inf-primer-ciervo',zone:[0.325, 0.586],cx:0.51,maxW:0.429,ink:'#5a4636',soft:'#7a6656',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Emma'}},
+ {id:'inf-primer-ovejita',noCard:true,ev:'Primer año',name:'Ovejita y arcoíris',img:'inf-primer-ovejita',zone:[0.318, 0.642],cx:0.5,maxW:0.533,ink:'#5a4636',soft:'#7a6656',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Mía'}},
  {id:'inf-osito',ringNum:[.565,.28,.30],ev:'Primer año',name:'Osito y globos',img:'inf-osito',zone:[.57,.93],cx:.5,maxW:.72,ink:'#3f4f63',soft:'#5f6f83',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Felipe'}},
- {id:'inf-primer-ositos',ev:'Primer año',name:'Osita y conejita',img:'inf-primer-ositos',zone:[0.339, 0.601],cx:0.503,maxW:0.429,ink:'#6b3a4a',soft:'#8a5a65',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Alma'}},
+ {id:'inf-primer-ositos',noCard:true,ev:'Primer año',name:'Osita y conejita',img:'inf-primer-ositos',zone:[0.339, 0.601],cx:0.503,maxW:0.429,ink:'#6b3a4a',soft:'#8a5a65',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Alma'}},
  {id:'inf-safari',ringNum:[.494,.31,.285],ev:'Primer año',name:'Safari',img:'inf-safari',zone:[.56,.9],cx:.5,maxW:.66,ink:'#4a4a2f',soft:'#6b6b4a',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Lorenzo'}},
 ];
 const tplById=id=>TEMPLATES.find(t=>t.id===id);
@@ -459,7 +459,8 @@ function buildItems(ctx,tpl,d,opt){
       g.addColorStop(0,'rgba(255,250,235,0)');g.addColorStop(.5,'rgba(255,250,235,.9)');g.addColorStop(1,'rgba(255,250,235,0)');
       ctx.fillStyle=g;ctx.fillText(d.nombre,cx,by);
     }}})}
-  if(d.frase){items.push({h:0,calc(s){setFont(ctx,'italic 500',42*s,SERIF);this.lines=wrap(ctx,d.frase,maxW*.92);return this.lines.length*52+18},draw(y,s){setFont(ctx,'italic 500',42*s,SERIF);ctx.fillStyle=soft;glow();this.lines.forEach((l,i)=>ctx.fillText(l,cx,y+42*s+i*52*s));noShadow()}})}
+  const compact=!!tpl.img; // en imágenes con dibujo: solo lo justo y necesario
+  if(d.frase&&!compact){items.push({h:0,calc(s){setFont(ctx,'italic 500',42*s,SERIF);this.lines=wrap(ctx,d.frase,maxW*.92);return this.lines.length*52+18},draw(y,s){setFont(ctx,'italic 500',42*s,SERIF);ctx.fillStyle=soft;glow();this.lines.forEach((l,i)=>ctx.fillText(l,cx,y+42*s+i*52*s));noShadow()}})}
   // ornamento
   items.push({h:46,draw(y,s){const yy=y+23*s;const w=Math.min(maxW*.6,380*s);ctx.strokeStyle=goldGrad(ctx,cx-w/2,cx+w/2,yy,tpl.gold);ctx.lineWidth=2*s;ctx.beginPath();ctx.moveTo(cx-w/2,yy);ctx.lineTo(cx-18*s,yy);ctx.moveTo(cx+18*s,yy);ctx.lineTo(cx+w/2,yy);ctx.stroke();ctx.fillStyle=goldGrad(ctx,cx-12*s,cx+12*s,yy,tpl.gold);ctx.beginPath();ctx.moveTo(cx,yy-10*s);ctx.lineTo(cx+10*s,yy);ctx.lineTo(cx,yy+10*s);ctx.lineTo(cx-10*s,yy);ctx.closePath();ctx.fill()}});
   const fd=parseDate(d.fecha);
@@ -483,7 +484,7 @@ function buildItems(ctx,tpl,d,opt){
   }})}
   if(d.lugar||d.direccion){items.push({h:0,calc(s){return (d.lugar?64:0)+(d.direccion?44:0)+14},draw(y,s){let yy=y+14*s;if(d.lugar){const sz=fitSize(ctx,d.lugar,'600',52*s,SERIF,maxW);ctx.fillStyle=ink;glow();ctx.fillText(d.lugar,cx,yy+46*s);noShadow();yy+=62*s}if(d.direccion){fitSize(ctx,d.direccion,'500',31*s,SANS,maxW);ctx.fillStyle=soft;glow();ctx.fillText(d.direccion,cx,yy+32*s);noShadow()}}})}
   if(d.lugar2){items.push({h:0,calc(){return 46+56+(d.direccion2?42:0)+8},draw(y,s){let yy=y+8*s;const k=('Después festejamos'+(d.hora2?' · '+fmtHora(d.hora2):'')).toUpperCase();const sz=fitSize(ctx,k,'600',24*s,SANS,maxW,6*s);ctx.fillStyle=soft;glow();drawSpaced(ctx,k,cx,yy+30*s,6*s*sz/(24*s));yy+=46*s;fitSize(ctx,d.lugar2,'600',44*s,SERIF,maxW);ctx.fillStyle=ink;ctx.fillText(d.lugar2,cx,yy+40*s);yy+=56*s;if(d.direccion2){fitSize(ctx,d.direccion2,'500',29*s,SANS,maxW);ctx.fillStyle=soft;ctx.fillText(d.direccion2,cx,yy+31*s)}noShadow()}})}
-  if(d.padres){const ls=d.padres.split('\n').map(x=>x.trim()).filter(Boolean);items.push({h:20+ls.length*50,draw(y,s){ls.forEach((l,i)=>{fitSize(ctx,l,'italic 500',40*s,SERIF,maxW);ctx.fillStyle=ink;glow();ctx.fillText(l,cx,y+54*s+i*50*s);noShadow()})}})}
+  if(d.padres&&!compact){const ls=d.padres.split('\n').map(x=>x.trim()).filter(Boolean);items.push({h:20+ls.length*50,draw(y,s){ls.forEach((l,i)=>{fitSize(ctx,l,'italic 500',40*s,SERIF,maxW);ctx.fillStyle=ink;glow();ctx.fillText(l,cx,y+54*s+i*50*s);noShadow()})}})}
   if(d.showConfirm&&d.wa&&!opt.noConfirm){items.push({h:58,draw(y,s){const t=('Confirmá tu asistencia'+(d.limite?' antes del '+fmtCorta(d.limite):'')+' · '+prettyPhone(d.wa)).toUpperCase();const sz=fitSize(ctx,t,'600',22*s,SANS,maxW,3*s);ctx.fillStyle=soft;glow();drawSpaced(ctx,t,cx,y+44*s,3*s*sz/(22*s));noShadow()}})}
   return items;
 }
@@ -551,7 +552,7 @@ function render(ctx,tpl,d,t=null,opt={}){
   let y=zone[0]*H+PY+(Z-tot)/2;
   if(card){const cxp=W*(tpl.cx||.5),cw=Math.min(W-48,W*tpl.maxW+2*PX),x0=Math.max(24,Math.min(W-24-cw,cxp-cw/2)),y0=y-PY,ch=tot+2*PY;
     let a=1;if(t!=null)a=ease((t-.3)/1);
-    if(a>0){ctx.save();ctx.globalAlpha=a;roundRect(ctx,x0,y0,cw,ch,34);ctx.save();ctx.clip();ctx.filter='blur(16px)';ctx.drawImage(ctx.canvas,0,0);ctx.filter='none';
+    if(a>0){ctx.save();ctx.globalAlpha=a;roundRect(ctx,x0,y0,cw,ch,34);ctx.save();ctx.clip();{const k=ctx.getTransform().a;ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.filter='blur('+Math.max(2,Math.round(16*k))+'px)';ctx.drawImage(ctx.canvas,0,0);ctx.restore()}
       ctx.fillStyle=tpl.dark?'rgba(10,16,40,.42)':'rgba(255,252,246,.55)';ctx.fillRect(x0,y0,cw,ch);
       const gl=ctx.createLinearGradient(x0,y0,x0,y0+ch);gl.addColorStop(0,tpl.dark?'rgba(255,255,255,.10)':'rgba(255,255,255,.45)');gl.addColorStop(.35,'rgba(255,255,255,0)');ctx.fillStyle=gl;ctx.fillRect(x0,y0,cw,ch);ctx.restore();
       ctx.shadowColor='rgba(150,100,30,.25)';ctx.shadowBlur=18;ctx.strokeStyle=goldGrad(ctx,x0,x0+cw,y0,tpl.gold);ctx.lineWidth=2.4;roundRect(ctx,x0,y0,cw,ch,34);ctx.stroke();ctx.shadowBlur=0;
