@@ -31,6 +31,13 @@ body{overflow-x:hidden;padding-left:max(16px,env(safe-area-inset-left,0px));padd
   radial-gradient(60% 50% at 50% 100%,rgba(226,182,118,.12),transparent 70%);animation:drift 22s ease-in-out infinite alternate}
 @keyframes drift{to{transform:translate3d(0,-3%,0) scale(1.08);filter:hue-rotate(18deg)}}
 .wrap{max-width:1120px;margin:0 auto}
+nav.top{position:sticky;top:0;z-index:60;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(11,10,9,.62);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(226,182,118,.18)}
+nav.top .mk{font:600 20px var(--serif);letter-spacing:.16em;background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent;text-decoration:none;white-space:nowrap}nav.top .mk i{font:400 22px var(--script);letter-spacing:0;margin-left:4px}
+nav.top .lk{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav.top .lk::-webkit-scrollbar{display:none}
+nav.top .lk a{color:#e8c98f;text-decoration:none;font:500 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:9px 10px;border-radius:12px;white-space:nowrap;transition:color .2s,text-shadow .2s,background .2s}
+nav.top .lk a:hover,nav.top .lk a:focus-visible{color:#fff3d6;text-shadow:0 0 12px rgba(243,209,154,.8);background:rgba(226,182,118,.08)}
+@media(max-width:560px){nav.top .mk{display:none}nav.top{justify-content:center}nav.top .lk{gap:0}nav.top .lk a{font-size:9.5px;letter-spacing:.08em;padding:9px 6px}}
+.eyebrow{display:block;text-align:center;font:500 11px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:#d9a354;margin-bottom:10px}
 header{text-align:center;padding:56px 0 26px}
 .logo{font:600 clamp(46px,12vw,96px)/1 var(--serif);letter-spacing:.14em;background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.1em .2em}
 .logo small{display:block;font:400 clamp(34px,8vw,58px)/1.1 var(--script);letter-spacing:0;margin-top:-.05em;padding:.12em .3em .2em}
@@ -40,7 +47,7 @@ header{text-align:center;padding:56px 0 26px}
 .heroBtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px}
 h2{font:600 clamp(30px,6vw,44px)/1.1 var(--serif);text-align:center;margin:0 0 8px;background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.08em .2em;text-wrap:balance}
 .sub{text-align:center;color:var(--muted);margin:0 auto 22px;max-width:56ch;line-height:1.6}
-section{padding:40px 0}
+section{padding:40px 0;scroll-margin-top:64px}
 /* pestañas por evento */
 .tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:24px}
 .tab{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--ink);font:500 13px var(--sans);letter-spacing:.08em;padding:12px 18px;border-radius:18px;cursor:pointer;min-height:46px}
@@ -63,6 +70,57 @@ section{padding:40px 0}
 .price small{color:var(--muted);font-size:12px}
 .acts{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:0 4px}
 .acts .cta{min-height:46px;font-size:12px;padding:12px 10px;letter-spacing:.1em}
+/* formatos */
+.fmtGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media(max-width:900px){.fmtGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:360px){.fmtGrid{grid-template-columns:minmax(0,1fr)}}
+.fmt{border:1px solid var(--line);border-radius:20px;padding:10px 10px 16px;background:linear-gradient(180deg,#1b1711,#120f0b);display:flex;flex-direction:column;text-align:center}
+.fmt .media{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:9/16;background:#0f0d0a}
+.fmt .media img,.fmt .media video{width:100%;height:100%;object-fit:cover;display:block}
+.fmt .media.top img{object-position:top}
+.fmt .num{position:absolute;top:8px;left:8px;font:600 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(11,10,9,.85);color:#f3d19a;border:1px solid var(--line);padding:5px 9px;border-radius:10px}
+.fmt h3{font:600 21px/1.15 var(--serif);margin:12px 4px 4px}
+.fmt p{margin:0 4px 8px;color:var(--muted);font-size:12.5px;line-height:1.45;flex:1}
+.fmt .from{font-size:12px;color:var(--muted);margin-bottom:10px}.fmt .from b{font:600 20px var(--serif);color:#f3d19a}
+.fmt .cta{min-height:44px;font-size:11px;padding:10px;letter-spacing:.1em}
+/* precios */
+.ptable{max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.02)}
+.prow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:8px;padding:14px 16px;border-bottom:1px solid rgba(226,182,118,.16);align-items:center}
+.prow:last-child{border-bottom:0}
+.prow.h{background:rgba(226,182,118,.08);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:1.35}
+.prow .f{font:600 19px var(--serif)}.prow .f small{display:block;font:400 12px var(--sans);color:var(--muted);margin-top:2px}
+.prow .v{text-align:right;font-variant-numeric:tabular-nums}.prow .v s{display:block;color:var(--muted);font-size:12px}.prow .v b{font:600 21px var(--serif);color:#f3d19a}
+.pnote{text-align:center;color:var(--muted);font-size:13px;margin-top:14px;line-height:1.6}
+/* filtros y grupos */
+.filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:-8px 0 22px}
+.chip{appearance:none;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:10px 16px;border-radius:16px;cursor:pointer;min-height:42px}
+.chip[aria-pressed="true"]{color:#2a1d0c;background:var(--foil);border-color:rgba(255,240,210,.8);font-weight:600}
+.gtitle{font:600 26px/1.2 var(--serif);color:#f3d19a;text-align:center;margin:8px 0 4px}
+.gsub{text-align:center;color:var(--muted);font-size:13px;margin:0 0 16px}
+.group+.group{margin-top:34px}
+.ftags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:10px 4px 8px}.ftags span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(226,182,118,.3);border-radius:10px;padding:4px 8px;color:var(--muted)}
+.gtag{position:absolute;top:18px;right:18px;font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:6px 9px;border-radius:12px;background:rgba(255,255,255,.88);color:#3a2a14}
+details.group{border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.02);margin-bottom:12px}
+details.group>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px;font:600 24px var(--serif);color:#f3d19a}
+details.group>summary::-webkit-details-marker{display:none}
+details.group>summary small{font:500 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-left:auto}
+details.group>summary::after{content:"";width:9px;height:9px;border-right:2px solid #e2b676;border-bottom:2px solid #e2b676;transform:rotate(45deg);flex:none;transition:.25s}
+details.group[open]>summary::after{transform:rotate(-135deg)}
+details.group>.grid{padding:4px 12px 16px}
+/* hoja de pedido */
+#order{position:fixed;inset:0;z-index:310;background:rgba(5,4,3,.88);display:none;align-items:flex-end;justify-content:center;overscroll-behavior:contain}
+#order.on{display:flex}
+#order .sheet{width:100%;max-width:520px;max-height:92vh;max-height:92dvh;overflow:auto;background:linear-gradient(180deg,#1b1711,#120f0b);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+@media(min-width:700px){#order{align-items:center}#order .sheet{border-radius:24px;border-bottom:1px solid var(--line)}}
+.oHead{display:flex;gap:14px;align-items:center;margin-bottom:12px}.oHead img{width:72px;aspect-ratio:9/16;object-fit:cover;border-radius:10px;flex:none}
+.oHead h3{font:600 24px/1.1 var(--serif);margin:0}.oHead p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.oItem{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 4px;border-bottom:1px dashed rgba(226,182,118,.22);cursor:pointer}
+.oItem input{width:22px;height:22px;accent-color:#d9a354}
+.oItem b{font:600 18px var(--serif)}.oItem small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.oItem .v{text-align:right}.oItem .v s{display:block;color:var(--muted);font-size:11px}.oItem .v b{color:#f3d19a}
+.oTotal{display:flex;justify-content:space-between;align-items:baseline;margin:14px 4px}.oTotal span{color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-size:12px}.oTotal b{font:600 28px var(--serif);color:#f3d19a}.oTotal s{color:var(--muted);font-size:13px;margin-right:8px}
+.oBtns{display:grid;gap:8px}
+.cta[aria-disabled="true"]{opacity:.45;pointer-events:none}
 /* cómo funciona */
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 @media(max-width:760px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -94,33 +152,58 @@ footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background
 <div id="holo"></div>
 <canvas id="fx" aria-hidden="true"></canvas>
 <div class="wrap">
-  <header>
+  <nav class="top" aria-label="Secciones"><a class="mk" href="#top">DIGI<i>invitaciones</i></a><div class="lk"><a href="#disenos">Eventos</a><a href="#formatos">Formatos</a><a href="#precios">Precios</a><a href="#como">Cómo pedir</a><a href="#preguntas">Preguntas</a></div></nav>
+  <header id="top">
     <div class="logo">DIGI<small>invitaciones</small></div>
-    <div class="tag">Invitaciones digitales de alta gama</div>
-    <div class="heroBtns"><a class="cta" href="#disenos">Ver diseños</a><a class="cta ghost" id="waTop" target="_blank" rel="noopener">Consultar por WhatsApp</a></div>
+    <div class="tag">Boutique digital de alta gama</div><p class="sub" style="margin-top:18px">Invitaciones digitales elegantes para bautismos, bodas, 15 años, baby showers y cumpleaños. Elegís el diseño, nos pasás los datos y la recibís lista para compartir.</p>
+    <div class="heroBtns"><a class="cta" href="#disenos">Ver diseños</a><a class="cta ghost" href="#precios">Ver precios</a></div>
   </header>
 
-  <section id="disenos">
-    <h2>Elegí tu diseño</h2>
-    <p class="sub">Tocá "Ver demo" para abrir la invitación como la van a ver tus invitados. Cuando te guste, tocá "Quiero este" y lo seguimos por WhatsApp.</p>
-    <div class="tabs" role="tablist" id="tabs"></div>
-    <div class="grid" id="grid"></div>
-  </section>
-
-  <section>
-    <h2>Cómo funciona</h2>
-    <p class="sub">Sin vueltas y desde tu celular.</p>
-    <div class="steps">
-      <div class="step"><b>I</b><h3>Elegís</h3><p>Mirás los diseños y tocás "Quiero este".</p></div>
-      <div class="step"><b>II</b><h3>Nos pasás los datos</h3><p>Te mandamos un formulario corto por WhatsApp.</p></div>
-      <div class="step"><b>III</b><h3>Ves la muestra</h3><p>Te enviamos cómo queda para que la apruebes.</p></div>
-      <div class="step"><b>IV</b><h3>La recibís</h3><p>Imagen, PDF con botones, video o página web, lista para compartir.</p></div>
+  <section id="formatos">
+    <span class="eyebrow">Formatos</span>
+    <h2>Cada diseño, en el formato que quieras</h2>
+    <p class="sub">Todos los diseños salen en los 4 formatos. Elegís uno o varios, y cada uno tiene su precio.</p>
+    <div class="fmtGrid">
+      <div class="fmt"><div class="media"><span class="num">1 · Imagen</span><img loading="lazy" src="muestras/ejemplo-chica.jpg" alt="Ejemplo de invitación en imagen"></div><h3>Imagen JPG</h3><p>Lista para estados, chats y redes. Se ve nítida en cualquier celular.</p><div class="from" data-from="imagen"></div><button class="cta ghost" type="button" id="exImg">Ver ejemplo</button></div>
+      <div class="fmt"><div class="media top"><span class="num">2 · PDF</span><img loading="lazy" src="muestras/ejemplo-pdf.jpg" alt="Ejemplo de invitación en PDF con botones"></div><h3>PDF interactivo</h3><p>Con botones que se tocan: Google Maps, Waze, agendar y confirmar por WhatsApp.</p><div class="from" data-from="pdf"></div><a class="cta ghost" href="muestras/ejemplo.pdf" target="_blank" rel="noopener">Ver ejemplo</a></div>
+      <div class="fmt"><div class="media"><span class="num">3 · Video</span><video muted loop playsinline autoplay preload="none" poster="muestras/ejemplo-video.jpg" src="muestras/ejemplo-video.mp4"></video></div><h3>Video animado</h3><p>Brillos y movimiento suave, ideal para estados y reels.</p><div class="from" data-from="video"></div><a class="cta ghost" href="muestras/ejemplo-video.mp4" target="_blank" rel="noopener">Ver ejemplo</a></div>
+      <div class="fmt"><div class="media"><span class="num">4 · Web</span><img loading="lazy" src="img/xv-medianoche.jpg" alt="Ejemplo de invitación web"></div><h3>Invitación web</h3><p>Página completa: apertura animada, cuenta regresiva, ubicación, regalos y confirmación.</p><div class="from" data-from="web"></div><a class="cta ghost" href="demos/xv-medianoche/" target="_blank" rel="noopener">Ver ejemplo</a></div>
     </div>
   </section>
 
-  <section>
+  <section id="precios">
+    <span class="eyebrow">Precios de lanzamiento</span>
+    <h2>Precios por formato</h2>
+    <p class="sub">Cada formato se cobra por separado: pedís solo lo que necesitás.</p>
+    <div class="ptable" id="ptable"></div>
+    <p class="pnote">Elegí tu diseño y tocá "Quiero este": marcás los formatos que querés y te sale el total.</p>
+  </section>
+
+  <section id="disenos">
+    <span class="eyebrow">Colecciones</span>
+    <h2>Elegí tu diseño</h2>
+    <p class="sub">Primero elegí el evento. Tocá "Ver grande" o "Ver demo" para mirarlo, y "Quiero este" para pedirlo por WhatsApp.</p>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div id="grid"></div>
+  </section>
+
+  <section id="como">
+    <span class="eyebrow">Simple y rápido</span>
+    <h2>Cómo funciona</h2>
+    <p class="sub">Sin vueltas y desde tu celular.</p>
+    <div class="steps">
+      <div class="step"><b>01</b><h3>Elegís</h3><p>Mirás los diseños, tocás "Quiero este" y marcás los formatos.</p></div>
+      <div class="step"><b>02</b><h3>Nos pasás los datos</h3><p>Te mandamos un formulario corto por WhatsApp.</p></div>
+      <div class="step"><b>03</b><h3>Ves la muestra</h3><p>Te enviamos cómo queda para que la apruebes.</p></div>
+      <div class="step"><b>04</b><h3>La recibís</h3><p>Imagen, PDF con botones, video o página web, lista para compartir.</p></div>
+    </div>
+  </section>
+
+  <section id="preguntas">
+    <span class="eyebrow">Dudas</span>
     <h2>Preguntas frecuentes</h2>
-    <details class="q"><summary>¿Qué diferencia hay entre la tarjeta y la invitación web?</summary><p>La tarjeta digital es una imagen elegante más un PDF con botones para la ubicación, el calendario y la confirmación. La invitación web es una página completa con apertura animada, cuenta regresiva, cronograma, galería, regalos y confirmación de asistencia.</p></details>
+    <details class="q"><summary>¿Qué formato me conviene?</summary><p>La imagen es ideal para mandar por chat y subir a estados. El PDF suma botones para llegar al lugar, agendar la fecha y confirmar por WhatsApp. El video llama la atención en estados y reels. La invitación web es la experiencia completa, con apertura animada, cuenta regresiva, galería, regalos y confirmación de asistencia. Podés pedir uno o varios.</p></details>
+    <details class="q"><summary>¿Cómo pago?</summary><p>Por transferencia o Mercado Pago. Primero te mandamos la muestra para que la apruebes, y cuando está todo bien, pagás y te la entregamos sin marca de agua.</p></details>
     <details class="q"><summary>¿Cuánto tarda?</summary><p>Apenas nos pasás los datos te enviamos la muestra. Con tu aprobación y el pago, la recibís enseguida.</p></details>
     <details class="q"><summary>¿Puedo cambiar los colores?</summary><p>Sí. Cada diseño tiene varias paletas para elegir. En las demos con el botón "Personalizar" o con los círculos de color podés probarlas.</p></details>
     <details class="q"><summary>¿Cómo la comparto?</summary><p>Reenviás la imagen, el PDF o el link por WhatsApp, Instagram o donde quieras.</p></details>
@@ -129,6 +212,7 @@ footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background
   <footer><b>DIGI INVITACIONES</b>Boutique digital de alta gama</footer>
 </div>
 <a class="cta waFloat" id="waFloat" target="_blank" rel="noopener">WhatsApp</a>
+<div id="order" role="dialog" aria-label="Elegí los formatos"><div class="sheet"><div class="oHead"><img id="oImg" alt=""><div><h3 id="oName"></h3><p id="oEv"></p></div></div><div class="gsub" style="text-align:left;margin:0 4px 4px">Marcá los formatos que querés:</div><div id="oItems"></div><div class="oTotal"><span>Total</span><span><s id="oOld"></s><b id="oTot"></b></span></div><div class="oBtns"><a class="cta" id="oSend" target="_blank" rel="noopener">Pedir por WhatsApp</a><button class="cta ghost" type="button" id="oClose">Volver</button></div></div></div>
 <div id="viewer" role="dialog" aria-label="Vista de la tarjeta"><button id="vX" type="button" aria-label="Cerrar">×</button><img id="vImg" alt=""><div class="heroBtns" style="margin:0"><a class="cta" id="vWant" target="_blank" rel="noopener">Quiero este</a><button class="cta ghost" id="vClose" type="button">Cerrar</button></div></div>
 
 <script>
@@ -136,25 +220,31 @@ footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background
    WHATSAPP: tu número con código de país, sin + ni espacios (ej: 5491155555555).
    PRECIOS: "antes" sale tachado. */
 var WHATSAPP='5492646280242';
-var PRECIO={web:{antes:32000,ahora:28000,desde:true},tarjeta:{antes:15000,ahora:12000}};
-/* Precio de cada formato (antes = tachado). Todos los diseños salen en todos los formatos. */
+/* PRECIOS por formato: [antes (tachado), ahora]. "gala" = Bodas y 15 años. */
+var PRECIOS={
+ normal:{imagen:[7000,6000],pdf:[10000,8000],video:[12000,10000],web:[26000,22000]},
+ gala:  {imagen:[7000,6000],pdf:[10000,8000],video:[12000,10000],web:[33000,28000]}
+};
+var GALA=['Bodas','15 años'];
 var FORMATOS=[
- {k:'imagen',n:'Imagen JPG',antes:15000,ahora:12000},
- {k:'video',n:'Video',antes:18000,ahora:15000},
- {k:'pdf',n:'PDF interactivo',antes:18000,ahora:15000},
- {k:'web',n:'Invitación web',antes:32000,ahora:28000}
+ {k:'imagen',n:'Imagen JPG',d:'Para estados, chats y redes'},
+ {k:'pdf',n:'PDF interactivo',d:'Con botones de ubicación, calendario y confirmación'},
+ {k:'video',n:'Video animado',d:'Para estados y reels'},
+ {k:'web',n:'Invitación web',d:'Página completa con cuenta regresiva y confirmación'}
 ];
-var EVENTOS=['Bautismo','Bodas','15 años','Cumpleaños','Infantiles','Primer año','Baby shower'];
+var EVENTOS=['15 años','Bodas','Baby shower','Bautismo','Infantiles','Cumpleaños'];
+/* grupos dentro de cada evento (pestañas desplegables) */
+var GRUPOS=[{k:'nena',n:'Nena'},{k:'varon',n:'Nene'},{k:'todos',n:'Neutro'},{k:'bebe',n:'Bebés · primer añito'}];
 var DISENOS=[
- {ev:'Bautismo',tipo:'web',n:'Bautismo I',d:'Paloma y luz, en 4 paletas',img:'img/bautismo-i.jpg',demo:'demos/bautismo-i/'},
- {ev:'Bautismo',tipo:'tarjeta',n:'Paloma celeste',d:'Imagen, video, PDF y web',img:'img/t-bau-paloma-celeste.jpg'},
- {ev:'Bautismo',tipo:'tarjeta',n:'Paloma rosa',d:'Imagen, video, PDF y web',img:'img/t-bau-paloma-rosa.jpg'},
- {ev:'Bautismo',tipo:'tarjeta',n:'Cuna celeste',d:'Imagen, video, PDF y web',img:'img/t-bau-cuna-celeste.jpg'},
- {ev:'Bautismo',tipo:'tarjeta',n:'Cuna rosa',d:'Imagen, video, PDF y web',img:'img/t-bau-cuna-rosa.jpg'},
- {ev:'Bautismo',tipo:'tarjeta',n:'Paloma verde',d:'Imagen, video, PDF y web',img:'img/t-bau-paloma-verde.jpg'},
- {ev:'Bautismo',tipo:'tarjeta',n:'Paloma lila',d:'Imagen, video, PDF y web',img:'img/t-bau-paloma-lila.jpg'},
- {ev:'Bautismo',tipo:'tarjeta',n:'Cuna verde',d:'Imagen, video, PDF y web',img:'img/t-bau-cuna-verde.jpg'},
- {ev:'Bautismo',tipo:'tarjeta',n:'Cuna lila',d:'Imagen, video, PDF y web',img:'img/t-bau-cuna-lila.jpg'},
+ {g:'todos',ev:'Bautismo',tipo:'web',n:'Bautismo I',d:'Paloma y luz, en 4 paletas',img:'img/bautismo-i.jpg',demo:'demos/bautismo-i/'},
+ {g:'varon',ev:'Bautismo',tipo:'tarjeta',n:'Paloma celeste',d:'Imagen, video, PDF y web',img:'img/t-bau-paloma-celeste.jpg'},
+ {g:'nena',ev:'Bautismo',tipo:'tarjeta',n:'Paloma rosa',d:'Imagen, video, PDF y web',img:'img/t-bau-paloma-rosa.jpg'},
+ {g:'varon',ev:'Bautismo',tipo:'tarjeta',n:'Cuna celeste',d:'Imagen, video, PDF y web',img:'img/t-bau-cuna-celeste.jpg'},
+ {g:'nena',ev:'Bautismo',tipo:'tarjeta',n:'Cuna rosa',d:'Imagen, video, PDF y web',img:'img/t-bau-cuna-rosa.jpg'},
+ {g:'todos',ev:'Bautismo',tipo:'tarjeta',n:'Paloma verde',d:'Imagen, video, PDF y web',img:'img/t-bau-paloma-verde.jpg'},
+ {g:'nena',ev:'Bautismo',tipo:'tarjeta',n:'Paloma lila',d:'Imagen, video, PDF y web',img:'img/t-bau-paloma-lila.jpg'},
+ {g:'todos',ev:'Bautismo',tipo:'tarjeta',n:'Cuna verde',d:'Imagen, video, PDF y web',img:'img/t-bau-cuna-verde.jpg'},
+ {g:'nena',ev:'Bautismo',tipo:'tarjeta',n:'Cuna lila',d:'Imagen, video, PDF y web',img:'img/t-bau-cuna-lila.jpg'},
  {ev:'Bodas',tipo:'web',n:'Satén',d:'Tarjeta que se mueve con el dedo',img:'img/bodas-saten.jpg',demo:'demos/bodas-saten/'},
  {ev:'Bodas',tipo:'tarjeta',n:'Foto completa',d:'Con la foto de los novios',img:'img/t-boda-foto.jpg'},
  {ev:'Bodas',tipo:'tarjeta',n:'Marfil y oro',d:'Arco con la foto de los novios',img:'img/t-boda-marfil.jpg'},
@@ -164,57 +254,83 @@ var DISENOS=[
  {ev:'15 años',tipo:'tarjeta',n:'Bordó y oro',d:'Imagen, video, PDF y web',img:'img/t-xv-bordo.jpg'},
  {ev:'Cumpleaños',tipo:'tarjeta',n:'Negro y dorado',d:'Imagen, video, PDF y web',img:'img/t-cumple-negro.jpg'},
  {ev:'Cumpleaños',tipo:'tarjeta',n:'Marfil clásico',d:'Imagen, video, PDF y web',img:'img/t-cumple-marfil.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Mariposas',d:'Imagen, video, PDF y web',img:'img/t-inf-mariposas.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Bailarina',d:'Imagen, video, PDF y web',img:'img/t-inf-ballet.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Pastelería',d:'Imagen, video, PDF y web',img:'img/t-inf-pasteleria.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Autos de carrera',d:'Imagen, video, PDF y web',img:'img/t-inf-autos.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Helados',d:'Imagen, video, PDF y web',img:'img/t-inf-helados.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Espacial',d:'Imagen, video, PDF y web',img:'img/t-inf-espacio.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Fútbol',d:'Imagen, video, PDF y web',img:'img/t-inf-futbol.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Granja',d:'Imagen, video, PDF y web',img:'img/t-inf-granja.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Dinosaurios',d:'Imagen, video, PDF y web',img:'img/t-inf-dinosaurios.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Piratas',d:'Imagen, video, PDF y web',img:'img/t-inf-piratas.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Bloques',d:'Imagen, video, PDF y web',img:'img/t-inf-bloques.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Princesa',d:'Imagen, video, PDF y web',img:'img/t-inf-princesa.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Sirenas',d:'Imagen, video, PDF y web',img:'img/t-inf-sirenas.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Superhéroe',d:'Imagen, video, PDF y web',img:'img/t-inf-superheroe.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Unicornio',d:'Imagen, video, PDF y web',img:'img/t-inf-unicornio.jpg'},
- {ev:'Infantiles',tipo:'tarjeta',n:'Invierno mágico',d:'Imagen, video, PDF y web',img:'img/t-inf-invierno.jpg'},
- {ev:'Primer año',tipo:'tarjeta',n:'Luna y conejito',d:'Imagen, video, PDF y web',img:'img/t-inf-primer-luna.jpg'},
- {ev:'Primer año',tipo:'tarjeta',n:'Ciervo y flores',d:'Imagen, video, PDF y web',img:'img/t-inf-primer-ciervo.jpg'},
- {ev:'Primer año',tipo:'tarjeta',n:'Ovejita y arcoíris',d:'Imagen, video, PDF y web',img:'img/t-inf-primer-ovejita.jpg'},
- {ev:'Primer año',tipo:'tarjeta',n:'Osito y globos',d:'Imagen, video, PDF y web',img:'img/t-inf-osito.jpg'},
- {ev:'Primer año',tipo:'tarjeta',n:'Osita y conejita',d:'Imagen, video, PDF y web',img:'img/t-inf-primer-ositos.jpg'},
- {ev:'Primer año',tipo:'tarjeta',n:'Safari',d:'Imagen, video, PDF y web',img:'img/t-inf-safari.jpg'},
- {ev:'Baby shower',tipo:'web',n:'Baby shower II',d:'Papel recortado con cigüeña',img:'img/baby-shower-ii.jpg',demo:'demos/baby-shower-ii/'},
- {ev:'Baby shower',tipo:'web',n:'Baby shower III',d:'Globo aerostático',img:'img/baby-shower-iii.jpg',demo:'demos/baby-shower-iii/'},
- {ev:'Baby shower',tipo:'web',n:'Baby shower IV',d:'Telón que se abre',img:'img/baby-shower-iv.jpg',demo:'demos/baby-shower-iv/'},
- {ev:'Baby shower',tipo:'tarjeta',n:'Arcoíris',d:'Imagen, video, PDF y web',img:'img/t-baby-arcoiris.jpg'},
- {ev:'Baby shower',tipo:'tarjeta',n:'Cigüeña',d:'Imagen, video, PDF y web',img:'img/t-baby-ciguena.jpg'}
+ {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Mariposas',d:'Imagen, video, PDF y web',img:'img/t-inf-mariposas.jpg'},
+ {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Bailarina',d:'Imagen, video, PDF y web',img:'img/t-inf-ballet.jpg'},
+ {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Pastelería',d:'Imagen, video, PDF y web',img:'img/t-inf-pasteleria.jpg'},
+ {g:'varon',ev:'Infantiles',tipo:'tarjeta',n:'Autos de carrera',d:'Imagen, video, PDF y web',img:'img/t-inf-autos.jpg'},
+ {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Helados',d:'Imagen, video, PDF y web',img:'img/t-inf-helados.jpg'},
+ {g:'varon',ev:'Infantiles',tipo:'tarjeta',n:'Espacial',d:'Imagen, video, PDF y web',img:'img/t-inf-espacio.jpg'},
+ {g:'varon',ev:'Infantiles',tipo:'tarjeta',n:'Fútbol',d:'Imagen, video, PDF y web',img:'img/t-inf-futbol.jpg'},
+ {g:'todos',ev:'Infantiles',tipo:'tarjeta',n:'Granja',d:'Imagen, video, PDF y web',img:'img/t-inf-granja.jpg'},
+ {g:'varon',ev:'Infantiles',tipo:'tarjeta',n:'Dinosaurios',d:'Imagen, video, PDF y web',img:'img/t-inf-dinosaurios.jpg'},
+ {g:'varon',ev:'Infantiles',tipo:'tarjeta',n:'Piratas',d:'Imagen, video, PDF y web',img:'img/t-inf-piratas.jpg'},
+ {g:'varon',ev:'Infantiles',tipo:'tarjeta',n:'Bloques',d:'Imagen, video, PDF y web',img:'img/t-inf-bloques.jpg'},
+ {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Princesa',d:'Imagen, video, PDF y web',img:'img/t-inf-princesa.jpg'},
+ {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Sirenas',d:'Imagen, video, PDF y web',img:'img/t-inf-sirenas.jpg'},
+ {g:'varon',ev:'Infantiles',tipo:'tarjeta',n:'Superhéroe',d:'Imagen, video, PDF y web',img:'img/t-inf-superheroe.jpg'},
+ {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Unicornio',d:'Imagen, video, PDF y web',img:'img/t-inf-unicornio.jpg'},
+ {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Invierno mágico',d:'Imagen, video, PDF y web',img:'img/t-inf-invierno.jpg'},
+ {g:'bebe',ev:'Infantiles',tipo:'tarjeta',n:'Luna y conejito',d:'Imagen, video, PDF y web',img:'img/t-inf-primer-luna.jpg'},
+ {g:'bebe',ev:'Infantiles',tipo:'tarjeta',n:'Ciervo y flores',d:'Imagen, video, PDF y web',img:'img/t-inf-primer-ciervo.jpg'},
+ {g:'bebe',ev:'Infantiles',tipo:'tarjeta',n:'Ovejita y arcoíris',d:'Imagen, video, PDF y web',img:'img/t-inf-primer-ovejita.jpg'},
+ {g:'bebe',ev:'Infantiles',tipo:'tarjeta',n:'Osito y globos',d:'Imagen, video, PDF y web',img:'img/t-inf-osito.jpg'},
+ {g:'bebe',ev:'Infantiles',tipo:'tarjeta',n:'Osita y conejita',d:'Imagen, video, PDF y web',img:'img/t-inf-primer-ositos.jpg'},
+ {g:'bebe',ev:'Infantiles',tipo:'tarjeta',n:'Safari',d:'Imagen, video, PDF y web',img:'img/t-inf-safari.jpg'},
+ {g:'todos',ev:'Baby shower',tipo:'web',n:'Baby shower II',d:'Papel recortado con cigüeña',img:'img/baby-shower-ii.jpg',demo:'demos/baby-shower-ii/'},
+ {g:'todos',ev:'Baby shower',tipo:'web',n:'Baby shower III',d:'Globo aerostático',img:'img/baby-shower-iii.jpg',demo:'demos/baby-shower-iii/'},
+ {g:'todos',ev:'Baby shower',tipo:'web',n:'Baby shower IV',d:'Telón que se abre',img:'img/baby-shower-iv.jpg',demo:'demos/baby-shower-iv/'},
+ {g:'todos',ev:'Baby shower',tipo:'tarjeta',n:'Arcoíris',d:'Imagen, video, PDF y web',img:'img/t-baby-arcoiris.jpg'},
+ {g:'todos',ev:'Baby shower',tipo:'tarjeta',n:'Cigüeña',d:'Imagen, video, PDF y web',img:'img/t-baby-ciguena.jpg'}
 ];
 (function(){
 var $=function(i){return document.getElementById(i)};
 function money(n){return '$'+Number(n).toLocaleString('es-AR')}
 function wa(txt){return 'https://wa.me/'+(WHATSAPP||'')+'?text='+encodeURIComponent(txt)}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-$('waTop').href=wa('¡Hola! Quiero consultar por una invitación digital.');
 $('waFloat').href=wa('¡Hola! Quiero consultar por una invitación digital.');
 var cur=EVENTOS[0];try{var h=decodeURIComponent(location.hash.slice(1));if(EVENTOS.indexOf(h)>=0)cur=h}catch(e){}
-function tabs(){$('tabs').innerHTML=EVENTOS.map(function(e){return '<button class="tab" role="tab" aria-selected="'+(e===cur)+'" data-ev="'+esc(e)+'">'+esc(e)+'</button>'}).join('')}
-function want(d){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img)||(d.demo&&/demos\/([a-z0-9-]+)/.exec(d.demo));if(m&&d.demo)m[1]='w-'+m[1];return wa('¡Hola! Me gusta el diseño "'+d.n+'" de '+d.ev+(m?' (código '+m[1]+')':'')+'.\nLo quiero en: (imagen / video / PDF / web)\n¿Me pasás el formulario?')}
-function grid(){var list=DISENOS.filter(function(d){return d.ev===cur});
- $('grid').innerHTML=list.map(function(d,i){var p=PRECIO[d.tipo];
-  return '<article class="card"><span class="kind">'+(d.tipo==='web'?'Invitación web':'Tarjeta digital')+'</span>'+
+function grp(ev){return GALA.indexOf(ev)>=0?'gala':'normal'}
+function pr(ev,k){return PRECIOS[grp(ev)][k]}
+function priceHTML(a){return (a[0]>a[1]?'<s>'+money(a[0])+'</s>':'')+'<b>'+money(a[1])+'</b>'}
+function cnt(e){return DISENOS.filter(function(d){return d.ev===e}).length}
+function tabs(){$('tabs').innerHTML=EVENTOS.map(function(e){return '<button class="tab" role="tab" aria-selected="'+(e===cur)+'" data-ev="'+esc(e)+'">'+esc(e)+' <small style="opacity:.7">'+cnt(e)+'</small></button>'}).join('')}
+function want(d,sel){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img)||(d.demo&&/demos\/([a-z0-9-]+)/.exec(d.demo));var code=m?(d.demo?'w-':'')+m[1]:'';
+ var t=0;var names=FORMATOS.filter(function(f){return sel&&sel.indexOf(f.k)>=0}).map(function(f){t+=pr(d.ev,f.k)[1];return f.n});
+ return wa('¡Hola! Me gusta el diseño "'+d.n+'" de '+d.ev+(code?' (código '+code+')':'')+'.\nLo quiero en: '+(names.length?names.join(', ')+'\nTotal: '+money(t):'(imagen / video / PDF / web)')+'\n¿Me pasás el formulario?')}
+var list=[];
+function card(d){var i=list.push(d)-1;
+  return '<article class="card"><span class="kind">'+(d.demo?'Web animada':'Diseño')+'</span>'+
    '<img class="shot" loading="lazy" src="'+d.img+'" alt="Portada del diseño '+esc(d.n)+'">'+
-   '<h3>'+esc(d.n)+'</h3><p>'+esc(d.d)+'</p>'+
-   '<ul class="fmts">'+FORMATOS.map(function(f){return '<li><span>'+esc(f.n)+'</span><span>'+(f.antes>f.ahora?'<s>'+money(f.antes)+'</s> ':'')+'<b>'+money(f.ahora)+'</b></span></li>'}).join('')+'</ul>'+
+   '<h3>'+esc(d.n)+'</h3><p>'+esc(d.demo?d.d:'Imagen, PDF, video y web')+'</p>'+
+   '<div class="ftags"><span>JPG</span><span>PDF</span><span>Video</span><span>Web</span></div>'+
+   '<div class="price"><small>desde </small><b>'+money(pr(d.ev,'imagen')[1])+'</b></div>'+
    '<div class="acts">'+(d.demo?'<a class="cta ghost" href="'+d.demo+'" target="_blank" rel="noopener">Ver demo</a>':'<button class="cta ghost" type="button" data-view="'+i+'">Ver grande</button>')+
-   '<a class="cta" href="'+want(d)+'" target="_blank" rel="noopener">Quiero este</a></div></article>'}).join('');
- [].forEach.call(document.querySelectorAll('[data-view]'),function(b){b.onclick=function(){var d=list[+b.dataset.view];$('vImg').src=d.img.replace('.jpg','.jpg');$('vImg').alt='Tarjeta '+d.n;$('vWant').href=want(d);openV()}})}
+   '<button class="cta" type="button" data-want="'+i+'">Quiero este</button></div></article>'}
+function cards(ds){ds=ds.slice().sort(function(a,b){return (b.demo?1:0)-(a.demo?1:0)});return '<div class="grid">'+ds.map(card).join('')+'</div>'}
+function grid(){list=[];var ds=DISENOS.filter(function(d){return d.ev===cur});var gs=GRUPOS.filter(function(g){return ds.some(function(d){return d.g===g.k})});
+ var h;
+ if(gs.length>1){h=gs.map(function(g,ix){var x=ds.filter(function(d){return d.g===g.k});return '<details class="group"'+(ix===0?' open':'')+'><summary><span>'+esc(g.n)+'</span><small>'+x.length+' diseño'+(x.length>1?'s':'')+'</small></summary>'+cards(x)+'</details>'}).join('')}
+ else h=cards(ds);
+ $('grid').innerHTML=h;
+ [].forEach.call($('grid').querySelectorAll('details.group'),function(dt){dt.addEventListener('toggle',function(){if(dt.open)[].forEach.call($('grid').querySelectorAll('details.group'),function(o){if(o!==dt)o.open=false})})});
+ [].forEach.call(document.querySelectorAll('[data-view]'),function(b){b.onclick=function(){var d=list[+b.dataset.view];$('vImg').src=d.img;$('vImg').alt='Tarjeta '+d.n;$('vWant').onclick=function(e){e.preventDefault();closeV();openO(d)};$('vWant').href='#';openV()}});
+ [].forEach.call(document.querySelectorAll('[data-want]'),function(b){b.onclick=function(){openO(list[+b.dataset.want])}})}
+/* tabla de precios y "desde" de los formatos */
+$('ptable').innerHTML='<div class="prow h"><span>Formato</span><span class="v">Bautismo, baby shower, infantiles y cumpleaños</span><span class="v">Bodas y 15 años</span></div>'+FORMATOS.map(function(f){return '<div class="prow"><span class="f">'+esc(f.n)+'<small>'+esc(f.d)+'</small></span><span class="v">'+priceHTML(PRECIOS.normal[f.k])+'</span><span class="v">'+priceHTML(PRECIOS.gala[f.k])+'</span></div>'}).join('');
+[].forEach.call(document.querySelectorAll('[data-from]'),function(e){var k=e.dataset.from,a=Math.min(PRECIOS.normal[k][1],PRECIOS.gala[k][1]);e.innerHTML='desde <b>'+money(a)+'</b>'});
+$('exImg').onclick=function(){$('vImg').src='muestras/ejemplo-imagen.jpg';$('vImg').alt='Ejemplo de imagen';$('vWant').onclick=null;$('vWant').href=wa('¡Hola! Quiero consultar por una invitación digital.');openV()};
+/* hoja de pedido */
+var od=null,osel=[];
+function openO(d){od=d;osel=['imagen'];$('oImg').src=d.img;$('oName').textContent=d.n;$('oEv').textContent=d.ev+(d.demo?' · invitación web animada':'');renderO();$('order').classList.add('on');document.body.classList.add('lock');try{history.pushState({o:1},'')}catch(_){}}
+function renderO(){var t=0,o=0;$('oItems').innerHTML=FORMATOS.map(function(f){var a=pr(od.ev,f.k),on=osel.indexOf(f.k)>=0;if(on){t+=a[1];o+=Math.max(a[0],a[1])}return '<label class="oItem"><input type="checkbox" data-k="'+f.k+'"'+(on?' checked':'')+'><span><b>'+esc(f.n)+'</b><small>'+esc(f.d)+'</small></span><span class="v">'+priceHTML(a)+'</span></label>'}).join('');
+ $('oTot').textContent=money(t);$('oOld').textContent=o>t?money(o):'';var s=$('oSend');s.href=want(od,osel);s.setAttribute('aria-disabled',osel.length?'false':'true')}
+$('oItems').addEventListener('change',function(e){var k=e.target.dataset.k;if(!k)return;osel=e.target.checked?osel.concat(k):osel.filter(function(x){return x!==k});renderO()});
+function closeO(fromPop){if(!$('order').classList.contains('on'))return;$('order').classList.remove('on');document.body.classList.remove('lock');if(!fromPop){try{if(history.state&&history.state.o)history.back()}catch(_){}}}
+$('oClose').onclick=function(){closeO()};$('order').addEventListener('click',function(e){if(e.target.id==='order')closeO()});window.addEventListener('popstate',function(){closeO(true)});
 $('tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;cur=b.dataset.ev;try{history.replaceState(null,'','#'+encodeURIComponent(cur))}catch(_){}tabs();grid()});
 function openV(){$('viewer').classList.add('on');document.body.classList.add('lock');try{history.pushState({v:1},'')}catch(_){}}
 function closeV(fromPop){if(!$('viewer').classList.contains('on'))return;$('viewer').classList.remove('on');document.body.classList.remove('lock');if(!fromPop){try{if(history.state&&history.state.v)history.back()}catch(_){}}}
-$('vClose').onclick=$('vX').onclick=function(){closeV()};$('viewer').addEventListener('click',function(e){if(e.target.id==='viewer'||e.target.id==='vImg')closeV()});window.addEventListener('popstate',function(){closeV(true)});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeV()});
+$('vClose').onclick=$('vX').onclick=function(){closeV()};$('viewer').addEventListener('click',function(e){if(e.target.id==='viewer'||e.target.id==='vImg')closeV()});window.addEventListener('popstate',function(){closeV(true)});document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeV();closeO()}});
 tabs();grid();
 
 /* lluvia suave de estrellas doradas y estela al mover el dedo */

@@ -89,6 +89,6 @@ function selectWeb(id){const w=webById(id);if(!w)return;state.web=id;const old=c
   if(pt&&(!old||old.ev!==pt.ev||!state.touched)){state.data={...BASE,...pt.d,letra:pt.d.letra||'Great Vibes'};state.touched=false}
   if(pt)state.tpl=pt.id;
   document.querySelectorAll('.tpl').forEach(b=>b.classList.toggle('sel',b.dataset.web===id));
-  fillForm();updatePhotoUI();redraw();updateWebUI();toast('Elegiste la invitación web "'+w.name+'". Completá los datos y tocá "Ver invitación web".')}
+  fillForm();updatePhotoUI();redraw();updateWebUI();renderItems();renderMsg();toast('Elegiste la invitación web "'+w.name+'". Completá los datos y tocá "Ver invitación web".')}
 function updateWebUI(){const w=state.web&&webById(state.web);['webPrevBtn','webPrevBtn2'].forEach(k=>{const e=$(k);if(e)e.style.display=w?'':'none'});const sub=$('exWebSub');if(sub)sub.textContent=w?'invitación web "'+w.name+'"':'archivo listo para subir';
   const box=$('webBox');if(box){box.classList.toggle('on',!!w);if(w)box.innerHTML='Estás armando la <b>invitación web '+hesc(w.name)+'</b>. Arriba ves la tarjeta que va con ella (imagen, PDF y video salen con ese diseño). Tocá <b>Ver invitación web</b> para ver la página completa.'}}
