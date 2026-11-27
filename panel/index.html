@@ -762,15 +762,16 @@ $('jobFilter').addEventListener('click',e=>{const b=e.target.closest('.chip');if
 
 /* ============ precios y ajustes ============ */
 const PRODUCTS_DEF=[
- {id:'tarjeta',n:'Tarjeta digital: imagen + PDF con botones',old:15000,now:12000},
- {id:'video',n:'Video animado',old:6000,now:5000},
- {id:'web',n:'Página web con cuenta regresiva',old:12000,now:10000},
- {id:'esencial',n:'Invitación web completa · Esencial',old:32000,now:28000},
- {id:'plus',n:'Invitación web completa · Plus Interactiva',old:48000,now:42000},
- {id:'exclusiva',n:'Invitación web completa · Exclusiva 360°',old:68000,now:59000},
+ {id:'tarjeta',n:'Imagen JPG',old:15000,now:12000},
+ {id:'video',n:'Video animado',old:18000,now:15000},
+ {id:'pdf',n:'PDF interactivo con botones',old:18000,now:15000},
+ {id:'web',n:'Invitación web',old:32000,now:28000},
+ {id:'plus',n:'Invitación web Plus Interactiva',old:48000,now:42000},
+ {id:'exclusiva',n:'Invitación web Exclusiva 360°',old:68000,now:59000},
 ];
 let SET={products:JSON.parse(JSON.stringify(PRODUCTS_DEF)),cobro:'',titular:'',marca:'DIGI INVITACIONES'};
 try{const v=JSON.parse(localStorage.getItem('panel_settings')||'null');if(v){SET={...SET,...v};PRODUCTS_DEF.forEach(p=>{if(!SET.products.find(x=>x.id===p.id))SET.products.push({...p})})}}catch(e){}
+SET.products.forEach(p=>{if(p.id==='tarjeta'&&/^Tarjeta digital/.test(p.n))Object.assign(p,PRODUCTS_DEF[0]);if(p.id==='video'&&p.now===5000)Object.assign(p,PRODUCTS_DEF[1])});
 function saveSet(){try{localStorage.setItem('panel_settings',JSON.stringify(SET))}catch(e){}}
 const money=n=>'$'+Math.round(+n||0).toLocaleString('es-AR');
 function renderPriceEd(){$('priceEd').innerHTML=SET.products.map((p,i)=>`<div class="priceRow"><div><label>Producto</label><input data-i="${i}" data-k="n" value="${esc(p.n)}"></div><div><label>Antes</label><input data-i="${i}" data-k="old" inputmode="numeric" value="${p.old||''}"></div><div><label>Ahora</label><input data-i="${i}" data-k="now" inputmode="numeric" value="${p.now||''}"></div></div>`).join('');
@@ -858,7 +859,7 @@ function buildMsg(k){const c=state.client,hola='¡Hola'+(c.nombre?' '+c.nombre.s
   if(k==='presupuesto'){const lines=t.sel.map(p=>'• '+p.n+': '+(p.old>p.now?'~'+money(p.old)+'~ ':'')+'*'+money(p.now)+'*');return hola+' Te paso el presupuesto de la invitación para el '+evTxt()+':\n\n'+(lines.join('\n')||'• (elegí qué compra en el paso 1)')+'\n\nTotal: '+(t.old>t.now?'~'+money(t.old)+'~ ':'')+'*'+money(t.now)+'*\n\nApenas me confirmás, te armo una muestra para que veas cómo queda.'+firma}
   if(k==='muestra')return hola+' Te mando una muestra de tu invitación para el '+evTxt()+'. Fijate que los datos estén bien (nombres, fecha, hora y dirección).\n\nSi te gusta, te paso los datos para el pago y te envío la invitación final, sin la marca de agua.'+firma;
   if(k==='pago')return hola+' Para confirmar tu invitación, el total es *'+money(t.now)+'*.\n\nPodés transferir a:\nAlias: *'+(SET.cobro||'[cargá tu alias en Precios y datos de cobro]')+'*'+(SET.titular?'\nTitular: '+SET.titular:'')+'\n\nCuando transfieras, mandame el comprobante por acá y te envío todo.'+firma;
-  if(k==='entrega'){const has=id=>c.items.includes(id);const parts=[];if(has('tarjeta')||!c.items.length)parts.push('• La imagen, para mandar por WhatsApp o subir a estados.','• El PDF: tocando los botones se abre la ubicación en Google Maps o Waze, se agenda en el calendario y se confirma la asistencia por WhatsApp.');if(has('video'))parts.push('• El video animado, ideal para estados.');if(c.link)parts.push('• Tu página web: '+c.link);else if(has('web')||has('esencial')||has('plus')||has('exclusiva'))parts.push('• Tu página web (te paso el link apenas esté online).');
+  if(k==='entrega'){const has=id=>c.items.includes(id);const parts=[];if(has('tarjeta')||!c.items.length)parts.push('• La imagen, para mandar por WhatsApp o subir a estados.');if(has('pdf'))parts.push('• El PDF: tocando los botones se abre la ubicación en Google Maps o Waze, se agenda en el calendario y se confirma la asistencia por WhatsApp.');if(has('video'))parts.push('• El video animado, ideal para estados.');if(c.link)parts.push('• Tu página web: '+c.link);else if(has('web')||has('esencial')||has('plus')||has('exclusiva'))parts.push('• Tu página web (te paso el link apenas esté online).');
     return hola+' ¡Tu invitación está lista! 🎉\n\nTe envío:\n'+parts.join('\n')+'\n\nPara invitar, reenviá estos archivos a tus contactos. ¡Gracias por elegirnos!'+firma}
   return ''}
 function renderMsg(){$('msgBox').value=buildMsg(msgKind);$('msgTabs').querySelectorAll('.chip').forEach(b=>b.classList.toggle('sel',b.dataset.msg===msgKind));const tel=pPhone(state.client.tel);const a=$('msgOpen');if(tel){a.href='https://wa.me/'+tel+'?text='+encodeURIComponent($('msgBox').value);a.style.opacity='';a.removeAttribute('aria-disabled')}else{a.href='https://wa.me/?text='+encodeURIComponent($('msgBox').value);a.style.opacity='.7'}}
