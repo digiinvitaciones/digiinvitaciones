@@ -27,11 +27,11 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans)
 body{background:transparent}
 body{overflow-x:hidden;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 #holo{position:fixed;inset:-10%;z-index:-1;pointer-events:none;background:
-  radial-gradient(45% 35% at 20% 15%,rgba(90,60,160,.55),transparent 70%),
-  radial-gradient(40% 35% at 85% 30%,rgba(40,120,150,.28),transparent 72%),
-  radial-gradient(50% 40% at 70% 85%,rgba(140,70,170,.35),transparent 70%),
-  radial-gradient(40% 35% at 15% 80%,rgba(60,140,160,.18),transparent 70%),
-  linear-gradient(160deg,#07060d 0%,#0b0814 45%,#120a1e 100%);animation:drift 22s ease-in-out infinite alternate}
+  radial-gradient(45% 35% at 15% 12%,rgba(30,110,120,.55),transparent 70%),
+  radial-gradient(40% 35% at 90% 28%,rgba(110,70,160,.45),transparent 72%),
+  radial-gradient(50% 40% at 75% 88%,rgba(120,45,70,.40),transparent 70%),
+  radial-gradient(45% 35% at 10% 70%,rgba(70,50,120,.35),transparent 70%),
+  linear-gradient(170deg,#0b1016 0%,#0c0b14 50%,#140c12 100%);animation:drift 22s ease-in-out infinite alternate}
 #holo::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(159,232,222,.07) 42%,rgba(201,163,255,.08) 50%,rgba(243,217,170,.06) 58%,transparent 70%);background-size:250% 250%;animation:sheen 14s linear infinite}
 @keyframes sheen{from{background-position:120% 0}to{background-position:-120% 0}}
 @keyframes drift{to{transform:translate3d(0,-3%,0) scale(1.08);filter:hue-rotate(18deg)}}
@@ -202,6 +202,23 @@ footer .fl{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margi
 .sumRow{display:flex;justify-content:space-between;gap:10px;padding:10px 4px;border-bottom:1px dashed rgba(226,182,118,.22)}.sumRow b{font:600 18px var(--serif)}.sumRow span:last-child{color:#f3d19a;font:600 18px var(--serif)}
 .cta.gold{background:linear-gradient(100deg,#f7dcae 0%,#e2b676 45%,#c98f48 100%)!important;color:#2a1d0c!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 0 22px rgba(226,182,118,.55)!important}
 [data-pick]{background:linear-gradient(100deg,#f7dcae 0%,#e2b676 45%,#c98f48 100%)!important;color:#2a1d0c!important;font-weight:700!important;box-shadow:0 0 18px rgba(226,182,118,.5)!important}
+
+/* === look de la tienda (capturas del celu) === */
+:root{--gmet:linear-gradient(100deg,#b8913f 0%,#f6dc94 38%,#d6ae5a 58%,#f3d58c 78%,#b38a3a 100%);--hb:linear-gradient(120deg,#5fd3d0,#8f8ff0 55%,#c98be0)}
+.h1 .i{background:linear-gradient(100deg,#f3a6d6 0%,#d9b3f5 30%,#a9c8ff 55%,#9fe0ff 75%,#f3a6d6 100%)!important;background-size:250% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;animation:holoTxt 10s linear infinite}
+.h1 .d{background:linear-gradient(110deg,#b38a3a,#f3d58c 45%,#d6ae5a 65%,#f6e2ad)!important;-webkit-background-clip:text!important;background-clip:text!important}
+h2{background:none!important;color:#f3ece2!important;-webkit-text-fill-color:#f3ece2;animation:none!important}
+h2 .g{background:linear-gradient(110deg,#c9a25a,#f3d58c 50%,#d6ae5a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-right:.05em}
+.cta,.cta.gold,#waFloat,[data-pick],#sSend,#vWant,#oSend{background:var(--gmet)!important;color:#1d1408!important;border:1px solid rgba(255,236,190,.85)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.65),inset 0 -2px 6px rgba(120,80,20,.35),0 0 20px rgba(230,190,110,.45)!important;font-weight:600!important;text-transform:none!important;letter-spacing:.02em!important;font-size:15px!important}
+.cta.navy,.cta.ghost{background:linear-gradient(#07070b,#07070b) padding-box,var(--hb) border-box!important;border:2px solid transparent!important;color:#f5f1ea!important;box-shadow:0 0 14px rgba(95,211,208,.18)!important}
+.tab{background:linear-gradient(#08080d,#08080d) padding-box,var(--hb) border-box!important;border:1.5px solid transparent!important;border-radius:16px!important;min-height:84px!important;font:500 14px var(--sans)!important;letter-spacing:.14em!important;color:#f3ece2!important;box-shadow:0 0 14px rgba(143,143,240,.15)!important}
+.tab[aria-selected="true"]{background:linear-gradient(#1a1424,#1a1424) padding-box,var(--gmet) border-box!important;color:#f6dc94!important;box-shadow:0 0 20px rgba(230,190,110,.35)!important}
+.ph{background:#07070b!important;border:2.5px solid transparent!important;background-image:linear-gradient(#07070b,#07070b),linear-gradient(160deg,#5fd3d0,#8f8ff0 50%,#c98be0)!important;background-origin:border-box!important;background-clip:padding-box,border-box!important;box-shadow:0 0 26px rgba(95,211,208,.35),0 0 40px rgba(230,190,110,.18),0 30px 60px rgba(0,0,0,.55)!important}
+.ph .b{background:var(--gmet)!important}
+.card::before{background:var(--hb)!important;opacity:.9!important;animation:none!important}
+.steps .step,.fbox,.sumBox{background:linear-gradient(#08080d,#08080d) padding-box,var(--hb) border-box!important}
+nav.top .mk{background:none!important;-webkit-text-fill-color:#d6b878;color:#d6b878;font-weight:500!important}
+nav.top .mk i{background:linear-gradient(100deg,#d9b3f5,#a9c8ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent!important}
 </style>
 </head>
 <body>
@@ -427,6 +444,7 @@ function pick(d){P=d;psel=psel.length?psel:['imagen'];var t=tplOf(d);
 function pickAndGo(d){pick(d);setTimeout(function(){$('formatos').scrollIntoView({behavior:'smooth'})},60)}
 function sum(){var t=0,o=0;$('sum').innerHTML='<div class="sumRow"><b>'+esc(P.n)+'</b><span style="font:500 13px var(--sans);color:var(--muted)">'+esc(P.ev)+'</span></div>'+FORMATOS.filter(function(f){return psel.indexOf(f.k)>=0}).map(function(f){var a=pr(P.ev,f.k);t+=a[1];o+=Math.max(a[0],a[1]);return '<div class="sumRow"><span>'+esc(f.n)+'</span><span>'+money(a[1])+'</span></div>'}).join('')+(psel.length?'':'<p class="gsub" style="margin:12px 0">Marcá al menos un formato en el paso 3.</p>');
  $('sTot').textContent=money(t);$('sOld').textContent=o>t?money(o):'';$('sSend').href=want(P,psel);$('sSend').setAttribute('aria-disabled',psel.length?'false':'true');$('sSend').classList.add('gold')}
+[].forEach.call(document.querySelectorAll('h2'),function(h){if(h.id==='p3t')return;var t=h.textContent.trim(),i=t.lastIndexOf(' ');if(i>0)h.innerHTML=esc(t.slice(0,i+1))+'<span class="g">'+esc(t.slice(i+1))+'</span>'});
 tabs();grid();
 
 /* lluvia suave de estrellas doradas y estela al mover el dedo */
