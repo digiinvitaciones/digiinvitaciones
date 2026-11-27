@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DIGI Invitaciones</title>
+<meta name="description" content="Invitaciones digitales de alta gama para bautismos, bodas, 15 años, cumpleaños y baby showers. Pedila por WhatsApp.">
+<meta property="og:title" content="DIGI Invitaciones">
+<meta property="og:description" content="Invitaciones digitales de alta gama. Elegí tu diseño y pedila por WhatsApp.">
+<meta property="og:image" content="img/xv-medianoche.jpg">
+<meta name="theme-color" content="#0b0a09">
+<link rel="icon" href="panel/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== AJUSTES QUE SANDRA PUEDE PEDIR CAMBIAR ===== */
+:root{
+  --bg:#0b0a09;--panel:#15120e;--ink:#f4ecdf;--muted:#b6a98f;--line:rgba(226,182,118,.32);
+  --foil:linear-gradient(100deg,#f7dcae 0%,#e2b676 45%,#c98f48 100%);
+  --champ:linear-gradient(110deg,#a8742a,#d9a354 45%,#f3d19a 60%,#c98f48);
+  --serif:"Cormorant Garamond",Georgia,serif;--script:"Great Vibes",cursive;--sans:Montserrat,system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+body{overflow-x:hidden;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#holo{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(60% 40% at 15% 10%,rgba(201,143,72,.18),transparent 70%),
+  radial-gradient(50% 40% at 90% 30%,rgba(140,170,255,.10),transparent 70%),
+  radial-gradient(60% 50% at 50% 100%,rgba(226,182,118,.12),transparent 70%);animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(0,-3%,0) scale(1.08);filter:hue-rotate(18deg)}}
+.wrap{max-width:1120px;margin:0 auto}
+header{text-align:center;padding:56px 0 26px}
+.logo{font:600 clamp(46px,12vw,96px)/1 var(--serif);letter-spacing:.14em;background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.1em .2em}
+.logo small{display:block;font:400 clamp(34px,8vw,58px)/1.1 var(--script);letter-spacing:0;margin-top:-.05em;padding:.12em .3em .2em}
+.tag{font:500 12px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+.cta{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:14px 26px;border-radius:20px;background:var(--foil);color:#2a1d0c;font:600 13px var(--sans);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,240,210,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 0 18px rgba(226,182,118,.4);cursor:pointer}
+.cta.ghost{background:transparent;color:#f3d19a;border-color:var(--line);box-shadow:none}
+.heroBtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+h2{font:600 clamp(30px,6vw,44px)/1.1 var(--serif);text-align:center;margin:0 0 8px;background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.08em .2em;text-wrap:balance}
+.sub{text-align:center;color:var(--muted);margin:0 auto 22px;max-width:56ch;line-height:1.6}
+section{padding:40px 0}
+/* pestañas por evento */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:24px}
+.tab{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--ink);font:500 13px var(--sans);letter-spacing:.08em;padding:12px 18px;border-radius:18px;cursor:pointer;min-height:46px}
+.tab[aria-selected="true"]{background:var(--foil);color:#2a1d0c;border-color:rgba(255,240,210,.8);font-weight:600;box-shadow:0 0 16px rgba(226,182,118,.35)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:18px}
+.card{position:relative;isolation:isolate;border-radius:20px;padding:10px 10px 16px;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.card::before{content:"";position:absolute;inset:0;border-radius:20px;z-index:-2;background:linear-gradient(130deg,#e2b676,#8fd3ff 30%,#c9a3ff 55%,#e2b676 80%);background-size:300% 300%;animation:hol 9s linear infinite;opacity:.75}
+.card::after{content:"";position:absolute;inset:1px;border-radius:19px;z-index:-1;background:linear-gradient(180deg,#1b1711,#120f0b)}
+@keyframes hol{to{background-position:300% 0}}
+.card:hover{transform:translateY(-4px)}
+.card:active{transform:rotateY(8deg) scale(.99)}
+.shot{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:14px;background:#222}
+.kind{position:absolute;top:18px;left:18px;font:600 10px var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:6px 10px;border-radius:12px;background:rgba(11,10,9,.78);color:#f3d19a;border:1px solid var(--line);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.card h3{font:600 23px/1.15 var(--serif);margin:14px 6px 2px;text-align:center}
+.card p{margin:0 6px;text-align:center;color:var(--muted);font-size:13px;line-height:1.5}
+.price{text-align:center;margin:10px 0 12px;font-variant-numeric:tabular-nums}
+.price s{display:block;color:var(--muted);font-size:13px}
+.price b{font:600 26px var(--serif);color:#f3d19a}
+.price small{color:var(--muted);font-size:12px}
+.acts{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:0 4px}
+.acts .cta{min-height:46px;font-size:12px;padding:12px 10px;letter-spacing:.1em}
+/* cómo funciona */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media(max-width:760px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:380px){.steps{grid-template-columns:minmax(0,1fr)}}
+.step{border:1px solid var(--line);border-radius:20px;padding:20px 16px;text-align:center;background:rgba(255,255,255,.02)}
+.step b{display:block;font:600 40px/1 var(--serif);background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.05em .2em}
+.step h3{font:600 20px var(--serif);margin:8px 0 6px}
+.step p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+/* preguntas */
+details.q{border:1px solid var(--line);border-radius:18px;margin:0 auto 10px;max-width:760px;background:rgba(255,255,255,.02)}
+details.q summary{cursor:pointer;list-style:none;padding:16px 18px;font:600 20px var(--serif);color:#f3d19a;display:flex;justify-content:space-between;gap:10px}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::after{content:"";width:9px;height:9px;border-right:2px solid #e2b676;border-bottom:2px solid #e2b676;transform:rotate(45deg);margin-top:6px;flex:none;transition:.25s}
+details.q[open] summary::after{transform:rotate(-135deg);margin-top:10px}
+details.q p{margin:0;padding:0 18px 18px;color:var(--muted);line-height:1.6}
+footer{text-align:center;padding:44px 0 calc(40px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:6px}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
+.waFloat{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:40}
+/* visor de tarjeta */
+#viewer{position:fixed;inset:0;z-index:60;background:rgba(5,4,3,.9);display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:14px}
+#viewer.on{display:flex}
+#viewer img{max-height:80vh;max-width:100%;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+@media(prefers-reduced-motion:reduce){#holo,.card::before{animation:none}.card{transition:none}}
+</style>
+</head>
+<body>
+<div id="holo"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="wrap">
+  <header>
+    <div class="logo">DIGI<small>invitaciones</small></div>
+    <div class="tag">Invitaciones digitales de alta gama</div>
+    <div class="heroBtns"><a class="cta" href="#disenos">Ver diseños</a><a class="cta ghost" id="waTop" target="_blank" rel="noopener">Consultar por WhatsApp</a></div>
+  </header>
+
+  <section id="disenos">
+    <h2>Elegí tu diseño</h2>
+    <p class="sub">Tocá "Ver demo" para abrir la invitación como la van a ver tus invitados. Cuando te guste, tocá "Quiero este" y lo seguimos por WhatsApp.</p>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section>
+    <h2>Cómo funciona</h2>
+    <p class="sub">Sin vueltas y desde tu celular.</p>
+    <div class="steps">
+      <div class="step"><b>I</b><h3>Elegís</h3><p>Mirás los diseños y tocás "Quiero este".</p></div>
+      <div class="step"><b>II</b><h3>Nos pasás los datos</h3><p>Te mandamos un formulario corto por WhatsApp.</p></div>
+      <div class="step"><b>III</b><h3>Ves la muestra</h3><p>Te enviamos cómo queda para que la apruebes.</p></div>
+      <div class="step"><b>IV</b><h3>La recibís</h3><p>Imagen, PDF con botones, video o página web, lista para compartir.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Preguntas frecuentes</h2>
+    <details class="q"><summary>¿Qué diferencia hay entre la tarjeta y la invitación web?</summary><p>La tarjeta digital es una imagen elegante más un PDF con botones para la ubicación, el calendario y la confirmación. La invitación web es una página completa con apertura animada, cuenta regresiva, cronograma, galería, regalos y confirmación de asistencia.</p></details>
+    <details class="q"><summary>¿Cuánto tarda?</summary><p>Apenas nos pasás los datos te enviamos la muestra. Con tu aprobación y el pago, la recibís enseguida.</p></details>
+    <details class="q"><summary>¿Puedo cambiar los colores?</summary><p>Sí. Cada diseño tiene varias paletas para elegir. En las demos con el botón "Personalizar" o con los círculos de color podés probarlas.</p></details>
+    <details class="q"><summary>¿Cómo la comparto?</summary><p>Reenviás la imagen, el PDF o el link por WhatsApp, Instagram o donde quieras.</p></details>
+  </section>
+
+  <footer><b>DIGI INVITACIONES</b>Boutique digital de alta gama</footer>
+</div>
+<a class="cta waFloat" id="waFloat" target="_blank" rel="noopener">WhatsApp</a>
+<div id="viewer" role="dialog" aria-label="Vista de la tarjeta"><img id="vImg" alt=""><div class="heroBtns" style="margin:0"><a class="cta" id="vWant" target="_blank" rel="noopener">Quiero este</a><button class="cta ghost" id="vClose" type="button">Cerrar</button></div></div>
+
+<script>
+/* ===== DATOS DEL CATÁLOGO =====
+   WHATSAPP: tu número con código de país, sin + ni espacios (ej: 5491155555555).
+   PRECIOS: "antes" sale tachado. */
+var WHATSAPP='5492646280242';
+var PRECIO={web:{antes:32000,ahora:28000,desde:true},tarjeta:{antes:15000,ahora:12000}};
+var EVENTOS=['Bautismo','Bodas','15 años','Cumpleaños','Baby shower'];
+var DISENOS=[
+ {ev:'Bautismo',tipo:'web',n:'Bautismo I',d:'Paloma y luz, en 4 paletas',img:'img/bautismo-i.jpg',demo:'demos/bautismo-i/'},
+ {ev:'Bautismo',tipo:'tarjeta',n:'Paloma celeste',d:'Imagen + PDF + video',img:'img/t-bau-paloma-celeste.jpg'},
+ {ev:'Bautismo',tipo:'tarjeta',n:'Paloma rosa',d:'Imagen + PDF + video',img:'img/t-bau-paloma-rosa.jpg'},
+ {ev:'Bautismo',tipo:'tarjeta',n:'Cuna celeste',d:'Imagen + PDF + video',img:'img/t-bau-cuna-celeste.jpg'},
+ {ev:'Bautismo',tipo:'tarjeta',n:'Cuna rosa',d:'Imagen + PDF + video',img:'img/t-bau-cuna-rosa.jpg'},
+ {ev:'Bodas',tipo:'web',n:'Satén',d:'Tarjeta que se mueve con el dedo',img:'img/bodas-saten.jpg',demo:'demos/bodas-saten/'},
+ {ev:'Bodas',tipo:'tarjeta',n:'Foto completa',d:'Con la foto de los novios',img:'img/t-boda-foto.jpg'},
+ {ev:'Bodas',tipo:'tarjeta',n:'Marfil y oro',d:'Arco con la foto de los novios',img:'img/t-boda-marfil.jpg'},
+ {ev:'Bodas',tipo:'tarjeta',n:'Anillos · noche',d:'Azul noche y dorado',img:'img/t-boda-anillos.jpg'},
+ {ev:'15 años',tipo:'web',n:'XV Medianoche',d:'Tarjeta holográfica y reloj de las 00:00',img:'img/xv-medianoche.jpg',demo:'demos/xv-medianoche/'},
+ {ev:'15 años',tipo:'tarjeta',n:'Noche azul',d:'Imagen + PDF + video',img:'img/t-xv-medianoche.jpg'},
+ {ev:'15 años',tipo:'tarjeta',n:'Bordó y oro',d:'Imagen + PDF + video',img:'img/t-xv-bordo.jpg'},
+ {ev:'Cumpleaños',tipo:'tarjeta',n:'Negro y dorado',d:'Imagen + PDF + video',img:'img/t-cumple-negro.jpg'},
+ {ev:'Cumpleaños',tipo:'tarjeta',n:'Marfil clásico',d:'Imagen + PDF + video',img:'img/t-cumple-marfil.jpg'},
+ {ev:'Baby shower',tipo:'web',n:'Baby shower II',d:'Papel recortado con cigüeña',img:'img/baby-shower-ii.jpg',demo:'demos/baby-shower-ii/'},
+ {ev:'Baby shower',tipo:'web',n:'Baby shower III',d:'Globo aerostático',img:'img/baby-shower-iii.jpg',demo:'demos/baby-shower-iii/'},
+ {ev:'Baby shower',tipo:'web',n:'Baby shower IV',d:'Telón que se abre',img:'img/baby-shower-iv.jpg',demo:'demos/baby-shower-iv/'}
+];
+(function(){
+var $=function(i){return document.getElementById(i)};
+function money(n){return '$'+Number(n).toLocaleString('es-AR')}
+function wa(txt){return 'https://wa.me/'+(WHATSAPP||'')+'?text='+encodeURIComponent(txt)}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+$('waTop').href=wa('¡Hola! Quiero consultar por una invitación digital.');
+$('waFloat').href=wa('¡Hola! Quiero consultar por una invitación digital.');
+var cur=EVENTOS[0];try{var h=decodeURIComponent(location.hash.slice(1));if(EVENTOS.indexOf(h)>=0)cur=h}catch(e){}
+function tabs(){$('tabs').innerHTML=EVENTOS.map(function(e){return '<button class="tab" role="tab" aria-selected="'+(e===cur)+'" data-ev="'+esc(e)+'">'+esc(e)+'</button>'}).join('')}
+function want(d){return wa('¡Hola! Quiero la invitación "'+d.n+'" de '+d.ev+' ('+(d.tipo==='web'?'invitación web':'tarjeta digital')+'). ¿Me pasás el formulario?')}
+function grid(){var list=DISENOS.filter(function(d){return d.ev===cur});
+ $('grid').innerHTML=list.map(function(d,i){var p=PRECIO[d.tipo];
+  return '<article class="card"><span class="kind">'+(d.tipo==='web'?'Invitación web':'Tarjeta digital')+'</span>'+
+   '<img class="shot" loading="lazy" src="'+d.img+'" alt="Portada del diseño '+esc(d.n)+'">'+
+   '<h3>'+esc(d.n)+'</h3><p>'+esc(d.d)+'</p>'+
+   '<div class="price">'+(p.antes>p.ahora?'<s>'+money(p.antes)+'</s>':'')+(p.desde?'<small>desde </small>':'')+'<b>'+money(p.ahora)+'</b></div>'+
+   '<div class="acts">'+(d.demo?'<a class="cta ghost" href="'+d.demo+'" target="_blank" rel="noopener">Ver demo</a>':'<button class="cta ghost" type="button" data-view="'+i+'">Ver grande</button>')+
+   '<a class="cta" href="'+want(d)+'" target="_blank" rel="noopener">Quiero este</a></div></article>'}).join('');
+ [].forEach.call(document.querySelectorAll('[data-view]'),function(b){b.onclick=function(){var d=list[+b.dataset.view];$('vImg').src=d.img.replace('.jpg','.jpg');$('vImg').alt='Tarjeta '+d.n;$('vWant').href=want(d);$('viewer').classList.add('on')}})}
+$('tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;cur=b.dataset.ev;try{history.replaceState(null,'','#'+encodeURIComponent(cur))}catch(_){}tabs();grid()});
+$('vClose').onclick=function(){$('viewer').classList.remove('on')};$('viewer').addEventListener('click',function(e){if(e.target.id==='viewer')$('viewer').classList.remove('on')});
+tabs();grid();
+
+/* lluvia suave de estrellas doradas y estela al mover el dedo */
+if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var c=$('fx'),x=c.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1),R=[],T=[];
+function rs(){c.width=innerWidth*dpr;c.height=innerHeight*dpr;x.setTransform(dpr,0,0,dpr,0,0)}rs();addEventListener('resize',rs);
+for(var i=0;i<26;i++)R.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,v:.2+Math.random()*.45,r:1.2+Math.random()*2,p:Math.random()*6,w:Math.random()<.35});
+function star(px,py,r){x.beginPath();for(var k=0;k<8;k++){var a=k*Math.PI/4,rr=k%2?r*.35:r;x.lineTo(px+Math.cos(a)*rr,py+Math.sin(a)*rr)}x.closePath();x.fill()}
+var lt=0;addEventListener('pointermove',function(e){var t=Date.now();if(t-lt<40)return;lt=t;T.push({x:e.clientX,y:e.clientY,vx:(Math.random()-.5),vy:(Math.random()-.5)+.3,l:1})},{passive:true});
+addEventListener('pointerdown',function(e){for(var k=0;k<8;k++){var a=Math.random()*6.28;T.push({x:e.clientX,y:e.clientY,vx:Math.cos(a)*2,vy:Math.sin(a)*2,l:1})}},{passive:true});
+(function f(ts){x.clearRect(0,0,innerWidth,innerHeight);R.forEach(function(s){s.y+=s.v;if(s.y>innerHeight+6){s.y=-6;s.x=Math.random()*innerWidth}x.globalAlpha=.35+.3*Math.sin(ts/900+s.p);x.fillStyle=s.w?'#ffffff':'#f3d19a';star(s.x,s.y,s.r*2)});
+ T=T.filter(function(t){t.x+=t.vx;t.y+=t.vy;t.l-=.03;if(t.l>0){x.globalAlpha=t.l;x.fillStyle='#e2b676';star(t.x,t.y,3)}return t.l>0});if(T.length>60)T.splice(0,T.length-60);x.globalAlpha=1;requestAnimationFrame(f)})(0);
+})();
+</script>
+</body>
+</html>
