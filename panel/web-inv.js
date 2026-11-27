@@ -72,7 +72,7 @@ const webCache={};
 async function buildWebInv(w,d){
   if(!webCache[w.dir]&&window.WEB_EMBED&&WEB_EMBED[w.dir])webCache[w.dir]=WEB_EMBED[w.dir];
   if(!webCache[w.dir]){const r=await fetch(WEB_BASE+w.dir+'/index.html');if(!r.ok)throw new Error('No encuentro la invitación web. Usá el panel online.');webCache[w.dir]=await r.text()}
-  let h=webCache[w.dir];
+  let h=webCache[w.dir].replace(/<!--WM-->[\s\S]*?<!--\/WM-->/g,'');
   // imágenes de la carpeta del diseño: van adentro del archivo
   const imgs=[...new Set((h.match(/[a-z0-9-]+\.(?:jpg|png|webp)/gi)||[]).filter(f=>!/^data/.test(f)))];
   for(const f of imgs){if(!new RegExp('(["\'(])'+f.replace('.','\\.')).test(h))continue;try{const u=await toDataUrl(WEB_BASE+w.dir+'/'+f);h=h.split('"'+f+'"').join('"'+u+'"').split('('+f+')').join('('+u+')').split("'"+f+"'").join("'"+u+"'")}catch(e){}}

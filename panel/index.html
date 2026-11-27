@@ -4,26 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Panel de Invitaciones</title>
-<meta name="theme-color" content="#0d0c0b">
+<meta name="theme-color" content="#0b0f17">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Fredoka:wght@400;600&family=Parisienne&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Fredoka:wght@400;600&family=Parisienne&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0d0c0b;--panel:#16140f;--panel2:#1d1a14;--ink:#f4ecdf;--muted:#b9ab93;
+  --bg:#0b0f17;--panel:#121a27;--panel2:#172133;--aqua:#9fe8de;--ink:#f4ecdf;--muted:#b9ab93;
   --gold:#e2b676;--gold2:#c98f48;--goldfoil:linear-gradient(100deg,#f7dcae 0%,#e2b676 45%,#c98f48 100%);
   --line:rgba(226,182,118,.35);--field:#fffaf2;--fieldInk:#2a2118;color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;-webkit-text-size-adjust:100%}
-body{min-height:100vh;background:radial-gradient(1200px 600px at 80% -10%,rgba(201,143,72,.14),transparent 60%),radial-gradient(900px 500px at -10% 110%,rgba(120,140,200,.08),transparent 60%),var(--bg)}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:rgba(13,12,11,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body{min-height:100vh;background:radial-gradient(60% 45% at 15% 10%,rgba(34,110,135,.7),transparent 72%),radial-gradient(50% 45% at 90% 30%,rgba(140,115,190,.45),transparent 72%),radial-gradient(60% 50% at 30% 95%,rgba(40,130,130,.38),transparent 70%),linear-gradient(160deg,#0c1622,#0b0f17 45%,#120f1c);background-attachment:fixed}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:rgba(10,16,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .brand{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;letter-spacing:.04em}
-.brand b{font-family:"Great Vibes",cursive;font-weight:400;font-size:30px;background:var(--goldfoil);-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 6px}
+.brand .bd{font:700 20px "Playfair Display",Georgia,serif;letter-spacing:.12em;background:linear-gradient(110deg,#c9a26a,#f3d9aa 45%,#d8b07a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand b{font-family:"Great Vibes",cursive;font-weight:400;font-size:28px;color:var(--aqua);padding:0 6px}
 #installBtn{display:none}
 main{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;padding:16px;max-width:1280px;margin:0 auto}
 @media(min-width:900px){main{grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:28px;padding:24px}.previewCol{position:sticky;top:84px;align-self:start}}
@@ -125,7 +126,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
 </head>
 <body>
 <header>
-  <div class="brand"><b>Invitaciones</b> panel</div>
+  <div class="brand"><span class="bd">DIGI</span><b>invitaciones</b> panel</div>
   <button class="btn small" id="installBtn">Instalar app</button>
 </header>
 <main>
@@ -530,8 +531,11 @@ function render(ctx,tpl,d,t=null,opt={}){
     if(a>0){ctx.save();ctx.globalAlpha=a;ctx.translate(0,dy);it.draw(y,s,shine);ctx.restore()}
     y+=it._h*s;
   });
+  if(window.__WM)drawWM(ctx);
   ctx.restore();
 }
+function drawWM(x){x.save();x.globalAlpha=1;x.textAlign='center';x.textBaseline='middle';x.translate(W/2,H/2);x.rotate(-Math.PI/6);x.font='600 44px Montserrat, Arial, sans-serif';const T='MUESTRA  ·  DIGI INVITACIONES';
+  for(let r=-11;r<=11;r++)for(let k=-2;k<=2;k++){const y=r*175,xx=k*900+(r%2?450:0);x.lineWidth=3;x.strokeStyle='rgba(0,0,0,.16)';x.strokeText(T,xx,y);x.fillStyle='rgba(255,255,255,.40)';x.fillText(T,xx,y)}x.restore()}
 
 /* destellos dorados para video */
 function sparkles(ctx,t,tpl){const r=rand(5);for(let i=0;i<46;i++){const x=r()*W,sp=.25+r()*.6,ph=r()*10,y=(H+60)-((t*sp*140+r()*H)%(H+120));const tw=.5+.5*Math.sin(t*3+ph);const z=1.5+r()*3.2;ctx.globalAlpha=(.25+tw*.6)*(tpl.dark?1:.85);ctx.fillStyle=tpl.dark?'#f7dcae':'#fffaf0';ctx.beginPath();ctx.moveTo(x,y-z*2.2);ctx.lineTo(x+z*.6,y);ctx.lineTo(x,y+z*2.2);ctx.lineTo(x-z*.6,y);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(x-z*2.2,y);ctx.lineTo(x,y+z*.6);ctx.lineTo(x+z*2.2,y);ctx.lineTo(x,y-z*.6);ctx.closePath();ctx.fill()}ctx.globalAlpha=1}
