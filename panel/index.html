@@ -106,7 +106,16 @@ input:focus,textarea:focus,select:focus{box-shadow:0 0 0 3px rgba(226,182,118,.3
 .priceRow label{font-size:10.5px}
 .estado{font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:10px;border:1px solid var(--line);color:#f3d19a;white-space:nowrap}
 .estado.pagado{color:#9fd8a6;border-color:rgba(159,216,166,.5)}.estado.entregado{color:var(--muted)}
+.tpl.web .badge{position:absolute;top:8px;left:8px;font:600 10px Montserrat;letter-spacing:.12em;text-transform:uppercase;background:var(--goldfoil);color:#2a1d0c;padding:4px 8px;border-radius:10px}
+.tpl.web img{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;border-radius:inherit}
+#webPrev{position:fixed;inset:0;z-index:200;background:rgba(10,8,6,.92);display:none;flex-direction:column}
+#webPrev.on{display:flex}
+#webPrev .bar{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px;color:#f3e7d3;font:500 14px Montserrat}
+#webPrev iframe{flex:1;width:100%;max-width:480px;margin:0 auto;border:0;background:#fff;border-radius:14px 14px 0 0}
+#webBox{display:none;margin:12px 0 0;padding:12px 14px;border:1px solid rgba(226,182,118,.35);border-radius:14px;font-size:13px;line-height:1.45}
+#webBox.on{display:block}
 .webList{display:flex;flex-direction:column;gap:8px;padding:0 12px 14px}
+.wlbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 14px 8px}
 .webList .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 2px}
 .webItem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1px solid rgba(226,182,118,.25);border-radius:14px;color:var(--ink);text-decoration:none;font-size:14px}
 .webItem small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
@@ -125,8 +134,10 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
     <div class="quick">
       <button class="btn small ghost" id="playBtn">Ver animación</button>
       <button class="btn small" id="shareQuick">Enviar por WhatsApp</button>
+      <button class="btn small" id="webPrevBtn" style="display:none">Ver invitación web</button>
     </div>
     <div id="status"></div>
+    <div id="webBox"></div>
   </section>
 
   <section>
@@ -223,7 +234,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
           <button class="btn" id="exPng">Imagen PNG<small>para estados y chats</small></button>
           <button class="btn" id="exPdf">PDF interactivo<small>con botones que se tocan</small></button>
           <button class="btn" id="exVid">Video animado<small>tarda unos 10 segundos</small></button>
-          <button class="btn" id="exWeb">Página web<small>archivo listo para subir</small></button>
+          <button class="btn" id="exWeb">Página web<small id="exWebSub">archivo listo para subir</small></button>
+          <button class="btn wide" id="webPrevBtn2" style="display:none">Ver la invitación web<small>así la va a ver el cliente</small></button>
         </div>
         <p class="hint" style="margin-top:14px">El PDF y la página web traen los botones <b>Google Maps</b>, <b>Waze</b>, <b>Agendar en mi calendario</b> y <b>Confirmar por WhatsApp</b>.</p>
         <div class="fields"><div><label>Link de la página web <small>(cuando la subas, para el mensaje de entrega)</small></label><input id="c_link" placeholder="https://…"></div>
@@ -297,9 +309,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
 </main>
 <button class="btn small" id="fab">Vista previa</button>
 <div class="toast" id="toast"></div>
+<div id="webPrev" role="dialog" aria-label="Vista previa de la invitación web"><div class="bar"><span>Vista previa · así la ve el cliente</span><span style="display:flex;gap:8px"><button class="btn small" id="webPrevDl">Descargar</button><button class="btn small ghost" id="webPrevClose">Cerrar</button></span></div><iframe sandbox="allow-scripts allow-popups allow-same-origin allow-forms" title="Invitación web"></iframe></div>
 <footer>Todo se guarda en este equipo. No se sube nada a internet.</footer>
 
 <script src="jspdf.umd.min.js"></script>
+<script src="web-inv.js"></script>
 <script>
 "use strict";
 /* ============ basics ============ */
@@ -311,20 +325,7 @@ const SERIF='"Cormorant Garamond", Georgia, serif', SANS='Montserrat, Arial, san
 const GOLD_LIGHT=['#a8742a','#d9a354','#f3d19a','#e2b676','#c98f48'];
 const GOLD_DEEP=['#7a4d14','#b07a2c','#d9a354','#a8742a','#8a5a1c'];
 const EVENTOS=['Bautismo','Bodas','15 años','Cumpleaños','Infantiles','Primer año','Baby shower','Comunión','Otros'];
-/* tus invitaciones web completas, ya armadas en Claude (se abren en otra pestaña para personalizarlas) */
-const WEB=[
- {ev:'Bautismo',n:'Bautismo I',d:'Invitación web completa',u:'https://claude.ai/artifact/7V6CK7kTaea7xNPpmFuKML'},
- {ev:'Bodas',n:'Bodas · Satén',d:'Modelo de referencia',u:'https://claude.ai/artifact/DTauUEgDi3qrRYaX6Hzr39'},
- {ev:'Bodas',n:'Panel de diseño · Bodas',d:'Panel para personalizar',u:'https://claude.ai/artifact/SmmU4uB52bWH5ZJeY2PcMT'},
- {ev:'15 años',n:'XV Medianoche',d:'Diseño de gala aprobado',u:'https://claude.ai/artifact/9wJrbkGBH8XppBqoCg4HDS'},
- {ev:'Baby shower',n:'Baby shower II',d:'Papel recortado',u:'https://claude.ai/artifact/TD6NCuU5drsbFDgtwAhRez'},
- {ev:'Baby shower',n:'Baby shower III',d:'Invitación web completa',u:'https://claude.ai/artifact/MDSsDxh2e9ymZ4Ex4i7vSf'},
- {ev:'Baby shower',n:'Baby shower IV',d:'Invitación web completa',u:'https://claude.ai/artifact/E8MA1WgsvoKY2Ngh66BkEV'},
- {ev:'Infantiles',n:'Panel de Invitaciones infantil',d:'Temáticas, video y página web',u:'https://claude.ai/artifact/YaxRH6A9mP8ZUSR979G1Lx'},
- {ev:'Infantiles',n:'Infantiles I · Bloques',d:'Panel maestro',u:'https://claude.ai/artifact/XkQiwGzCbuKKWB5AXsXgRr'},
- {ev:'Infantiles',n:'Autos de carrera',d:'Panel maestro (Infantiles III)',u:'https://claude.ai/artifact/JqmayDsk3pfAMpGLzLpkQR'},
- {ev:'Infantiles',n:'Infantiles II · Bloques de construcción',d:'Panel maestro',u:'https://claude.ai/artifact/BRPAM37Cq5ckWU22VFfd94'},
-];
+
 
 function toast(msg,ms=3200){const t=$('toast');t.textContent=msg;t.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('on'),ms)}
 function status(msg){$('status').textContent=msg||''}
@@ -548,19 +549,20 @@ let customTpls=[];
 function allTpls(){return TEMPLATES.concat(customTpls)}
 function buildPicker(){
   const body=$('designBody');body.innerHTML='';
-  const groups=EVENTOS.map(ev=>[ev,allTpls().filter(t=>t.ev===ev),WEB.filter(w=>w.ev===ev)]).filter(g=>g[1].length||g[2].length);
+  const groups=EVENTOS.map(ev=>[ev,allTpls().filter(t=>t.ev===ev),WEBS.filter(w=>w.ev===ev)]).filter(g=>g[1].length||g[2].length);
   groups.forEach(([ev,list,webs])=>{
     const det=document.createElement('details');det.className='sub';det.dataset.ev=ev;
-    if(list.some(t=>t.id===state.tpl))det.open=true;
+    if(state.web?webs.some(w=>w.id===state.web):list.some(t=>t.id===state.tpl))det.open=true;
     const cnt=[list.length?list.length+' tarjeta'+(list.length>1?'s':''):'',webs.length?webs.length+' web':''].filter(Boolean).join(' · ');
-    det.innerHTML=`<summary>${ev}<span>${cnt}</span></summary>${list.length?'<div class="grid"></div>':''}${webs.length?'<div class="webList"><div class="lbl">Invitaciones web completas</div>'+webs.map(w=>`<a class="webItem" href="${w.u}" target="_blank" rel="noopener"><span>${esc(w.n)}<small>${esc(w.d)}</small></span></a>`).join('')+'</div>':''}`;
+    det.innerHTML=`<summary>${ev}<span>${cnt}</span></summary>${webs.length?'<div class="lbl wlbl">Invitaciones web completas</div><div class="grid wgrid"></div>':''}${list.length?(webs.length?'<div class="lbl wlbl">Tarjetas</div>':'')+'<div class="grid tgrid"></div>':''}`;
+    const wg=det.querySelector('.wgrid');if(wg)webs.forEach(w=>{const b=document.createElement('button');b.className='tpl web'+(w.id===state.web?' sel':'');b.type='button';b.dataset.web=w.id;b.innerHTML=`<img loading="lazy" alt="" src="${webCover(w)}"><span class="badge">Web</span>${esc(w.name)}`;b.onclick=()=>selectWeb(w.id);wg.appendChild(b)});
     det.addEventListener('toggle',()=>{if(det.open)body.querySelectorAll('details.sub').forEach(o=>{if(o!==det)o.open=false})});
-    const grid=det.querySelector('.grid');
+    const grid=det.querySelector('.tgrid');
     if(grid)list.forEach(t=>{
       const b=document.createElement('button');b.className='tpl'+(t.id===state.tpl?' sel':'');b.type='button';b.dataset.id=t.id;
       const c=document.createElement('canvas');c.width=270;c.height=480;b.appendChild(c);
       b.insertAdjacentHTML('beforeend',`${t.name}${t.custom?'<span class="x">mío · tocar 2 veces para borrar</span>':''}`);
-      b.onclick=()=>selectTpl(t.id);
+      b.onclick=()=>{state.web=null;selectTpl(t.id)};
       if(t.custom)b.ondblclick=async()=>{if(confirmDelete(t)){await DB.del('fondos',t.id);customTpls=customTpls.filter(x=>x!==t);if(state.tpl===t.id)selectTpl(TEMPLATES[0].id);buildPicker()}};
       grid.appendChild(b);
       thumbQueue.push([c,t]);
@@ -577,7 +579,7 @@ function selectTpl(id){
   // si se cambia de evento, cargar textos de ejemplo de ese evento; si es el mismo evento, conservar lo que ya se escribió
   if(!old||old.ev!==t.ev||!state.touched){state.data={...BASE,...t.d,letra:t.d.letra||'Great Vibes'};state.touched=false}
   state.tpl=id;
-  document.querySelectorAll('.tpl').forEach(b=>b.classList.toggle('sel',b.dataset.id===id));
+  document.querySelectorAll('.tpl').forEach(b=>b.classList.toggle('sel',state.web?b.dataset.web===state.web:b.dataset.id===id));updateWebUI();
   fillForm();updatePhotoUI();redraw();
 }
 
@@ -763,7 +765,7 @@ async function saveJob(silent){
   const id=state.jobId||('j'+Date.now());state.jobId=id;
   const thumb=document.createElement('canvas');thumb.width=135;thumb.height=240;const x=thumb.getContext('2d');x.setTransform(135/W,0,0,240/H,0,0);render(x,curTpl(),state.data);
   const prev=(await DB.all('trabajos')).find(j=>j.id===id);const T=totals();const compra={items:T.sel.map(p=>({id:p.id,n:p.n,precio:+p.now||0})),total:T.now};
-  try{await DB.put('trabajos',{id,tpl:state.tpl,data:{...state.data},client:{...state.client},compra,foto:state.fotoBlob||null,thumb:thumb.toDataURL('image/jpeg',.7),creado:(prev&&prev.creado)||Date.now(),at:Date.now()});if(!silent)toast('Cliente guardado en este equipo.');listJobs()}catch(e){toast('No se pudo guardar: '+e.message)}
+  try{await DB.put('trabajos',{id,tpl:state.tpl,web:state.web||null,data:{...state.data},client:{...state.client},compra,foto:state.fotoBlob||null,thumb:thumb.toDataURL('image/jpeg',.7),creado:(prev&&prev.creado)||Date.now(),at:Date.now()});if(!silent)toast('Cliente guardado en este equipo.');listJobs()}catch(e){toast('No se pudo guardar: '+e.message)}
 }
 let jobFilter='activos';
 async function listJobs(){
@@ -773,7 +775,7 @@ async function listJobs(){
   if(!jobs.length){box.innerHTML='<p class="hint">'+(all.length?'No hay clientes en esta lista.':'Todavía no guardaste clientes. Usá "Guardar cliente" en el paso 4.')+'</p>';return}
   jobs.forEach(j=>{const t=tplById(j.tpl)||customTpls.find(x=>x.id===j.tpl);const c=j.client||{};const e=c.estado||'pedido';const card=document.createElement('div');card.className='jobCard';const el=document.createElement('div');el.className='job';
     el.innerHTML=`<img src="${j.thumb}" alt="" style="width:40px;height:72px;border-radius:6px;object-fit:cover"><div><b>${esc(c.nombre||j.data.nombre||'Sin nombre')}</b><span>${esc(j.data.nombre||'')}${t?' · '+esc(t.ev):''}${j.data.fecha?' · '+esc(fmtCorta(j.data.fecha)):''}</span></div><span class="estado ${e}">${e}</span>`;
-    const o=document.createElement('button');o.className='btn small';o.textContent='Abrir';o.onclick=async()=>{if(!t)return toast('Ese diseño ya no está.');state.tpl=j.tpl;state.data={...BASE,...j.data};state.client={...NEW_CLIENT(),...(j.client||{})};state.jobId=j.id;state.touched=true;state.fotoBlob=j.foto||null;state.foto=j.foto?await loadImg(URL.createObjectURL(j.foto)):null;buildPicker();fillForm();fillClient();updatePhotoUI();redraw();$('accClient').open=true;scrollTo({top:0,behavior:'smooth'});toast('Cliente abierto.')};
+    const o=document.createElement('button');o.className='btn small';o.textContent='Abrir';o.onclick=async()=>{if(!t)return toast('Ese diseño ya no está.');state.tpl=j.tpl;state.web=j.web||null;state.data={...BASE,...j.data};state.client={...NEW_CLIENT(),...(j.client||{})};state.jobId=j.id;state.touched=true;state.fotoBlob=j.foto||null;state.foto=j.foto?await loadImg(URL.createObjectURL(j.foto)):null;buildPicker();fillForm();fillClient();updatePhotoUI();redraw();updateWebUI();$('accClient').open=true;scrollTo({top:0,behavior:'smooth'});toast('Cliente abierto.')};
     const dl=document.createElement('button');dl.className='btn small ghost';dl.textContent='Borrar';dl.onclick=async()=>{if(dl.dataset.sure!=='1'){dl.dataset.sure='1';dl.textContent='¿Seguro?';setTimeout(()=>{dl.dataset.sure='';dl.textContent='Borrar'},4000);return}await DB.del('trabajos',j.id);if(state.jobId===j.id)state.jobId=null;listJobs()};
     const ver=document.createElement('button');ver.className='btn small ghost';ver.textContent='Ficha';ver.onclick=()=>card.classList.toggle('open');
     const bx=document.createElement('span');bx.className='jbtns';bx.append(ver,o,dl);el.append(bx);card.appendChild(el);const f=document.createElement('div');f.className='ficha';f.innerHTML=fichaHTML(j,t);card.appendChild(f);box.appendChild(card)});
@@ -864,18 +866,18 @@ function pDate(v){let m=v.match(/(\d{1,2})\s*[\/.-]\s*(\d{1,2})(?:\s*[\/.-]\s*(\
 function pTime(v){let m=v.match(/(\d{1,2})\s*[:.]\s*(\d{2})/);if(m)return String(+m[1]).padStart(2,'0')+':'+m[2];m=v.match(/(\d{1,2})\s*(hs|h\b|horas)/i);return m?String(+m[1]).padStart(2,'0')+':00':''}
 function pPhone(v){let d=(v||'').replace(/\D/g,'').replace(/^0+/,'');if(d.length===12&&!d.startsWith('54')){for(const i of [2,3,4]){if(d.substr(i,2)==='15'){d=d.slice(0,i)+d.slice(i+2);break}}}if(d.length===10)d='549'+d;if(d.length===12&&d.startsWith('54')&&!d.startsWith('549'))d='549'+d.slice(2);return d}
 function parsePedido(txt){const o={};let last=null;(txt||'').split(/\r?\n/).forEach(l=>{const m=l.match(/^[^A-Za-zÁÉÍÓÚáéíóúÑñ]*([A-Za-zÁÉÍÓÚáéíóúÑñ][^:]{0,60}?)\s*:\s*(.*)$/);if(m){last=nz(m[1]);o[last]=(o[last]?o[last]+'\n':'')+m[2].trim()}else if(last&&l.trim()){o[last]+='\n'+l.trim()}});return o}
-const WEB_TPL={'bautismo i':'bau-paloma-celeste','baby shower ii':'baby-arcoiris','saten':'boda-foto','xv medianoche':'xv-medianoche'};
+function findWeb(txt){const code=String(txt).match(/c[oó]digo\s*:?\s*([a-z0-9-]+)/i);if(code){const c=code[1].toLowerCase();return WEBS.find(w=>w.id===c)||WEBS.find(w=>'w-'+w.dir===c)||null}
+  const T=' '+nn(txt)+' ';const pal=/\b(rosa|verde|lila|lavanda)\b/.exec(T);for(const w of WEBS){const k=nn(w.name.split('·')[0]);if(T.includes(' '+k+' ')){if(w.dir==='bautismo-i'&&pal){const p=pal[1]==='lavanda'?'lila':pal[1];return WEBS.find(x=>x.id==='w-bautismo-i-'+p)||w}return w}}return null}
 const nn=s=>nz(s).replace(/[^a-z0-9ñ ]+/g,' ').replace(/\s+/g,' ').trim();
 function findTpl(txt){const T=nn(txt);if(!T)return null;
   const code=String(txt).match(/c[oó]digo\s*:?\s*([a-z0-9-]+)/i);if(code){const t=allTpls().find(x=>x.id===code[1].toLowerCase());if(t)return t}
-  for(const k in WEB_TPL){if(T.includes(k)){const t=tplById(WEB_TPL[k]);if(t)return t}}
   let best=null,bl=0;allTpls().forEach(t=>{const names=[t.name,t.name.replace(/\(.*\)/,'')].map(nn).filter(Boolean);names.forEach(n=>{if(n.length>bl&&T.includes(n)){best=t;bl=n.length}})});return best}
 function formatosDe(txt){const m=String(txt).match(/(lo quiero en|formatos?|quiero)\s*:?\s*([^\n]*)/i);if(!m)return null;const t=nz(m[2]);if(/\(imagen \/ video/.test(t))return null;const ids=[];if(/imagen|jpg|foto|tarjeta/.test(t))ids.push('tarjeta');if(/video/.test(t))ids.push('video');if(/pdf/.test(t))ids.push('pdf');if(/web|pagina/.test(t))ids.push('web');return ids.length?ids:null}
 function armarPedido(auto){
   const raw=$('c_pedido').value;const o=parsePedido(raw);const keys=Object.keys(o).filter(k=>o[k]&&o[k].trim());
-  const ft=findTpl((o['diseno que te gusto']||'')+'\n'+raw);const fm=formatosDe(raw);if(fm)state.client.items=fm.filter(id=>SET.products.find(p=>p.id===id));
+  const src=(o['diseno que te gusto']||'')+'\n'+raw;const fw=findWeb(src);const ft=fw?tplById(fw.pair):findTpl(src);const fm=formatosDe(raw);if(fm)state.client.items=fm.filter(id=>SET.products.find(p=>p.id===id));
   const dataKeys=keys.filter(k=>!/(diseno|lo quiero|formato|hola|me gusta)/.test(k));
-  if(ft&&!dataKeys.length){selectTpl(ft.id);buildPicker();fillClient();$('pedidoRes').innerHTML='<div class="ok">Diseño elegido: '+esc(ft.ev+' · '+ft.name)+(fm?'. Formatos: '+esc(fm.map(id=>(SET.products.find(p=>p.id===id)||{n:id}).n).join(', ')):'')+'</div><div class="hint">Cuando el cliente te mande el formulario completo, pegalo acá y se arma solo.</div>';toast('Diseño elegido: '+ft.name);return}
+  if(ft&&!dataKeys.length){if(fw)selectWeb(fw.id);else{state.web=null;selectTpl(ft.id)}buildPicker();fillClient();$('pedidoRes').innerHTML='<div class="ok">Diseño elegido: '+esc(ft.ev+' · '+(fw?'invitación web '+fw.name:ft.name))+(fm?'. Formatos: '+esc(fm.map(id=>(SET.products.find(p=>p.id===id)||{n:id}).n).join(', ')):'')+'</div><div class="hint">Cuando el cliente te mande el formulario completo, pegalo acá y se arma solo.</div>';toast('Diseño elegido: '+ft.name);return}
   if(!dataKeys.length){if(auto)return;$('pedidoRes').innerHTML='<span class="no">No encontré datos. Pegá el mensaje completo, con una línea por dato (por ejemplo "Fecha: 13/03/2027").</span>';return}
   const get=(...ws)=>{const k=keys.find(k=>ws.some(w=>k.includes(w)));return k?o[k].trim():''};
   const ok=[],no=[];
@@ -883,8 +885,8 @@ function armarPedido(auto){
   const ev=nz(get('evento'));let evMatch=ev?EVENTOS.find(e=>ev.includes(nz(e).replace(' anos',''))||nz(e).includes(ev)):null;
   if(!evMatch&&/(xv|quince|15)/.test(ev))evMatch='15 años';if(!evMatch&&/(casamiento|boda|casam)/.test(ev))evMatch='Bodas';if(!evMatch&&/cumple/.test(ev))evMatch='Cumpleaños';
   let t=curTpl();
-  if(ft){t=ft;state.tpl=ft.id;evMatch=evMatch||ft.ev;ok.push('Diseño: '+ft.name)}
-  else if(evMatch&&t.ev!==evMatch){const nt=allTpls().find(x=>x.ev===evMatch);if(nt){t=nt;state.tpl=nt.id}else no.push('No tengo tarjetas de '+evMatch+' todavía: elegí un diseño')}
+  if(ft){t=ft;state.tpl=ft.id;state.web=fw?fw.id:null;evMatch=evMatch||ft.ev;ok.push('Diseño: '+(fw?'invitación web '+fw.name:ft.name))}
+  else if(evMatch&&t.ev!==evMatch){state.web=null;const nt=allTpls().find(x=>x.ev===evMatch);if(nt){t=nt;state.tpl=nt.id}else no.push('No tengo tarjetas de '+evMatch+' todavía: elegí un diseño')}
   if(evMatch)ok.push('Evento: '+evMatch);else no.push('Evento');
   const d={...BASE,...t.d,nombre:'',fecha:'',hora:'',lugar:'',direccion:'',lugar2:'',hora2:'',direccion2:'',padres:'',wa:'',limite:'',dress:'',alias:'',letra:state.data.letra||'Great Vibes'};
   const cliente=get('tu nombre','mi nombre','cliente','quien');if(cliente&&!state.client.nombre){state.client.nombre=cliente}
@@ -904,7 +906,7 @@ function armarPedido(auto){
   const al=get('alias','cbu','regalo');if(al)d.alias=al;
   const fr=get('frase','mensaje');if(fr)d.frase=fr;
   state.data=d;state.touched=true;
-  buildPicker();fillForm();fillClient();updatePhotoUI();redraw();
+  buildPicker();fillForm();fillClient();updatePhotoUI();redraw();updateWebUI();
   $('pedidoRes').innerHTML='<div class="ok">Cargado: '+ok.map(esc).join(', ')+'</div>'+(no.length?'<div class="no">Falta o revisá: '+no.map(esc).join(', ')+'</div>':'');
   toast('¡Invitación armada! Mirá la vista previa.');
   if(auto&&innerWidth<900)setTimeout(()=>scrollTo({top:0,behavior:'smooth'}),400)
@@ -944,7 +946,7 @@ $('m_add').onclick=async()=>{const file=$('m_file').files[0];if(!file)return toa
 
 /* ============ botones ============ */
 function guard(fn){return async()=>{try{await fn()}catch(e){console.error(e);status('');toast('Algo falló: '+(e.message||e))}}}
-$('exPng').onclick=guard(exportPng);$('exPdf').onclick=guard(exportPdf);$('exVid').onclick=guard(exportVideo);$('exWeb').onclick=guard(exportWeb);
+$('exPng').onclick=guard(exportPng);$('exPdf').onclick=guard(exportPdf);$('exVid').onclick=guard(exportVideo);$('exWeb').onclick=guard(()=>state.web?exportWebPremium():exportWeb());$('webPrevBtn').onclick=guard(previewWeb);$('webPrevBtn2').onclick=guard(previewWeb);$('webPrevClose').onclick=closeWebPrev;$('webPrevDl').onclick=guard(exportWebPremium);
 $('exMuestra').onclick=guard(exportMuestra);$('exShare').onclick=guard(exportShare);$('shareQuick').onclick=guard(exportShare);$('saveJob').onclick=guard(()=>saveJob(false));$('playBtn').onclick=play;
 $('fab').onclick=()=>scrollTo({top:0,behavior:'smooth'});
 document.querySelectorAll('details.acc').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)document.querySelectorAll('details.acc').forEach(o=>{if(o!==d)o.open=false})}));
