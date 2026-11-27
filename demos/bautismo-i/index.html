@@ -254,7 +254,7 @@ section.s::after{content:"";position:absolute;left:0;right:0;top:0;height:280px;
 .acc>button .n,.tl .it.lit .dot{background:var(--gold)}
 @media (prefers-reduced-motion:reduce){.btn::after{animation:none;opacity:0}}
 h2{max-width:74%;margin-left:auto;margin-right:auto;text-wrap:balance}h2.sc{max-width:80%;font-size:clamp(40px,12vw,56px)}</style>
-</head>
+<style id="perf">canvas{transform:translateZ(0)}@media (hover:none),(max-width:640px){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;mix-blend-mode:normal!important}}</style></head>
 <body class="lock">
 
 <div id="proto" aria-label="Controles del prototipo">
@@ -528,7 +528,7 @@ $('#rsvp').addEventListener('submit',function(e){e.preventDefault();if(!asiste()
 guests();refresh();
 
 /* efectos: lluvia de estrellas, estela, estrellas fugaces */
-var cv=$('#fx'),ctx=cv.getContext('2d'),W=0,H=0,dpr=Math.min(2,window.devicePixelRatio||1),P=[],rain=[],shoot=null,last=0;
+var cv=$('#fx'),ctx=cv.getContext('2d'),W=0,H=0,dpr=Math.min(1.25,window.devicePixelRatio||1),P=[],rain=[],shoot=null,last=0;
 function size(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}size();addEventListener('resize',size);
 function star(x,y,r,rot){ctx.beginPath();for(var i=0;i<10;i++){var a=rot-Math.PI/2+i*Math.PI/5,rr=i%2?r*.42:r;ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr)}ctx.closePath();ctx.fill()}
 function mkRain(){return{x:Math.random()*W,y:-10-Math.random()*H*.3,v:.35+Math.random()*.7,r:2+Math.random()*3,a:.45+Math.random()*.5,rot:Math.random()*6,c:Math.random()<.6?'#f7dcae':'#ffffff',ph:Math.random()*6}}

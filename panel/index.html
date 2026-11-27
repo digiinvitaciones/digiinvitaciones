@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Parisienne&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Fredoka:wght@400;600&family=Parisienne&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0d0c0b;--panel:#16140f;--panel2:#1d1a14;--ink:#f4ecdf;--muted:#b9ab93;
@@ -160,7 +160,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
         </div>
         <div class="fields two" style="margin-top:12px">
           <div><label>Nombre / novios</label><input id="f_nombre"></div>
-          <div><label>Letra del nombre</label><select id="f_letra"><option>Great Vibes</option><option>Allura</option><option>Pinyon Script</option><option>Parisienne</option></select></div>
+          <div><label>Letra del nombre</label><select id="f_letra"><option>Great Vibes</option><option>Allura</option><option>Pinyon Script</option><option>Parisienne</option><option>Fredoka</option></select></div>
         </div>
         <div class="fields" style="margin-top:12px" id="edadWrap"><div><label>Número grande de fondo <small>(ej: XV, 40, 1)</small></label><input id="f_numero"></div></div>
         <div class="fields" style="margin-top:12px"><div><label>Frase <small>(opcional)</small></label><textarea id="f_frase"></textarea></div></div>
@@ -293,7 +293,7 @@ const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','
 const SERIF='"Cormorant Garamond", Georgia, serif', SANS='Montserrat, Arial, sans-serif';
 const GOLD_LIGHT=['#a8742a','#d9a354','#f3d19a','#e2b676','#c98f48'];
 const GOLD_DEEP=['#7a4d14','#b07a2c','#d9a354','#a8742a','#8a5a1c'];
-const EVENTOS=['Bautismo','Bodas','15 años','Cumpleaños','Baby shower','Comunión','Infantiles','Otros'];
+const EVENTOS=['Bautismo','Bodas','15 años','Cumpleaños','Infantiles','Primer año','Baby shower','Comunión','Otros'];
 /* tus invitaciones web completas, ya armadas en Claude (se abren en otra pestaña para personalizarlas) */
 const WEB=[
  {ev:'Bautismo',n:'Bautismo I',d:'Invitación web completa',u:'https://claude.ai/artifact/7V6CK7kTaea7xNPpmFuKML'},
@@ -329,13 +329,15 @@ function fmtHora(h){return h?h.replace(/^0(\d)/,'$1')+' hs':''}
 function fmtCorta(s){const d=parseDate(s);return d?d.getDate()+'/'+(d.getMonth()+1):''}
 
 /* ============ plantillas ============ */
-const IMG_SRC={'paloma-celeste':'img/paloma-celeste.jpg','paloma-rosa':'img/paloma-rosa.jpg','cuna-celeste':'img/cuna-celeste.jpg','cuna-rosa':'img/cuna-rosa.jpg',boda1:'img/boda1.jpg',boda2:'img/boda2.jpg',boda3:'img/boda3.jpg'};
+const IMG_SRC={'paloma-celeste':'img/paloma-celeste.jpg','paloma-rosa':'img/paloma-rosa.jpg','cuna-celeste':'img/cuna-celeste.jpg','cuna-rosa':'img/cuna-rosa.jpg',boda1:'img/boda1.jpg',boda2:'img/boda2.jpg',boda3:'img/boda3.jpg','inf-mariposas':'img/inf-mariposas.jpg','inf-ballet':'img/inf-ballet.jpg','inf-pasteleria':'img/inf-pasteleria.jpg','inf-autos':'img/inf-autos.jpg','inf-helados':'img/inf-helados.jpg','inf-espacio':'img/inf-espacio.jpg','inf-futbol':'img/inf-futbol.jpg','inf-granja':'img/inf-granja.jpg','inf-dinosaurios':'img/inf-dinosaurios.jpg','inf-piratas':'img/inf-piratas.jpg','inf-bloques':'img/inf-bloques.jpg','inf-princesa':'img/inf-princesa.jpg','inf-sirenas':'img/inf-sirenas.jpg','inf-superheroe':'img/inf-superheroe.jpg','inf-unicornio':'img/inf-unicornio.jpg','inf-invierno':'img/inf-invierno.jpg','inf-primer-luna':'img/inf-primer-luna.jpg','inf-primer-ciervo':'img/inf-primer-ciervo.jpg','inf-primer-ovejita':'img/inf-primer-ovejita.jpg','inf-osito':'img/inf-osito.jpg','inf-primer-ositos':'img/inf-primer-ositos.jpg','inf-safari':'img/inf-safari.jpg'};
 const IMGS={};
 
 const BASE={kicker:'',titulo:'',nombre:'',letra:'Great Vibes',numero:'',frase:'',fecha:'2027-03-13',hora:'11:00',lugar:'',direccion:'',lugar2:'',hora2:'',direccion2:'',padres:'',wa:'',limite:'',dress:'',alias:'',showConfirm:false};
 const D_BAU={kicker:'Te invito a mi',titulo:'Bautismo',frase:'Con la bendición de Dios y el amor de mi familia',fecha:'2027-03-13',hora:'11:00',lugar:'Parroquia San José',direccion:'Av. Rivadavia 1234, CABA',lugar2:'Salón Las Acacias',hora2:'13:00',direccion2:'Belgrano 560, CABA',padres:'Mis papás: Lucía y Diego\nMis padrinos: Carla y Juan',wa:'5491155555555',limite:'2027-03-01',alias:'mateo.bautismo'};
 const D_BODA={kicker:'Nos casamos',titulo:'',nombre:'Sofía & Martín',frase:'Queremos compartir con vos el comienzo de nuestra historia',fecha:'2027-04-17',hora:'20:00',lugar:'Estancia La Candelaria',direccion:'Ruta 6 km 12, Lobos',padres:'',wa:'5491155555555',limite:'2027-03-20',dress:'Elegante',alias:'sofiaymartin.boda'};
 const D_XV={kicker:'Te invito a festejar',titulo:'Mis 15 años',nombre:'Valentina',numero:'XV',frase:'Una noche para recordar',fecha:'2027-05-22',hora:'21:30',lugar:'Salón Imperial',direccion:'Av. del Libertador 4500, CABA',padres:'Mis papás: Laura y Pablo',wa:'5491155555555',limite:'2027-05-01',dress:'Elegante',alias:'vale.xv'};
+const D_INF={kicker:'Te invito a festejar',titulo:'Mis 5 años',frase:'¡Vení a jugar y divertirte conmigo!',fecha:'2027-04-10',hora:'17:00',lugar:'Salón Pelotero Mundo Mágico',direccion:'Av. Siempre Viva 742',wa:'5491155555555',limite:'2027-04-01'};
+const D_PRIMER={kicker:'Festejamos',numero:'1',titulo:'Mi primer añito',fecha:'2027-04-10',hora:'17:00',lugar:'Salón Pequeños Sueños',direccion:'Belgrano 560',wa:'5491155555555',limite:'2027-04-01'};
 const D_CUMPLE={kicker:'Te invito a mi',titulo:'Cumpleaños',nombre:'Lucas',numero:'40',frase:'Brindemos juntos por una nueva década',fecha:'2027-06-12',hora:'21:00',lugar:'Terraza Palermo',direccion:'Honduras 5800, CABA',wa:'5491155555555',limite:'2027-06-01',dress:'Elegante sport'};
 
 const TEMPLATES=[
@@ -350,6 +352,28 @@ const TEMPLATES=[
  {id:'xv-bordo',ev:'15 años',name:'Bordó y oro',kind:'gala',bgA:'#5c1626',bgB:'#1e050b',zone:[.12,.93],maxW:.8,ink:'#f8ede4',soft:'#d9c3b6',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.4)',page:'#22060c',dark:true,d:{...D_XV,nombre:'Martina'}},
  {id:'cumple-negro',ev:'Cumpleaños',name:'Negro y dorado',kind:'gala',deco:true,bgA:'#24201a',bgB:'#080706',zone:[.12,.93],maxW:.8,ink:'#f4ecdf',soft:'#c9bfae',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.4)',page:'#0c0b0a',dark:true,d:{...D_CUMPLE}},
  {id:'cumple-marfil',ev:'Cumpleaños',name:'Marfil clásico',kind:'gala',deco:true,light:true,bgA:'#fbf7ef',bgB:'#efe4d0',zone:[.12,.93],maxW:.8,ink:'#3b2f24',soft:'#6b5845',gold:GOLD_DEEP,glow:'rgba(255,255,255,0)',page:'#f5efe4',d:{...D_CUMPLE,nombre:'Ana María',numero:'60',frase:'Celebremos juntos esta vida hermosa'}},
+ {id:'inf-mariposas',ev:'Infantiles',name:'Mariposas',img:'inf-mariposas',zone:[0.13, 0.9],cx:0.5,maxW:0.58,ink:'#5a2f45',soft:'#7d5566',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_INF,nombre:'Martina'}},
+ {id:'inf-ballet',ev:'Infantiles',name:'Bailarina',img:'inf-ballet',zone:[0.2, 0.9],cx:0.6,maxW:0.42,ink:'#6b2f45',soft:'#8a5566',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_INF,nombre:'Isabella'}},
+ {id:'inf-pasteleria',ev:'Infantiles',name:'Pastelería',img:'inf-pasteleria',zone:[0.26, 0.76],cx:0.52,maxW:0.6,ink:'#6b3a3a',soft:'#8a5a55',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#d2557a',nameW:'600',d:{...D_INF,nombre:'Sofía',letra:'Fredoka'}},
+ {id:'inf-autos',ev:'Infantiles',name:'Autos de carrera',img:'inf-autos',zone:[0.2, 0.58],cx:0.48,maxW:0.66,ink:'#1d1d1d',soft:'#3a3a3a',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#d62828',nameW:'600',d:{...D_INF,nombre:'Benja',letra:'Fredoka'}},
+ {id:'inf-helados',ev:'Infantiles',name:'Helados',img:'inf-helados',zone:[0.12, 0.9],cx:0.5,maxW:0.55,ink:'#6b3a5a',soft:'#8a5a75',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#e0649a',nameW:'600',d:{...D_INF,nombre:'Mía',letra:'Fredoka'}},
+ {id:'inf-espacio',ev:'Infantiles',name:'Espacial',img:'inf-espacio',zone:[0.3, 0.8],cx:0.48,maxW:0.66,ink:'#ffffff',soft:'#d6e4ff',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.55)',page:'#0b1d3f',dark:true,nameColor:'#ffd34d',nameW:'600',d:{...D_INF,nombre:'Thiago',letra:'Fredoka'}},
+ {id:'inf-futbol',ev:'Infantiles',name:'Fútbol',img:'inf-futbol',zone:[0.2, 0.62],cx:0.5,maxW:0.74,ink:'#0d3b66',soft:'#1d5c8f',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#1f8a3a',nameW:'600',d:{...D_INF,nombre:'Bauti',letra:'Fredoka'}},
+ {id:'inf-granja',ev:'Infantiles',name:'Granja',img:'inf-granja',zone:[0.28, 0.7],cx:0.5,maxW:0.7,ink:'#5a3a1a',soft:'#7a5a3a',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#c0392b',nameW:'600',d:{...D_INF,nombre:'Lola',letra:'Fredoka'}},
+ {id:'inf-dinosaurios',ev:'Infantiles',name:'Dinosaurios',img:'inf-dinosaurios',zone:[0.12, 0.58],cx:0.55,maxW:0.5,ink:'#2f4a1d',soft:'#4f6b2f',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#2e7d32',nameW:'600',d:{...D_INF,nombre:'Lucas',letra:'Fredoka'}},
+ {id:'inf-piratas',ev:'Infantiles',name:'Piratas',img:'inf-piratas',zone:[0.12, 0.6],cx:0.55,maxW:0.52,ink:'#3b2410',soft:'#5c3d1e',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#8b1e1e',nameW:'600',d:{...D_INF,nombre:'Joaquín',letra:'Fredoka'}},
+ {id:'inf-bloques',ev:'Infantiles',name:'Bloques',img:'inf-bloques',zone:[0.13, 0.6],cx:0.5,maxW:0.66,ink:'#12324a',soft:'#1d4f73',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#2e7d32',nameW:'600',d:{...D_INF,nombre:'Santi',letra:'Fredoka'}},
+ {id:'inf-princesa',ev:'Infantiles',name:'Princesa',img:'inf-princesa',zone:[0.2, 0.62],cx:0.5,maxW:0.58,ink:'#6b2f5a',soft:'#8a4f78',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_INF,nombre:'Catalina'}},
+ {id:'inf-sirenas',ev:'Infantiles',name:'Sirenas',img:'inf-sirenas',zone:[0.12, 0.6],cx:0.55,maxW:0.6,ink:'#155e63',soft:'#2a7a80',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#7b3fa0',d:{...D_INF,nombre:'Valentina'}},
+ {id:'inf-superheroe',ev:'Infantiles',name:'Superhéroe',img:'inf-superheroe',zone:[0.4, 0.8],cx:0.5,maxW:0.46,ink:'#0d2b6b',soft:'#1d4fa0',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#d62828',nameW:'600',d:{...D_INF,nombre:'Tomi',letra:'Fredoka'}},
+ {id:'inf-unicornio',ev:'Infantiles',name:'Unicornio',img:'inf-unicornio',zone:[0.2, 0.58],cx:0.52,maxW:0.62,ink:'#6b2f5a',soft:'#8a4f78',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#c2549b',d:{...D_INF,nombre:'Emma'}},
+ {id:'inf-invierno',ev:'Infantiles',name:'Invierno mágico',img:'inf-invierno',zone:[0.1, 0.5],cx:0.5,maxW:0.66,ink:'#24386b',soft:'#3d5a99',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',nameColor:'#3d5a99',d:{...D_INF,nombre:'Olivia'}},
+ {id:'inf-primer-luna',ev:'Primer año',name:'Luna y conejito',img:'inf-primer-luna',zone:[0.197, 0.503],cx:0.506,maxW:0.503,ink:'#3f4f63',soft:'#5f6f83',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Benjamín'}},
+ {id:'inf-primer-ciervo',ev:'Primer año',name:'Ciervo y flores',img:'inf-primer-ciervo',zone:[0.325, 0.586],cx:0.51,maxW:0.429,ink:'#5a4636',soft:'#7a6656',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Emma'}},
+ {id:'inf-primer-ovejita',ev:'Primer año',name:'Ovejita y arcoíris',img:'inf-primer-ovejita',zone:[0.318, 0.642],cx:0.5,maxW:0.533,ink:'#5a4636',soft:'#7a6656',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Mía'}},
+ {id:'inf-osito',ringNum:[.565,.28,.30],ev:'Primer año',name:'Osito y globos',img:'inf-osito',zone:[.57,.93],cx:.5,maxW:.72,ink:'#3f4f63',soft:'#5f6f83',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Felipe'}},
+ {id:'inf-primer-ositos',ev:'Primer año',name:'Osita y conejita',img:'inf-primer-ositos',zone:[0.339, 0.601],cx:0.503,maxW:0.429,ink:'#6b3a4a',soft:'#8a5a65',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Alma'}},
+ {id:'inf-safari',ringNum:[.494,.31,.285],ev:'Primer año',name:'Safari',img:'inf-safari',zone:[.56,.9],cx:.5,maxW:.66,ink:'#4a4a2f',soft:'#6b6b4a',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#fffaf4',d:{...D_PRIMER,nombre:'Lorenzo'}},
 ];
 const tplById=id=>TEMPLATES.find(t=>t.id===id);
 
@@ -367,7 +391,7 @@ function wrap(ctx,txt,maxW){const words=txt.split(/\s+/);const lines=[];let cur=
 
 /* construye la lista de bloques de texto: cada uno {h, draw(ctx,y,s)} */
 function buildItems(ctx,tpl,d,opt){
-  const items=[];const cx=W/2;const maxW=W*tpl.maxW;
+  const items=[];const cx=W*(tpl.cx||.5);const maxW=W*tpl.maxW;
   const ink=tpl.ink,soft=tpl.soft;
   const shadow=(c,b)=>{ctx.shadowColor=c;ctx.shadowBlur=b;ctx.shadowOffsetX=0;ctx.shadowOffsetY=tpl.dark?2:1};
   const noShadow=()=>{ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0};
@@ -376,11 +400,11 @@ function buildItems(ctx,tpl,d,opt){
   if(d.titulo){items.push({h:112,draw(y,s){const sz=fitSize(ctx,d.titulo,'italic 500',96*s,SERIF,maxW);ctx.fillStyle=ink;glow();ctx.fillText(d.titulo,cx,y+82*s);noShadow()}})}
   if(d.nombre){items.push({h:250,name:true,draw(y,s,t){
     const fam=`"${d.letra||'Great Vibes'}", cursive`;
-    const sz=fitSize(ctx,d.nombre,'400',190*s,fam,maxW*.98);
+    const nw=tpl.nameW&&(d.letra||'')===((tpl.d&&tpl.d.letra)||'')?tpl.nameW:'400';const sz=fitSize(ctx,d.nombre,nw,(nw==='600'?150:190)*s,fam,maxW*.98);
     const by=y+150*s+(190*s-sz)*.35;
     const w=ctx.measureText(d.nombre).width;
-    ctx.fillStyle=goldGrad(ctx,cx-w/2,cx+w/2,by,tpl.gold);
-    shadow(tpl.dark?'rgba(0,0,0,.55)':'rgba(70,40,5,.35)',tpl.dark?8:3);
+    ctx.fillStyle=tpl.nameColor||goldGrad(ctx,cx-w/2,cx+w/2,by,tpl.gold);
+    if(tpl.nameColor&&!tpl.dark)shadow('rgba(255,255,255,.95)',12);else shadow(tpl.dark?'rgba(0,0,0,.55)':'rgba(70,40,5,.35)',tpl.dark?8:3);
     ctx.fillText(d.nombre,cx,by);noShadow();
     if(t!=null&&t>0&&t<1){ // destello que pasa: solo pinta dentro de las letras
       const x=cx-w/2-200+(w+400)*t;const g=ctx.createLinearGradient(x-120,0,x+120,0);
@@ -423,13 +447,22 @@ function paper(){if(paperTex)return paperTex;const c=document.createElement('can
 function cover(ctx,img,x,y,w,h,zoom=1,fy=.5){const r=Math.max(w/img.width,h/img.height)*zoom;const iw=img.width*r,ih=img.height*r;ctx.drawImage(img,x+(w-iw)/2,y+(h-ih)*fy,iw,ih)}
 function frame(ctx,tpl,inset,s=1){const g=goldGrad(ctx,0,W,H/2,tpl.gold);ctx.strokeStyle=g;ctx.lineWidth=3;ctx.strokeRect(inset,inset,W-2*inset,H-2*inset);ctx.lineWidth=1.2;ctx.strokeRect(inset+14,inset+14,W-2*inset-28,H-2*inset-28)}
 function decoCorners(ctx,tpl){const g=goldGrad(ctx,0,W,H/2,tpl.gold);ctx.strokeStyle=g;ctx.lineWidth=2;const m=70;[[m,m,1,1],[W-m,m,-1,1],[m,H-m,1,-1],[W-m,H-m,-1,-1]].forEach(([x,y,sx,sy])=>{for(let i=1;i<=4;i++){ctx.beginPath();ctx.arc(x,y,40*i,sx>0?(sy>0?0:-Math.PI/2):(sy>0?Math.PI/2:Math.PI),sx>0?(sy>0?Math.PI/2:0):(sy>0?Math.PI:Math.PI*1.5));ctx.stroke()}})}
+function placeImg(ctx,img,zoom,fy){const ar=img.width/img.height;
+  if(ar<=W/H*1.03){cover(ctx,img,0,0,W,H,zoom,fy);return}
+  // imagen más ancha que 9:16: fondo suave + imagen casi completa con bordes fundidos
+  const sm=document.createElement('canvas');sm.width=27;sm.height=48;sm.getContext('2d').drawImage(img,0,0,27,48);ctx.save();ctx.imageSmoothingQuality='high';ctx.drawImage(sm,0,0,W,H);ctx.restore();
+  const s=Math.max(W/img.width,H*.92/img.height)*zoom;const w=img.width*s,h=img.height*s;const x=(W-w)/2,y=(H-h)/2;
+  const off=document.createElement('canvas');off.width=Math.round(w);off.height=Math.round(h);const o=off.getContext('2d');o.drawImage(img,0,0,off.width,off.height);
+  o.globalCompositeOperation='destination-in';const g=o.createLinearGradient(0,0,0,off.height);const f=50/off.height;g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(f,'#000');g.addColorStop(1-f,'#000');g.addColorStop(1,'rgba(0,0,0,0)');o.fillStyle=g;o.fillRect(0,0,off.width,off.height);
+  ctx.drawImage(off,x,y)}
 function photoFor(tpl){return state.foto||(tpl.photo?IMGS[tpl.photo]:null)}
 
 function drawBackground(ctx,tpl,d,t){
   const zoom=t==null?1:1.06-0.06*ease(t/6);
   let zone=tpl.zone.slice();
   if(tpl.custom){ctx.fillStyle=tpl.page;ctx.fillRect(0,0,W,H);if(tpl._img)cover(ctx,tpl._img,0,0,W,H,zoom)}
-  else if(tpl.img){ctx.fillStyle=tpl.page;ctx.fillRect(0,0,W,H);if(IMGS[tpl.img])cover(ctx,IMGS[tpl.img],0,0,W,H,zoom,tpl.zone[0]<.3?1:0)}
+  else if(tpl.img){ctx.fillStyle=tpl.page;ctx.fillRect(0,0,W,H);if(IMGS[tpl.img])placeImg(ctx,IMGS[tpl.img],zoom,tpl.zone[0]<.3?1:0)}
+  if(tpl.ringNum&&d.numero){const [rx,ry,rr]=tpl.ringNum;const cx=W*rx,cy=H*ry,r=W*rr;ctx.save();ctx.textAlign='center';const sz=Math.min(r*1.5,r*2.8/Math.max(1,d.numero.length));setFont(ctx,'400',sz,'"Great Vibes", cursive');ctx.fillStyle=goldGrad(ctx,cx-r*.5,cx+r*.5,cy,tpl.gold);ctx.shadowColor='rgba(70,40,5,.25)';ctx.shadowBlur=4;ctx.fillText(d.numero,cx,cy+sz*.3);ctx.restore()}
   else if(tpl.kind==='fotoFull'){const p=photoFor(tpl);ctx.fillStyle='#14110d';ctx.fillRect(0,0,W,H);if(p)cover(ctx,p,0,0,W,H,zoom,.3);const g=ctx.createLinearGradient(0,H*.3,0,H);g.addColorStop(0,'rgba(14,11,8,0)');g.addColorStop(.32,'rgba(14,11,8,.82)');g.addColorStop(.6,'rgba(10,8,6,.93)');g.addColorStop(1,'rgba(10,8,6,.97)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);frame(ctx,tpl,36)}
   else if(tpl.kind==='fotoTop'){const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,tpl.bgA);g.addColorStop(1,tpl.bgB);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);const p=photoFor(tpl);const ph=H*.46;if(p){ctx.save();ctx.beginPath();ctx.rect(0,0,W,ph);ctx.clip();cover(ctx,p,0,0,W,ph,zoom,.5);ctx.restore();const f=ctx.createLinearGradient(0,ph*.55,0,ph);f.addColorStop(0,'rgba(0,0,0,0)');f.addColorStop(1,tpl.bgA);ctx.fillStyle=f;ctx.fillRect(0,0,W,ph+2)}frame(ctx,tpl,36)}
   else if(tpl.kind==='marfil'){ctx.fillStyle='#f6f0e5';ctx.fillRect(0,0,W,H);ctx.fillStyle=ctx.createPattern(paper(),'repeat');ctx.fillRect(0,0,W,H);
@@ -518,7 +551,7 @@ const thumbQueue=[];function pumpThumbs(){const job=thumbQueue.shift();if(!job)r
 function selectTpl(id){
   const old=curTpl();const t=tplById(id)||customTpls.find(x=>x.id===id);if(!t)return;
   // si se cambia de evento, cargar textos de ejemplo de ese evento; si es el mismo evento, conservar lo que ya se escribió
-  if(!old||old.ev!==t.ev||!state.touched){state.data={...BASE,...t.d,letra:state.data.letra||'Great Vibes'};state.touched=false}
+  if(!old||old.ev!==t.ev||!state.touched){state.data={...BASE,...t.d,letra:t.d.letra||'Great Vibes'};state.touched=false}
   state.tpl=id;
   document.querySelectorAll('.tpl').forEach(b=>b.classList.toggle('sel',b.dataset.id===id));
   fillForm();updatePhotoUI();redraw();
@@ -856,7 +889,7 @@ if('serviceWorker' in navigator&&location.protocol==='https:'&&window.top===wind
 (async function init(){
   await DB.open();
   await Promise.all(Object.entries(IMG_SRC).map(async([k,src])=>{try{IMGS[k]=await loadImg(src)}catch(e){}}));
-  try{await Promise.all(['400 80px "Great Vibes"','400 80px Allura','400 80px "Pinyon Script"','400 80px Parisienne','italic 500 60px "Cormorant Garamond"','600 60px "Cormorant Garamond"','italic 400 40px "Cormorant Garamond"','500 30px Montserrat','600 30px Montserrat'].map(f=>document.fonts.load(f)));await document.fonts.ready}catch(e){}
+  try{await Promise.all(['400 80px "Great Vibes"','400 80px Allura','400 80px "Pinyon Script"','400 80px Parisienne','600 80px Fredoka','400 80px Fredoka','italic 500 60px "Cormorant Garamond"','600 60px "Cormorant Garamond"','italic 400 40px "Cormorant Garamond"','500 30px Montserrat','600 30px Montserrat'].map(f=>document.fonts.load(f)));await document.fonts.ready}catch(e){}
   await loadCustom();
   buildPicker();fillForm();renderPriceEd();fillClient();updatePhotoUI();draw();listJobs();
   document.fonts&&document.fonts.addEventListener&&document.fonts.addEventListener('loadingdone',()=>{redraw();thumbQueue.length=0;buildPicker()});

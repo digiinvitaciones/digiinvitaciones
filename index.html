@@ -85,6 +85,7 @@ footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background
 #viewer{position:fixed;inset:0;z-index:60;background:rgba(5,4,3,.9);display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:14px}
 #viewer.on{display:flex}
 #viewer img{max-height:80vh;max-width:100%;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+@media(hover:none){.card::before{animation:none}.kind{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(11,10,9,.9)}}
 @media(prefers-reduced-motion:reduce){#holo,.card::before{animation:none}.card{transition:none}}
 </style>
 </head>
@@ -135,7 +136,7 @@ footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background
    PRECIOS: "antes" sale tachado. */
 var WHATSAPP='5492646280242';
 var PRECIO={web:{antes:32000,ahora:28000,desde:true},tarjeta:{antes:15000,ahora:12000}};
-var EVENTOS=['Bautismo','Bodas','15 años','Cumpleaños','Baby shower'];
+var EVENTOS=['Bautismo','Bodas','15 años','Cumpleaños','Infantiles','Primer año','Baby shower'];
 var DISENOS=[
  {ev:'Bautismo',tipo:'web',n:'Bautismo I',d:'Paloma y luz, en 4 paletas',img:'img/bautismo-i.jpg',demo:'demos/bautismo-i/'},
  {ev:'Bautismo',tipo:'tarjeta',n:'Paloma celeste',d:'Imagen + PDF + video',img:'img/t-bau-paloma-celeste.jpg'},
@@ -151,6 +152,28 @@ var DISENOS=[
  {ev:'15 años',tipo:'tarjeta',n:'Bordó y oro',d:'Imagen + PDF + video',img:'img/t-xv-bordo.jpg'},
  {ev:'Cumpleaños',tipo:'tarjeta',n:'Negro y dorado',d:'Imagen + PDF + video',img:'img/t-cumple-negro.jpg'},
  {ev:'Cumpleaños',tipo:'tarjeta',n:'Marfil clásico',d:'Imagen + PDF + video',img:'img/t-cumple-marfil.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Mariposas',d:'Imagen + PDF + video',img:'img/t-inf-mariposas.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Bailarina',d:'Imagen + PDF + video',img:'img/t-inf-ballet.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Pastelería',d:'Imagen + PDF + video',img:'img/t-inf-pasteleria.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Autos de carrera',d:'Imagen + PDF + video',img:'img/t-inf-autos.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Helados',d:'Imagen + PDF + video',img:'img/t-inf-helados.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Espacial',d:'Imagen + PDF + video',img:'img/t-inf-espacio.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Fútbol',d:'Imagen + PDF + video',img:'img/t-inf-futbol.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Granja',d:'Imagen + PDF + video',img:'img/t-inf-granja.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Dinosaurios',d:'Imagen + PDF + video',img:'img/t-inf-dinosaurios.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Piratas',d:'Imagen + PDF + video',img:'img/t-inf-piratas.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Bloques',d:'Imagen + PDF + video',img:'img/t-inf-bloques.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Princesa',d:'Imagen + PDF + video',img:'img/t-inf-princesa.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Sirenas',d:'Imagen + PDF + video',img:'img/t-inf-sirenas.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Superhéroe',d:'Imagen + PDF + video',img:'img/t-inf-superheroe.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Unicornio',d:'Imagen + PDF + video',img:'img/t-inf-unicornio.jpg'},
+ {ev:'Infantiles',tipo:'tarjeta',n:'Invierno mágico',d:'Imagen + PDF + video',img:'img/t-inf-invierno.jpg'},
+ {ev:'Primer año',tipo:'tarjeta',n:'Luna y conejito',d:'Imagen + PDF + video',img:'img/t-inf-primer-luna.jpg'},
+ {ev:'Primer año',tipo:'tarjeta',n:'Ciervo y flores',d:'Imagen + PDF + video',img:'img/t-inf-primer-ciervo.jpg'},
+ {ev:'Primer año',tipo:'tarjeta',n:'Ovejita y arcoíris',d:'Imagen + PDF + video',img:'img/t-inf-primer-ovejita.jpg'},
+ {ev:'Primer año',tipo:'tarjeta',n:'Osito y globos',d:'Imagen + PDF + video',img:'img/t-inf-osito.jpg'},
+ {ev:'Primer año',tipo:'tarjeta',n:'Osita y conejita',d:'Imagen + PDF + video',img:'img/t-inf-primer-ositos.jpg'},
+ {ev:'Primer año',tipo:'tarjeta',n:'Safari',d:'Imagen + PDF + video',img:'img/t-inf-safari.jpg'},
  {ev:'Baby shower',tipo:'web',n:'Baby shower II',d:'Papel recortado con cigüeña',img:'img/baby-shower-ii.jpg',demo:'demos/baby-shower-ii/'},
  {ev:'Baby shower',tipo:'web',n:'Baby shower III',d:'Globo aerostático',img:'img/baby-shower-iii.jpg',demo:'demos/baby-shower-iii/'},
  {ev:'Baby shower',tipo:'web',n:'Baby shower IV',d:'Telón que se abre',img:'img/baby-shower-iv.jpg',demo:'demos/baby-shower-iv/'}

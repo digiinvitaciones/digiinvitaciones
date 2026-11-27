@@ -569,7 +569,7 @@ body.go .palpanel{display:block}
 .pedbody{display:none;padding:6px;max-height:62vh;overflow:auto;border-top:1px solid color-mix(in srgb,var(--glow) 40%,transparent)}
 .palpanel.open .pedbody{display:block}
 </style>
-</head>
+<style id="perf">canvas{transform:translateZ(0)}@media (hover:none),(max-width:640px){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;mix-blend-mode:normal!important}}</style></head>
 <body class="lock">
 <div class="pbar"><i id="pbar"></i></div>
 <div class="bgfx"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>
@@ -787,7 +787,7 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
 setTimeout(fit,600);
 
 /* ===== canvas fx: fuegos, confeti metálico, estrellitas ===== */
-var cv=$('#fx'),cx=cv.getContext('2d'),P=[],W,H,DPR=Math.min(devicePixelRatio||1,1.5),run=false;
+var cv=$('#fx'),cx=cv.getContext('2d'),P=[],W,H,DPR=Math.min(devicePixelRatio||1,1.25),run=false;
 function rs(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0)}
 rs();addEventListener('resize',rs);
 var COLS=['#fff3c4','#f3d88a','#e0b955','#f7e2a0','#fff8dc'];
