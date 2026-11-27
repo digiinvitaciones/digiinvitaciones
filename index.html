@@ -289,13 +289,14 @@ nav.top .lk a{font-size:13px!important;letter-spacing:.16em;padding:14px 16px!im
 .ddots button{width:26px;height:26px;font-size:10px!important;border-radius:50%;border:1px solid var(--line);background:rgba(12,9,22,.6);color:#cdbfa6;font:600 11px var(--sans);cursor:pointer;padding:0}
 .ddots button.on{background:var(--gmet);color:#1d1408;border-color:rgba(255,236,190,.85)}
 #fprev:disabled,#fnext:disabled,#sprev:disabled,#snext:disabled{opacity:.3;cursor:default}
+nav.top .lk a.waMenu{color:#f7dcae}@media(max-width:560px){nav.top .lk a.waMenu{background:var(--gmet);color:#1d1408!important;text-align:center;margin-top:6px;border:1px solid rgba(255,236,190,.85)}}
 </style>
 </head>
 <body>
 <div id="holo"></div>
 <canvas id="fx2" aria-hidden="true"></canvas><canvas id="fx" aria-hidden="true"></canvas>
 <div class="wrap">
-  <nav class="top" aria-label="Secciones"><a class="mk" href="#top">DIGI<i>invitaciones</i></a><button class="mbtn" id="mbtn" type="button" aria-expanded="false" aria-controls="mlk"><span class="mt">Menú</span><span class="hb" aria-hidden="true"><i></i><i></i><i></i></span></button><div class="lk" id="mlk"><a href="#paso1">Eventos</a><a href="#formatos">Formatos</a><a href="#como">Cómo pedir</a><a href="#preguntas">Preguntas</a><a href="#precios">Precios</a></div></nav>
+  <nav class="top" aria-label="Secciones"><a class="mk" href="#top">DIGI<i>invitaciones</i></a><button class="mbtn" id="mbtn" type="button" aria-expanded="false" aria-controls="mlk"><span class="mt">Menú</span><span class="hb" aria-hidden="true"><i></i><i></i><i></i></span></button><div class="lk" id="mlk"><a href="#paso1">Eventos</a><a href="#formatos">Formatos</a><a href="#como">Cómo pedir</a><a href="#preguntas">Preguntas</a><a href="#precios">Precios</a><a id="waMenu" class="waMenu" target="_blank" rel="noopener">WhatsApp</a></div></nav>
   <header id="top" class="hero">
     <div class="heroTxt">
       <span class="kick">Invitaciones digitales interactivas</span>
@@ -443,7 +444,7 @@ var $=function(i){return document.getElementById(i)};
 function money(n){return '$'+Number(n).toLocaleString('es-AR')}
 function wa(txt){return 'https://wa.me/'+(WHATSAPP||'')+'?text='+encodeURIComponent(txt)}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-$('waFoot').href=$('waFloat').href=wa('¡Hola! Quiero consultar por una invitación digital.');
+$('waMenu').href=$('waFoot').href=$('waFloat').href=wa('¡Hola! Quiero consultar por una invitación digital.');
 var cur=null;try{var h=decodeURIComponent(location.hash.slice(1));if(EVENTOS.indexOf(h)>=0)cur=h}catch(e){}
 function grp(ev){return GALA.indexOf(ev)>=0?'gala':'normal'}
 function pr(ev,k){return PRECIOS[grp(ev)][k]}
@@ -551,8 +552,8 @@ addEventListener('mousedown',function(e){add(e.clientX,e.clientY,7,1.6)},{passiv
  T=T.filter(function(t){t.x+=t.vx;t.y+=t.vy;t.vx*=.96;t.vy=t.vy*.96+.03;t.l-=.022;if(t.l>0){var tw=.6+.4*Math.sin(ts/90+t.s);y.globalAlpha=t.l*tw;y.shadowColor=t.c;y.shadowBlur=8;y.fillStyle=t.c;star(y,t.x,t.y,t.r*(.6+.4*t.l))}return t.l>0});y.shadowBlur=0;x.globalAlpha=1;y.globalAlpha=1;requestAnimationFrame(f)})(0);
 })();
 </script>
-<script>(function(){var w=document.getElementById('waFloat'),q=0,t;function chk(){q=0;w.classList.remove('away');var r=w.getBoundingClientRect(),hit=false;
-[[r.left+4,r.top+r.height/2],[r.left+r.width/2,r.top+4],[r.left+r.width/2,r.bottom-4],[r.right-4,r.top+r.height/2],[r.left+r.width/2,r.top+r.height/2]].forEach(function(p){document.elementsFromPoint(p[0],p[1]).forEach(function(e){if(e!==w&&!w.contains(e)&&e.closest('button,a,.ptable,footer,input,select,textarea,.price,.from,.pr2'))hit=true})});
+<script>(function(){var w=document.getElementById('waFloat'),q=0,t;function chk(){q=0;w.classList.remove('away');var ft=document.querySelector('footer');if(ft&&ft.getBoundingClientRect().top<innerHeight)return;var r=w.getBoundingClientRect(),hit=false;
+[[r.left+4,r.top+r.height/2],[r.left+r.width/2,r.top+4],[r.left+r.width/2,r.bottom-4],[r.right-4,r.top+r.height/2],[r.left+r.width/2,r.top+r.height/2]].forEach(function(p){document.elementsFromPoint(p[0],p[1]).forEach(function(e){if(e!==w&&!w.contains(e)&&e.closest('button,a,.ptable,input,select,textarea,.price,.from,.pr2'))hit=true})});
 if(hit)w.classList.add('away')}
 addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(chk,120)},{passive:true});addEventListener('resize',chk);setTimeout(chk,800);document.addEventListener('click',function(){setTimeout(chk,400)})})();</script>
 <script>(function(){var n=document.querySelector('nav.top'),b=document.getElementById('mbtn');if(!b)return;function set(o){n.classList.toggle('open',o);b.setAttribute('aria-expanded',o)}
