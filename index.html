@@ -372,6 +372,7 @@ nav.top .lk a.waMenu{color:#f7dcae}@media(max-width:560px){nav.top .lk a.waMenu{
 <div id="order" role="dialog" aria-label="Elegí los formatos"><div class="sheet"><div class="oHead"><img id="oImg" alt=""><div><h3 id="oName"></h3><p id="oEv"></p></div></div><div class="gsub" style="text-align:left;margin:0 4px 4px">Marcá los formatos que querés:</div><div id="oItems"></div><div class="oTotal"><span>Total</span><span><s id="oOld"></s><b id="oTot"></b></span></div><div class="oBtns"><a class="cta" id="oSend" target="_blank" rel="noopener">Pedir por WhatsApp</a><button class="cta ghost" type="button" id="oClose">Volver</button></div></div></div>
 <div id="viewer" role="dialog" aria-label="Vista de la tarjeta"><button id="vX" type="button" aria-label="Cerrar">×</button><div id="vCap" class="eyebrow" style="margin:0"></div><img id="vImg" alt=""><video id="vVid" playsinline controls loop muted hidden></video><div class="heroBtns" style="margin:0"><a class="cta" id="vWant" target="_blank" rel="noopener">Elegir este</a><button class="cta ghost" id="vClose" type="button">Cerrar</button></div></div>
 
+<script>document.write('<script src="precios.js?v='+Math.floor(Date.now()/60000)+'"><\/script>')</script>
 <script>
 /* ===== DATOS DEL CATÁLOGO =====
    WHATSAPP: tu número con código de país, sin + ni espacios (ej: 5491155555555).
@@ -382,6 +383,8 @@ var PRECIOS={
  normal:{imagen:[7000,6000],pdf:[10000,8000],video:[12000,10000],web:[26000,22000]},
  gala:  {imagen:[7000,6000],pdf:[10000,8000],video:[12000,10000],web:[33000,28000]}
 };
+/* si el panel publicó precios (precios.js), se usan esos */
+(function(o){function ok(g){return g&&['imagen','pdf','video','web'].every(function(k){return g[k]&&g[k].length===2&&+g[k][1]>0})}if(o&&ok(o.normal)&&ok(o.gala))PRECIOS={normal:o.normal,gala:o.gala}})(window.DIGI_PRECIOS);
 var GALA=['Bodas','15 años'];
 var FORMATOS=[
  {k:'imagen',n:'Imagen JPG',d:'Para estados, chats y redes'},
