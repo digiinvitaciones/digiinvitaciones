@@ -309,7 +309,7 @@ function card(d){var i=list.push(d)-1;
 function cards(ds){ds=ds.slice().sort(function(a,b){return (b.demo?1:0)-(a.demo?1:0)});return '<div class="grid">'+ds.map(card).join('')+'</div>'}
 function grid(){list=[];var ds=DISENOS.filter(function(d){return d.ev===cur});var gs=GRUPOS.filter(function(g){return ds.some(function(d){return d.g===g.k})});
  var h;
- if(gs.length>1){h=gs.map(function(g,ix){var x=ds.filter(function(d){return d.g===g.k});return '<details class="group"'+(ix===0?' open':'')+'><summary><span>'+esc(g.n)+'</span><small>'+x.length+' diseño'+(x.length>1?'s':'')+'</small></summary>'+cards(x)+'</details>'}).join('')}
+ if(gs.length>1){h=gs.map(function(g,ix){var x=ds.filter(function(d){return d.g===g.k});return '<details class="group"><summary><span>'+esc(g.n)+'</span><small>'+x.length+' diseño'+(x.length>1?'s':'')+'</small></summary>'+cards(x)+'</details>'}).join('')}
  else h=cards(ds);
  $('grid').innerHTML=h;
  [].forEach.call($('grid').querySelectorAll('details.group'),function(dt){dt.addEventListener('toggle',function(){if(dt.open)[].forEach.call($('grid').querySelectorAll('details.group'),function(o){if(o!==dt)o.open=false})})});
