@@ -554,9 +554,13 @@ function play(){if(anim)return;const tpl=curTpl();const t0=performance.now();con
 /* ============ selector de diseños ============ */
 let customTpls=[];
 function allTpls(){return TEMPLATES.concat(customTpls)}
+/* mismos grupos que el catálogo: Nena, Nene, Neutro, Bebés */
+const TPL_G={"bau-paloma-celeste": "varon", "bau-paloma-rosa": "nena", "bau-cuna-celeste": "varon", "bau-cuna-rosa": "nena", "bau-paloma-verde": "todos", "bau-paloma-lila": "nena", "bau-cuna-verde": "todos", "bau-cuna-lila": "nena", "inf-mariposas": "nena", "inf-ballet": "nena", "inf-pasteleria": "nena", "inf-autos": "varon", "inf-helados": "nena", "inf-espacio": "varon", "inf-futbol": "varon", "inf-granja": "todos", "inf-dinosaurios": "varon", "inf-piratas": "varon", "inf-bloques": "varon", "inf-princesa": "nena", "inf-sirenas": "nena", "inf-superheroe": "varon", "inf-unicornio": "nena", "inf-invierno": "nena", "inf-primer-luna": "bebe", "inf-primer-ciervo": "bebe", "inf-primer-ovejita": "bebe", "inf-osito": "bebe", "inf-primer-ositos": "bebe", "inf-safari": "bebe", "baby-arcoiris": "todos", "baby-ciguena": "todos"};
+const GRUPOS_P=[['nena','Nena'],['varon','Nene'],['todos','Neutro'],['bebe','Bebés · primer añito']];
 function buildPicker(){
   const body=$('designBody');body.innerHTML='';
-  const groups=EVENTOS.map(ev=>[ev,allTpls().filter(t=>t.ev===ev),WEBS.filter(w=>w.ev===ev)]).filter(g=>g[1].length||g[2].length);
+  const inEv=(x,ev)=>x.ev===ev||(ev==='Infantiles'&&x.ev==='Primer año');
+  const groups=EVENTOS.filter(ev=>ev!=='Primer año').map(ev=>[ev,allTpls().filter(t=>inEv(t,ev)),WEBS.filter(w=>inEv(w,ev))]).filter(g=>g[1].length||g[2].length);
   groups.forEach(([ev,list,webs])=>{
     const det=document.createElement('details');det.className='sub';det.dataset.ev=ev;
     if(state.web?webs.some(w=>w.id===state.web):list.some(t=>t.id===state.tpl))det.open=true;
@@ -564,8 +568,11 @@ function buildPicker(){
     det.innerHTML=`<summary>${ev}<span>${cnt}</span></summary>${webs.length?'<div class="lbl wlbl">Invitaciones web completas</div><div class="grid wgrid"></div>':''}${list.length?(webs.length?'<div class="lbl wlbl">Tarjetas</div>':'')+'<div class="grid tgrid"></div>':''}`;
     const wg=det.querySelector('.wgrid');if(wg)webs.forEach(w=>{const b=document.createElement('button');b.className='tpl web'+(w.id===state.web?' sel':'');b.type='button';b.dataset.web=w.id;b.innerHTML=`<img loading="lazy" alt="" src="${webCover(w)}"><span class="badge">Web</span>${esc(w.name)}`;b.onclick=()=>selectWeb(w.id);wg.appendChild(b)});
     det.addEventListener('toggle',()=>{if(det.open)body.querySelectorAll('details.sub').forEach(o=>{if(o!==det)o.open=false})});
-    const grid=det.querySelector('.tgrid');
-    if(grid)list.forEach(t=>{
+    const tg=det.querySelector('.tgrid');
+    const gs=GRUPOS_P.filter(([k])=>list.some(t=>(TPL_G[t.id]||'todos')===k));
+    const gridOf={};
+    if(tg){if(gs.length>1){gs.forEach(([k,n])=>{const l=document.createElement('div');l.className='lbl wlbl';l.textContent=n;const g=document.createElement('div');g.className='grid tgrid';tg.before(l,g);gridOf[k]=g});tg.remove()}else gs.forEach(([k])=>gridOf[k]=tg)}
+    if(tg)GRUPOS_P.flatMap(([k])=>list.filter(t=>(TPL_G[t.id]||'todos')===k)).forEach(t=>{const grid=gridOf[TPL_G[t.id]||'todos'];
       const b=document.createElement('button');b.className='tpl'+(t.id===state.tpl?' sel':'');b.type='button';b.dataset.id=t.id;
       const c=document.createElement('canvas');c.width=270;c.height=480;b.appendChild(c);
       b.insertAdjacentHTML('beforeend',`${t.name}${t.custom?'<span class="x">mío · tocar 2 veces para borrar</span>':''}`);
