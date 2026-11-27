@@ -8,7 +8,7 @@
 <meta property="og:title" content="DIGI Invitaciones">
 <meta property="og:description" content="Invitaciones digitales de alta gama. Elegí tu diseño y pedila por WhatsApp.">
 <meta property="og:image" content="img/xv-medianoche.jpg">
-<meta name="theme-color" content="#0b0f17">
+<meta name="theme-color" content="#08060e">
 <link rel="icon" href="panel/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
 <style>
 /* ===== AJUSTES QUE SANDRA PUEDE PEDIR CAMBIAR ===== */
 :root{
-  --bg:#0b0f17;--aqua:#9fe8de;--aqua2:#6fd3c7;--cream:linear-gradient(180deg,#fbe9cc,#efd2a4);--navy:#16233a;--play:"Playfair Display",Georgia,serif;--panel:#15120e;--ink:#f4ecdf;--muted:#b6a98f;--line:rgba(226,182,118,.32);
+  --bg:#08060e;--aqua:#9fe8de;--aqua2:#6fd3c7;--cream:linear-gradient(180deg,#fbe9cc,#efd2a4);--navy:#16233a;--play:"Playfair Display",Georgia,serif;--panel:#15120e;--ink:#f4ecdf;--muted:#b6a98f;--line:rgba(226,182,118,.32);
   --foil:linear-gradient(100deg,#f7dcae 0%,#e2b676 45%,#c98f48 100%);
   --champ:linear-gradient(110deg,#a8742a,#d9a354 45%,#f3d19a 60%,#c98f48);
   --serif:"Cormorant Garamond",Georgia,serif;--script:"Great Vibes",cursive;--sans:Montserrat,system-ui,sans-serif;
@@ -26,15 +26,17 @@
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans)}
 body{background:transparent}
 body{overflow-x:hidden;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-#holo{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
-  radial-gradient(60% 50% at 18% 22%,rgba(34,110,135,.85),transparent 72%),
-  radial-gradient(50% 50% at 88% 35%,rgba(140,115,190,.55),transparent 72%),
-  radial-gradient(60% 50% at 30% 88%,rgba(40,130,130,.45),transparent 70%),
-  radial-gradient(50% 40% at 90% 95%,rgba(226,182,118,.10),transparent 70%),
-  linear-gradient(160deg,#0c1622 0%,#0b0f17 45%,#120f1c 100%);animation:drift 22s ease-in-out infinite alternate}
+#holo{position:fixed;inset:-10%;z-index:-1;pointer-events:none;background:
+  radial-gradient(45% 35% at 20% 15%,rgba(90,60,160,.55),transparent 70%),
+  radial-gradient(40% 35% at 85% 30%,rgba(40,120,150,.28),transparent 72%),
+  radial-gradient(50% 40% at 70% 85%,rgba(140,70,170,.35),transparent 70%),
+  radial-gradient(40% 35% at 15% 80%,rgba(60,140,160,.18),transparent 70%),
+  linear-gradient(160deg,#07060d 0%,#0b0814 45%,#120a1e 100%);animation:drift 22s ease-in-out infinite alternate}
+#holo::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(159,232,222,.07) 42%,rgba(201,163,255,.08) 50%,rgba(243,217,170,.06) 58%,transparent 70%);background-size:250% 250%;animation:sheen 14s linear infinite}
+@keyframes sheen{from{background-position:120% 0}to{background-position:-120% 0}}
 @keyframes drift{to{transform:translate3d(0,-3%,0) scale(1.08);filter:hue-rotate(18deg)}}
 .wrap{max-width:1120px;margin:0 auto}
-nav.top{position:sticky;top:0;z-index:60;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(10,16,26,.6);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(226,182,118,.18)}
+nav.top{position:sticky;top:0;z-index:60;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(9,7,16,.62);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(226,182,118,.18)}
 nav.top .mk{font:600 20px var(--serif);letter-spacing:.16em;background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent;text-decoration:none;white-space:nowrap}nav.top .mk i{font:400 22px var(--script);letter-spacing:0;margin-left:8px;-webkit-text-fill-color:var(--aqua);color:var(--aqua)}
 nav.top .lk{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav.top .lk::-webkit-scrollbar{display:none}
 nav.top .lk a{color:#e8c98f;text-decoration:none;font:500 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:9px 10px;border-radius:12px;white-space:nowrap;transition:color .2s,text-shadow .2s,background .2s}
@@ -73,7 +75,7 @@ section{padding:40px 0;scroll-margin-top:64px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:18px}
 .card{position:relative;isolation:isolate;border-radius:20px;padding:10px 10px 16px;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .card::before{content:"";position:absolute;inset:0;border-radius:20px;z-index:-2;background:linear-gradient(130deg,#e2b676,#8fd3ff 30%,#c9a3ff 55%,#e2b676 80%);background-size:300% 300%;animation:hol 9s linear infinite;opacity:.75}
-.card::after{content:"";position:absolute;inset:1px;border-radius:19px;z-index:-1;background:linear-gradient(180deg,#141d2b,#0e141f)}
+.card::after{content:"";position:absolute;inset:1px;border-radius:19px;z-index:-1;background:linear-gradient(180deg,#151126,#0c0a16)}
 @keyframes hol{to{background-position:300% 0}}
 .card:hover{transform:translateY(-4px)}
 .card:active{transform:rotateY(8deg) scale(.99)}
@@ -92,7 +94,7 @@ section{padding:40px 0;scroll-margin-top:64px}
 .fmtGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 @media(max-width:900px){.fmtGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:360px){.fmtGrid{grid-template-columns:minmax(0,1fr)}}
-.fmt{border:1px solid var(--line);border-radius:20px;padding:10px 10px 16px;background:linear-gradient(180deg,#141d2b,#0e141f);display:flex;flex-direction:column;text-align:center}
+.fmt{border:1px solid var(--line);border-radius:20px;padding:10px 10px 16px;background:linear-gradient(180deg,#151126,#0c0a16);display:flex;flex-direction:column;text-align:center}
 .fmt .media{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:9/16;background:#0f0d0a}
 .fmt .media img,.fmt .media video{width:100%;height:100%;object-fit:cover;display:block}
 .fmt .media.top img{object-position:top}
@@ -128,7 +130,7 @@ details.group>.grid{padding:4px 12px 16px}
 /* hoja de pedido */
 #order{position:fixed;inset:0;z-index:310;background:rgba(5,4,3,.88);display:none;align-items:flex-end;justify-content:center;overscroll-behavior:contain}
 #order.on{display:flex}
-#order .sheet{width:100%;max-width:520px;max-height:92vh;max-height:92dvh;overflow:auto;background:linear-gradient(180deg,#141d2b,#0e141f);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+#order .sheet{width:100%;max-width:520px;max-height:92vh;max-height:92dvh;overflow:auto;background:linear-gradient(180deg,#151126,#0c0a16);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
 @media(min-width:700px){#order{align-items:center}#order .sheet{border-radius:24px;border-bottom:1px solid var(--line)}}
 .oHead{display:flex;gap:14px;align-items:center;margin-bottom:12px}.oHead img{width:72px;aspect-ratio:9/16;object-fit:cover;border-radius:10px;flex:none}
 .oHead h3{font:600 24px/1.1 var(--serif);margin:0}.oHead p{margin:4px 0 0;color:var(--muted);font-size:13px}
@@ -168,65 +170,92 @@ footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background
 
 /* estilo tienda: bordes turquesa a lila */
 .tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));max-width:620px;margin:0 auto 24px;gap:10px}
-.tab{border-radius:10px!important;border:1.5px solid transparent!important;background:linear-gradient(#141d2e,#141d2e) padding-box,linear-gradient(120deg,#6fd3c7,#9a8fd6) border-box!important;color:#f3ece2!important;font:700 12px var(--sans)!important;letter-spacing:.14em!important;text-transform:uppercase;min-height:54px!important;box-shadow:0 0 12px rgba(111,211,199,.15)}
-.tab[aria-selected="true"]{background:linear-gradient(#22324a,#22324a) padding-box,linear-gradient(120deg,#f3d9aa,#e2b676) border-box!important;color:#f7e3bd!important;box-shadow:0 0 18px rgba(226,182,118,.35)!important}
+.tab{border-radius:10px!important;border:1.5px solid transparent!important;background:linear-gradient(#141026,#141026) padding-box,linear-gradient(120deg,#6fd3c7,#9a8fd6) border-box!important;color:#f3ece2!important;font:700 12px var(--sans)!important;letter-spacing:.14em!important;text-transform:uppercase;min-height:54px!important;box-shadow:0 0 12px rgba(111,211,199,.15)}
+.tab[aria-selected="true"]{background:linear-gradient(#251a3d,#251a3d) padding-box,linear-gradient(120deg,#f3d9aa,#e2b676) border-box!important;color:#f7e3bd!important;box-shadow:0 0 18px rgba(226,182,118,.35)!important}
 .tab small{opacity:.6;font-weight:500}
 @media(max-width:420px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.steps .step{text-align:left!important;border-radius:12px!important;border:1.5px solid transparent!important;background:linear-gradient(#121b2b,#121b2b) padding-box,linear-gradient(120deg,#6fd3c7,#9a8fd6) border-box!important}
+.steps .step{text-align:left!important;border-radius:12px!important;border:1.5px solid transparent!important;background:linear-gradient(#120e22,#120e22) padding-box,linear-gradient(120deg,#6fd3c7,#9a8fd6) border-box!important}
 .steps .step b{font:600 26px var(--play)!important;background:none!important;color:#f3d9aa!important;-webkit-text-fill-color:#f3d9aa;padding:0!important}
 .steps .step h3{font:700 18px var(--play)!important}
 .fgroup{max-width:760px;margin:0 auto 22px}.fg{display:block;font:700 11px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:#d9b98a;margin:0 4px 8px}
-.fbox{border-radius:12px;border:1.5px solid transparent;background:linear-gradient(#101827,#101827) padding-box,linear-gradient(120deg,#6fd3c7,#9a8fd6) border-box;overflow:hidden}
+.fbox{border-radius:12px;border:1.5px solid transparent;background:linear-gradient(#100c1e,#100c1e) padding-box,linear-gradient(120deg,#6fd3c7,#9a8fd6) border-box;overflow:hidden}
 .fbox details.q{border:0!important;border-radius:0!important;margin:0!important;border-bottom:1px solid rgba(159,232,222,.14)!important;background:transparent!important;max-width:none!important}
 .fbox details.q:last-child{border-bottom:0!important}
 .fbox details.q summary{font:600 15px var(--sans)!important;color:#f3ece2!important}
 footer{border-top:1px solid rgba(159,232,222,.15);margin-top:20px}
 footer b{font:700 clamp(28px,5vw,40px) var(--play)!important;letter-spacing:.02em!important;text-transform:none}
 footer .fl{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margin:10px 0 12px}footer .fl a{color:#d9b98a;text-decoration:none;font-size:11px;letter-spacing:.14em}footer small{font-size:11px;letter-spacing:.14em}
+
+/* letras holográficas que cambian de color */
+.holo,h2,.h1 .i,footer b{background:linear-gradient(100deg,#f3d9aa 0%,#9fe8de 22%,#c9b3ff 40%,#f7e3bd 58%,#8fd3ff 76%,#f3d9aa 100%)!important;background-size:300% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent;animation:holoTxt 9s linear infinite}
+@keyframes holoTxt{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){.holo,h2,.h1 .i,footer b,#holo,#holo::after{animation:none!important}}
+/* dorado para WhatsApp y Quiero este */
+.cta.gold,#waFloat,[data-want],#oSend,#vWant{background:linear-gradient(100deg,#f7dcae 0%,#e2b676 45%,#c98f48 100%)!important;color:#2a1d0c!important;border:1px solid rgba(255,240,210,.9)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 0 22px rgba(226,182,118,.55)!important;font-weight:700!important}
+.card,.fmt,.ptable,.fbox,details.group{background-color:rgba(12,9,22,.55)}
+
+.pickHead{display:flex;gap:14px;align-items:center;justify-content:center;margin:0 auto 18px;max-width:620px}.pickHead img{width:70px;aspect-ratio:9/16;object-fit:cover;border-radius:10px}.pickHead b{font:700 22px var(--play);display:block}.pickHead small{color:var(--muted)}
+.fmt.on{box-shadow:0 0 0 2px #e2b676,0 0 22px rgba(226,182,118,.45)}
+.fmt .tog{margin-top:8px}.fmt .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.fmt .pr2{font-size:12px;color:var(--muted);margin-bottom:8px}.fmt .pr2 s{margin-right:6px}.fmt .pr2 b{font:600 20px var(--serif);color:#f3d19a}
+.sumBox{max-width:520px;margin:0 auto;border-radius:16px;padding:16px;border:1.5px solid transparent;background:linear-gradient(#120e22,#120e22) padding-box,linear-gradient(120deg,#6fd3c7,#9a8fd6) border-box}
+.sumRow{display:flex;justify-content:space-between;gap:10px;padding:10px 4px;border-bottom:1px dashed rgba(226,182,118,.22)}.sumRow b{font:600 18px var(--serif)}.sumRow span:last-child{color:#f3d19a;font:600 18px var(--serif)}
+.cta.gold{background:linear-gradient(100deg,#f7dcae 0%,#e2b676 45%,#c98f48 100%)!important;color:#2a1d0c!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 0 22px rgba(226,182,118,.55)!important}
+[data-pick]{background:linear-gradient(100deg,#f7dcae 0%,#e2b676 45%,#c98f48 100%)!important;color:#2a1d0c!important;font-weight:700!important;box-shadow:0 0 18px rgba(226,182,118,.5)!important}
 </style>
 </head>
 <body>
 <div id="holo"></div>
 <canvas id="fx" aria-hidden="true"></canvas>
 <div class="wrap">
-  <nav class="top" aria-label="Secciones"><a class="mk" href="#top">DIGI<i>invitaciones</i></a><div class="lk"><a href="#disenos">Eventos</a><a href="#formatos">Formatos</a><a href="#precios">Precios</a><a href="#como">Cómo pedir</a><a href="#preguntas">Preguntas</a></div></nav>
+  <nav class="top" aria-label="Secciones"><a class="mk" href="#top">DIGI<i>invitaciones</i></a><div class="lk"><a href="#paso1">Eventos</a><a href="#formatos">Formatos</a><a href="#como">Cómo pedir</a><a href="#preguntas">Preguntas</a><a href="#precios">Precios</a></div></nav>
   <header id="top" class="hero">
     <div class="heroTxt">
       <span class="kick">Invitaciones digitales interactivas</span>
       <h1 class="h1"><span class="d">DIGI</span><span class="i">Invitaciones</span></h1>
       <div class="bt">Boutique digital de <em>alta gama</em></div>
-      <p class="lead">Elegís tu diseño, nos pasás los datos y la recibís lista para compartir: imagen, PDF interactivo, video o invitación web.</p>
-      <div class="heroBtns"><a class="cta" href="#disenos">Ver diseños</a><a class="cta navy" href="#precios">Ver precios</a></div>
+      <p class="lead">Te guiamos paso a paso: elegís el evento, el diseño y los formatos que querés (imagen, PDF interactivo, video o invitación web), y nos mandás el pedido por WhatsApp.</p>
+      <div class="heroBtns"><a class="cta gold" href="#paso1">Empezar</a><a class="cta navy" href="#como">Cómo es</a></div>
     </div>
     <div class="heroPhone" aria-hidden="true"><div class="ph"><span class="k">Mis quince</span><span class="n">Camila</span><i></i><span class="b">Abrir invitación</span></div></div>
   </header>
 
-  <section id="formatos">
-    <span class="eyebrow">Formatos</span>
-    <h2>Cada diseño, en el formato que quieras</h2>
-    <p class="sub">Todos los diseños salen en los 4 formatos. Elegís uno o varios, y cada uno tiene su precio.</p>
-    <div class="fmtGrid">
-      <div class="fmt"><div class="media"><span class="num">1 · Imagen</span><img loading="lazy" src="img/t-xv-medianoche.jpg" alt="Ejemplo de invitación en imagen"></div><h3>Imagen JPG</h3><p>Lista para estados, chats y redes. Se ve nítida en cualquier celular.</p><div class="from" data-from="imagen"></div><button class="cta ghost" type="button" id="exImg">Ver ejemplo</button></div>
-      <div class="fmt"><div class="media top"><span class="num">2 · PDF</span><img loading="lazy" src="muestras/d/xv-medianoche-pdf.jpg" alt="Ejemplo de invitación en PDF con botones"></div><h3>PDF interactivo</h3><p>Con botones que se tocan: Google Maps, Waze, agendar y confirmar por WhatsApp.</p><div class="from" data-from="pdf"></div><a class="cta ghost" href="muestras/d/xv-medianoche.pdf" target="_blank" rel="noopener">Ver ejemplo</a></div>
-      <div class="fmt"><div class="media"><span class="num">3 · Video</span><video muted loop playsinline autoplay preload="none" poster="muestras/d/xv-medianoche-poster.jpg" src="muestras/d/xv-medianoche.mp4"></video></div><h3>Video animado</h3><p>Brillos y movimiento suave, ideal para estados y reels.</p><div class="from" data-from="video"></div><a class="cta ghost" href="muestras/d/xv-medianoche.mp4" target="_blank" rel="noopener">Ver ejemplo</a></div>
-      <div class="fmt"><div class="media"><span class="num">4 · Web</span><img loading="lazy" src="img/xv-medianoche.jpg" alt="Ejemplo de invitación web"></div><h3>Invitación web</h3><p>Página completa: apertura animada, cuenta regresiva, ubicación, regalos y confirmación.</p><div class="from" data-from="web"></div><a class="cta ghost" href="demos/xv-medianoche/" target="_blank" rel="noopener">Ver ejemplo</a></div>
-    </div>
-  </section>
 
-  <section id="precios">
-    <span class="eyebrow">Precios de lanzamiento</span>
-    <h2>Precios por formato</h2>
-    <p class="sub">Cada formato se cobra por separado: pedís solo lo que necesitás.</p>
-    <div class="ptable" id="ptable"></div>
-    <p class="pnote">Elegí tu diseño y tocá "Quiero este": marcás los formatos que querés y te sale el total.</p>
-  </section>
 
-  <section id="disenos">
-    <span class="eyebrow">Colecciones</span>
-    <h2>Elegí tu diseño</h2>
-    <p class="sub">Primero elegí el evento. Tocá JPG, PDF, Video o Web para ver cada diseño en ese formato, y "Quiero este" para pedirlo por WhatsApp.</p>
+
+  <section id="paso1">
+    <span class="eyebrow">Paso 1 de 4</span>
+    <h2>¿Qué vas a festejar?</h2>
+    <p class="sub">Tocá el evento y te mostramos los diseños.</p>
     <div class="tabs" role="tablist" id="tabs"></div>
+  </section>
+
+  <section id="paso2" hidden>
+    <span class="eyebrow">Paso 2 de 4</span>
+    <h2>Elegí el diseño</h2>
+    <p class="sub">Tocá JPG, PDF, Video o Web para ver cada diseño en ese formato. Cuando te guste, tocá "Elegir este".</p>
     <div id="grid"></div>
+  </section>
+
+  <section id="formatos">
+    <span class="eyebrow" id="p3eb">Los 4 formatos</span>
+    <h2 id="p3t">Cada diseño, en el formato que quieras</h2>
+    <p class="sub" id="p3s">Todos los diseños salen en estos 4 formatos. Podés pedir uno o varios, y cada uno tiene su precio.</p>
+    <div id="pick" hidden></div>
+    <div id="fmtInfo"><div class="fmtGrid">
+      <div class="fmt"><div class="media"><span class="num">1 · Imagen</span><img loading="lazy" src="img/t-xv-medianoche.jpg" alt="Ejemplo de invitación en imagen"></div><h3>Imagen JPG</h3><p>Lista para estados, chats y redes. Se ve nítida en cualquier celular.</p><div class="from" data-from="imagen"></div><button class="cta ghost" type="button" id="exImg">Ver ejemplo</button></div>
+      <div class="fmt"><div class="media top"><span class="num">2 · PDF</span><img loading="lazy" src="muestras/f/xv-pdf.jpg" alt="Ejemplo de invitación en PDF con botones"></div><h3>PDF interactivo</h3><p>Con botones que se tocan: Google Maps, Waze, agendar y confirmar por WhatsApp.</p><div class="from" data-from="pdf"></div><a class="cta ghost" href="muestras/d/xv-medianoche.pdf" target="_blank" rel="noopener">Ver ejemplo</a></div>
+      <div class="fmt"><div class="media"><span class="num">3 · Video</span><video muted loop playsinline autoplay preload="none" poster="muestras/f/xv-poster.jpg" src="muestras/f/xv.mp4"></video></div><h3>Video animado</h3><p>Brillos y movimiento suave, ideal para estados y reels.</p><div class="from" data-from="video"></div><a class="cta ghost" href="muestras/d/xv-medianoche.mp4" target="_blank" rel="noopener">Ver ejemplo</a></div>
+      <div class="fmt"><div class="media"><span class="num">4 · Web</span><img loading="lazy" src="img/xv-medianoche.jpg" alt="Ejemplo de invitación web"></div><h3>Invitación web</h3><p>Página completa: apertura animada, cuenta regresiva, ubicación, regalos y confirmación.</p><div class="from" data-from="web"></div><a class="cta ghost" href="demos/xv-medianoche/" target="_blank" rel="noopener">Ver ejemplo</a></div>
+    </div></div>
+  </section>
+
+  <section id="pedido" hidden>
+    <span class="eyebrow">Paso 4 de 4</span>
+    <h2>Tu pedido</h2>
+    <div class="sumBox"><div id="sum"></div><div class="oTotal"><span>Total</span><span><s id="sOld"></s><b id="sTot"></b></span></div>
+    <div class="oBtns"><a class="cta" id="sSend" target="_blank" rel="noopener">Pedir por WhatsApp</a><a class="cta ghost" href="#paso2" id="sBack">Cambiar diseño</a></div>
+    <p class="pnote">Se abre WhatsApp con tu pedido armado. Te respondemos y te pasamos un formulario corto con los datos del evento.</p></div>
   </section>
 
   <section id="como">
@@ -243,10 +272,18 @@ footer .fl{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margi
   <section id="preguntas">
     <span class="eyebrow">Dudas</span>
     <h2>Preguntas frecuentes</h2>
-    <div class="fgroup"><span class="fg">Pedido y pago</span><div class="fbox"><details class="q"><summary>¿Cómo hago el pedido?</summary><p>Elegí tu diseño en esta página, tocá "Quiero este" y marcá los formatos que querés. Se abre WhatsApp con tu pedido armado: lo enviás y te pasamos un formulario corto para completar los datos del evento.</p></details><details class="q"><summary>¿Puedo ver cómo queda antes de pagar?</summary><p>Sí. Con tus datos armamos una muestra con marca de agua y te la mandamos por WhatsApp. Si te gusta, pagás y te entregamos la versión final sin marca.</p></details><details class="q"><summary>¿Cómo pago?</summary><p>Por transferencia o Mercado Pago al alias que te pasamos por WhatsApp. Cuando nos llega el comprobante, te entregamos la invitación.</p></details><details class="q"><summary>¿Los precios son por formato?</summary><p>Sí. Cada formato tiene su precio y se cobra por separado: imagen JPG, PDF interactivo, video animado e invitación web. Pedís solo los que necesitás y el total se calcula solo.</p></details></div></div><div class="fgroup"><span class="fg">Diseño y cambios</span><div class="fbox"><details class="q"><summary>¿Qué formato me conviene?</summary><p>La imagen es ideal para chats y estados. El PDF suma botones para llegar al lugar, agendar la fecha y confirmar por WhatsApp. El video llama la atención en estados y reels. La invitación web es la experiencia completa: apertura animada, cuenta regresiva, ubicación, regalos y confirmación de asistencia.</p></details><details class="q"><summary>¿Puedo cambiar textos o colores?</summary><p>Sí, antes de aprobar la muestra podés pedir los cambios que necesites en los textos. Muchos diseños vienen en varios colores; contanos cuál te gusta.</p></details><details class="q"><summary>¿Puedo hacer cambios después de recibirla?</summary><p>Si te equivocaste en un dato (fecha, hora, dirección), escribinos y lo vemos. Por eso te mandamos la muestra antes: revisala con calma.</p></details><details class="q"><summary>¿Puedo poner mi foto?</summary><p>En los diseños con foto, sí: nos la mandás por WhatsApp con el formulario.</p></details></div></div><div class="fgroup"><span class="fg">Entrega y uso</span><div class="fbox"><details class="q"><summary>¿Cuánto tarda?</summary><p>Apenas nos mandás los datos armamos la muestra. Con tu aprobación y el pago, la recibís enseguida por WhatsApp.</p></details><details class="q"><summary>¿Cómo la recibo?</summary><p>Por WhatsApp: la imagen, el PDF y el video como archivos, y la invitación web como un link para compartir.</p></details><details class="q"><summary>¿Cómo confirman asistencia mis invitados?</summary><p>Con el botón Confirmar asistencia del PDF o de la invitación web, que abre WhatsApp con un mensaje listo para mandarte.</p></details><details class="q"><summary>¿Cómo la comparto?</summary><p>Reenviás el archivo o el link por WhatsApp, Instagram, Facebook o donde quieras.</p></details></div></div>
+    <div class="fgroup"><span class="fg">Pedido y pago</span><div class="fbox"><details class="q"><summary>¿Cómo hago el pedido?</summary><p>Elegí tu diseño en esta página, tocá "Quiero este" y marcá los formatos que querés. Se abre WhatsApp con tu pedido armado: lo enviás y te pasamos un formulario corto para completar los datos del evento.</p></details><details class="q"><summary>¿Puedo ver cómo queda antes de pagar?</summary><p>Sí. Con tus datos armamos una muestra con marca de agua y te la mandamos por WhatsApp. Si te gusta, pagás y te entregamos la versión final sin marca.</p></details><details class="q"><summary>¿Cómo pago?</summary><p>Por transferencia o Mercado Pago al alias que te pasamos por WhatsApp. Cuando nos llega el comprobante, te entregamos la invitación.</p></details><details class="q"><summary>¿Los precios son por formato?</summary><p>Sí. Cada formato tiene su precio y se cobra por separado: imagen JPG, PDF interactivo, video animado e invitación web. Pedís solo los que necesitás y el total se calcula solo.</p></details></div></div><div class="fgroup"><span class="fg">Diseño y cambios</span><div class="fbox"><details class="q"><summary>¿Qué formato me conviene?</summary><p>La imagen es ideal para chats y estados. El PDF suma botones para llegar al lugar, agendar la fecha y confirmar por WhatsApp. El video llama la atención en estados y reels. La invitación web es la experiencia completa: apertura animada, cuenta regresiva, ubicación, regalos y confirmación de asistencia.</p></details><details class="q"><summary>¿Puedo cambiar textos o colores?</summary><p>Sí, antes de aprobar la muestra podés pedir los cambios que necesites en los textos. Muchos diseños vienen en varios colores; contanos cuál te gusta.</p></details><details class="q"><summary>¿Puedo hacer cambios después de recibirla?</summary><p>Si te equivocaste en un dato (fecha, hora, dirección), escribinos y lo vemos. Por eso te mandamos la muestra antes: revisala con calma.</p></details><details class="q"><summary>¿Puedo poner mi foto?</summary><p>En los diseños con foto, sí: nos la mandás por WhatsApp con el formulario.</p></details></div></div><div class="fgroup"><span class="fg">Entrega y uso</span><div class="fbox"><details class="q"><summary>¿Con cuánto tiempo la pido?</summary><p>Te recomendamos pedirla con anticipación, idealmente una o dos semanas antes de querer enviarla. Los tiempos de la muestra y de la entrega los coordinamos por WhatsApp cuando tomamos tu pedido.</p></details><details class="q"><summary>¿Cómo la recibo?</summary><p>Por WhatsApp: la imagen, el PDF y el video como archivos, y la invitación web como un link para compartir.</p></details><details class="q"><summary>¿Cómo confirman asistencia mis invitados?</summary><p>Con el botón Confirmar asistencia del PDF o de la invitación web, que abre WhatsApp con un mensaje listo para mandarte.</p></details><details class="q"><summary>¿Cómo la comparto?</summary><p>Reenviás el archivo o el link por WhatsApp, Instagram, Facebook o donde quieras.</p></details></div></div>
   </section>
 
-  <footer><b>DIGI Invitaciones</b><span class="fl"><a id="waFoot" target="_blank" rel="noopener">WhatsApp</a><a href="#disenos">Diseños</a><a href="#precios">Precios</a><a href="#preguntas">Preguntas frecuentes</a></span><small>Boutique digital de alta gama · © 2026</small></footer>
+  <section id="precios">
+    <span class="eyebrow">Precios de lanzamiento</span>
+    <h2>Precios por formato</h2>
+    <p class="sub">Cada formato se cobra por separado: pedís solo lo que necesitás.</p>
+    <div class="ptable" id="ptable"></div>
+    <p class="pnote">Elegí tu diseño y tocá "Quiero este": marcás los formatos que querés y te sale el total.</p>
+  </section>
+
+  <footer><b>DIGI Invitaciones</b><span class="fl"><a id="waFoot" target="_blank" rel="noopener">WhatsApp</a><a href="#paso1">Diseños</a><a href="#precios">Precios</a><a href="#preguntas">Preguntas frecuentes</a></span><small>Boutique digital de alta gama · © 2026</small></footer>
 </div>
 <a class="cta waFloat" id="waFloat" target="_blank" rel="noopener">WhatsApp</a>
 <div id="order" role="dialog" aria-label="Elegí los formatos"><div class="sheet"><div class="oHead"><img id="oImg" alt=""><div><h3 id="oName"></h3><p id="oEv"></p></div></div><div class="gsub" style="text-align:left;margin:0 4px 4px">Marcá los formatos que querés:</div><div id="oItems"></div><div class="oTotal"><span>Total</span><span><s id="oOld"></s><b id="oTot"></b></span></div><div class="oBtns"><a class="cta" id="oSend" target="_blank" rel="noopener">Pedir por WhatsApp</a><button class="cta ghost" type="button" id="oClose">Volver</button></div></div></div>
@@ -325,7 +362,7 @@ function money(n){return '$'+Number(n).toLocaleString('es-AR')}
 function wa(txt){return 'https://wa.me/'+(WHATSAPP||'')+'?text='+encodeURIComponent(txt)}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 $('waFoot').href=$('waFloat').href=wa('¡Hola! Quiero consultar por una invitación digital.');
-var cur=EVENTOS[0];try{var h=decodeURIComponent(location.hash.slice(1));if(EVENTOS.indexOf(h)>=0)cur=h}catch(e){}
+var cur=null;try{var h=decodeURIComponent(location.hash.slice(1));if(EVENTOS.indexOf(h)>=0)cur=h}catch(e){}
 function grp(ev){return GALA.indexOf(ev)>=0?'gala':'normal'}
 function pr(ev,k){return PRECIOS[grp(ev)][k]}
 function priceHTML(a){return (a[0]>a[1]?'<s>'+money(a[0])+'</s>':'')+'<b>'+money(a[1])+'</b>'}
@@ -343,27 +380,27 @@ function card(d){var i=list.push(d)-1;
    '<h3>'+esc(d.n)+'</h3><p>'+esc(d.demo?d.d:'Elegante y lista para compartir')+'</p>'+
    '<div class="ftags"><small>Tocá para verla en cada formato</small><button type="button" data-fmt="jpg" data-i="'+i+'">JPG</button><button type="button" data-fmt="pdf" data-i="'+i+'">PDF</button><button type="button" data-fmt="video" data-i="'+i+'">Video</button><button type="button" data-fmt="web" data-i="'+i+'">Web</button></div>'+
    '<div class="price"><small>desde </small><b>'+money(pr(d.ev,'imagen')[1])+'</b></div>'+
-   '<div class="acts"><button class="cta" type="button" data-want="'+i+'">Quiero este</button></div></article>'}
+   '<div class="acts"><button class="cta" type="button" data-pick="'+i+'">Elegir este</button></div></article>'}
 function showFmt(d,f){var t=tplOf(d);
  if(f==='pdf'){window.open('muestras/d/'+t+'.pdf','_blank','noopener');return}
  if(f==='web'){window.open(d.demo||('muestras/d/'+t+'.html'),'_blank','noopener');return}
  var v=$('vVid'),im=$('vImg');$('vCap').textContent=d.n+(f==='video'?' · video':' · imagen JPG');
  if(f==='video'){im.hidden=true;v.hidden=false;v.src='muestras/d/'+t+'.mp4';v.play().catch(function(){})}
  else{v.pause();v.hidden=true;v.removeAttribute('src');im.hidden=false;im.src=t?'muestras/d/'+t+'.jpg':d.img;im.alt=d.n}
- $('vWant').onclick=function(e){e.preventDefault();closeV();openO(d)};$('vWant').href='#';openV()}
+ $('vWant').onclick=function(e){e.preventDefault();closeV();pickAndGo(d)};$('vWant').href='#';$('vWant').textContent='Elegir este';openV()}
 function cards(ds){ds=ds.slice().sort(function(a,b){return (b.demo?1:0)-(a.demo?1:0)});return '<div class="grid">'+ds.map(card).join('')+'</div>'}
-function grid(){list=[];var ds=DISENOS.filter(function(d){return d.ev===cur});var gs=GRUPOS.filter(function(g){return ds.some(function(d){return d.g===g.k})});
+function grid(){list=[];if(!cur){$('grid').innerHTML='<p class="gsub" style="padding:18px 0 8px">Tocá un evento para ver sus diseños.</p>';return}var ds=DISENOS.filter(function(d){return d.ev===cur});var gs=GRUPOS.filter(function(g){return ds.some(function(d){return d.g===g.k})});
  var h;
  if(gs.length>1){h=gs.map(function(g,ix){var x=ds.filter(function(d){return d.g===g.k});return '<details class="group"><summary><span>'+esc(g.n)+'</span><small>'+x.length+' diseño'+(x.length>1?'s':'')+'</small></summary>'+cards(x)+'</details>'}).join('')}
  else h=cards(ds);
  $('grid').innerHTML=h;
  [].forEach.call($('grid').querySelectorAll('details.group'),function(dt){dt.addEventListener('toggle',function(){if(dt.open)[].forEach.call($('grid').querySelectorAll('details.group'),function(o){if(o!==dt)o.open=false})})});
  [].forEach.call($('grid').querySelectorAll('[data-fmt]'),function(b){b.onclick=function(){showFmt(list[+b.dataset.i],b.dataset.fmt)}});
- [].forEach.call(document.querySelectorAll('[data-want]'),function(b){b.onclick=function(){openO(list[+b.dataset.want])}})}
+ [].forEach.call(document.querySelectorAll('[data-pick]'),function(b){b.onclick=function(){pickAndGo(list[+b.dataset.pick])}})}
 /* tabla de precios y "desde" de los formatos */
 $('ptable').innerHTML='<div class="prow h"><span>Formato</span><span class="v">Bautismo, baby shower, infantiles y cumpleaños</span><span class="v">Bodas y 15 años</span></div>'+FORMATOS.map(function(f){return '<div class="prow"><span class="f">'+esc(f.n)+'<small>'+esc(f.d)+'</small></span><span class="v">'+priceHTML(PRECIOS.normal[f.k])+'</span><span class="v">'+priceHTML(PRECIOS.gala[f.k])+'</span></div>'}).join('');
 [].forEach.call(document.querySelectorAll('[data-from]'),function(e){var k=e.dataset.from,a=Math.min(PRECIOS.normal[k][1],PRECIOS.gala[k][1]);e.innerHTML='desde <b>'+money(a)+'</b>'});
-$('exImg').onclick=function(){$('vCap').textContent='Ejemplo · imagen JPG';$('vImg').src='muestras/d/xv-medianoche.jpg';$('vImg').alt='Ejemplo de imagen';$('vWant').onclick=null;$('vWant').href=wa('¡Hola! Quiero consultar por una invitación digital.');openV()};
+$('exImg').onclick=function(){$('vWant').textContent='Consultar por WhatsApp';$('vCap').textContent='Ejemplo · imagen JPG';$('vImg').src='muestras/d/xv-medianoche.jpg';$('vImg').alt='Ejemplo de imagen';$('vWant').onclick=null;$('vWant').href=wa('¡Hola! Quiero consultar por una invitación digital.');openV()};
 /* hoja de pedido */
 var od=null,osel=[];
 function openO(d){od=d;osel=['imagen'];$('oImg').src=d.img;$('oName').textContent=d.n;$('oEv').textContent=d.ev+(d.demo?' · invitación web animada':'');renderO();$('order').classList.add('on');document.body.classList.add('lock');try{history.pushState({o:1},'')}catch(_){}}
@@ -372,10 +409,24 @@ function renderO(){var t=0,o=0;$('oItems').innerHTML=FORMATOS.map(function(f){va
 $('oItems').addEventListener('change',function(e){var k=e.target.dataset.k;if(!k)return;osel=e.target.checked?osel.concat(k):osel.filter(function(x){return x!==k});renderO()});
 function closeO(fromPop){if(!$('order').classList.contains('on'))return;$('order').classList.remove('on');document.body.classList.remove('lock');if(!fromPop){try{if(history.state&&history.state.o)history.back()}catch(_){}}}
 $('oClose').onclick=function(){closeO()};$('order').addEventListener('click',function(e){if(e.target.id==='order')closeO()});window.addEventListener('popstate',function(){closeO(true)});
-$('tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;cur=b.dataset.ev;try{history.replaceState(null,'','#'+encodeURIComponent(cur))}catch(_){}tabs();grid()});
+$('tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;cur=b.dataset.ev;tabs();grid();$('paso2').hidden=false;setTimeout(function(){$('paso2').scrollIntoView({behavior:'smooth'})},60)});
 function openV(){$('viewer').classList.add('on');document.body.classList.add('lock');try{history.pushState({v:1},'')}catch(_){}}
 function closeV(fromPop){if(!$('viewer').classList.contains('on'))return;var v=$('vVid');v.pause();v.hidden=true;v.removeAttribute('src');$('vImg').hidden=false;$('viewer').classList.remove('on');document.body.classList.remove('lock');if(!fromPop){try{if(history.state&&history.state.v)history.back()}catch(_){}}}
 $('vClose').onclick=$('vX').onclick=function(){closeV()};$('viewer').addEventListener('click',function(e){if(e.target.id==='viewer'||e.target.id==='vImg')closeV()});window.addEventListener('popstate',function(){closeV(true)});document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeV();closeO()}});
+var P=null,psel=[];
+var FDESC={imagen:'Para chats, estados y redes',pdf:'Con botones: Maps, Waze, agendar y confirmar',video:'Animado, para estados y reels',web:'Página completa con cuenta regresiva y confirmación'};
+var FK={imagen:'jpg',pdf:'pdf',video:'video',web:'web'};
+function pick(d){P=d;psel=psel.length?psel:['imagen'];var t=tplOf(d);
+ $('p3eb').textContent='Paso 3 de 4';$('p3t').textContent='¿En qué formato la querés?';$('p3s').textContent='Tocá "Ver" para mirar cada formato de este diseño y marcá los que querés. Podés elegir varios.';
+ $('fmtInfo').hidden=true;var k=$('pick');k.hidden=false;
+ k.innerHTML='<div class="pickHead"><img src="'+d.img+'" alt=""><div><b>'+esc(d.n)+'</b><small>'+esc(d.ev)+'</small></div></div><div class="fmtGrid">'+FORMATOS.map(function(f){var a=pr(d.ev,f.k),on=psel.indexOf(f.k)>=0;
+  return '<div class="fmt'+(on?' on':'')+'" data-k="'+f.k+'"><div class="media"><img loading="lazy" src="img/t-'+t+'.jpg" alt=""><span class="num">'+esc(f.n)+'</span></div><h3>'+esc(f.n)+'</h3><p>'+esc(FDESC[f.k])+'</p><div class="pr2">'+priceHTML(a)+'</div><div class="row"><button class="cta ghost" type="button" data-see="'+f.k+'">Ver</button><button class="cta'+(on?' gold':' ghost')+'" type="button" data-tog="'+f.k+'">'+(on?'✓ Lo quiero':'Lo quiero')+'</button></div></div>'}).join('')+'</div>';
+ [].forEach.call(k.querySelectorAll('[data-see]'),function(b){b.onclick=function(){showFmt(P,FK[b.dataset.see])}});
+ [].forEach.call(k.querySelectorAll('[data-tog]'),function(b){b.onclick=function(){var x=b.dataset.tog;psel=psel.indexOf(x)>=0?psel.filter(function(y){return y!==x}):psel.concat(x);pick(P);}});
+ sum();$('pedido').hidden=false;}
+function pickAndGo(d){pick(d);setTimeout(function(){$('formatos').scrollIntoView({behavior:'smooth'})},60)}
+function sum(){var t=0,o=0;$('sum').innerHTML='<div class="sumRow"><b>'+esc(P.n)+'</b><span style="font:500 13px var(--sans);color:var(--muted)">'+esc(P.ev)+'</span></div>'+FORMATOS.filter(function(f){return psel.indexOf(f.k)>=0}).map(function(f){var a=pr(P.ev,f.k);t+=a[1];o+=Math.max(a[0],a[1]);return '<div class="sumRow"><span>'+esc(f.n)+'</span><span>'+money(a[1])+'</span></div>'}).join('')+(psel.length?'':'<p class="gsub" style="margin:12px 0">Marcá al menos un formato en el paso 3.</p>');
+ $('sTot').textContent=money(t);$('sOld').textContent=o>t?money(o):'';$('sSend').href=want(P,psel);$('sSend').setAttribute('aria-disabled',psel.length?'false':'true');$('sSend').classList.add('gold')}
 tabs();grid();
 
 /* lluvia suave de estrellas doradas y estela al mover el dedo */

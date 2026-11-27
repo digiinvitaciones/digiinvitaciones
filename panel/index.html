@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Panel de Invitaciones</title>
-<meta name="theme-color" content="#0b0f17">
+<meta name="theme-color" content="#08060e">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -14,14 +14,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Fredoka:wght@400;600&family=Parisienne&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0f17;--panel:#121a27;--panel2:#172133;--aqua:#9fe8de;--ink:#f4ecdf;--muted:#b9ab93;
+  --bg:#08060e;--panel:#120e20;--panel2:#191329;--aqua:#9fe8de;--ink:#f4ecdf;--muted:#b9ab93;
   --gold:#e2b676;--gold2:#c98f48;--goldfoil:linear-gradient(100deg,#f7dcae 0%,#e2b676 45%,#c98f48 100%);
   --line:rgba(226,182,118,.35);--field:#fffaf2;--fieldInk:#2a2118;color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;-webkit-text-size-adjust:100%}
-body{min-height:100vh;background:radial-gradient(60% 45% at 15% 10%,rgba(34,110,135,.7),transparent 72%),radial-gradient(50% 45% at 90% 30%,rgba(140,115,190,.45),transparent 72%),radial-gradient(60% 50% at 30% 95%,rgba(40,130,130,.38),transparent 70%),linear-gradient(160deg,#0c1622,#0b0f17 45%,#120f1c);background-attachment:fixed}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:rgba(10,16,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body{min-height:100vh;background:radial-gradient(45% 35% at 20% 12%,rgba(90,60,160,.5),transparent 70%),radial-gradient(40% 35% at 88% 30%,rgba(40,120,150,.25),transparent 72%),radial-gradient(50% 40% at 70% 90%,rgba(140,70,170,.32),transparent 70%),linear-gradient(160deg,#07060d,#0b0814 45%,#120a1e);background-attachment:fixed}
+.brand b,.groupTitle{background:linear-gradient(100deg,#f3d9aa 0%,#9fe8de 22%,#c9b3ff 40%,#f7e3bd 58%,#8fd3ff 76%,#f3d9aa 100%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;animation:holoTxt 9s linear infinite}
+@keyframes holoTxt{to{background-position:300% 0}}
+@media(prefers-reduced-motion:reduce){.brand b,.groupTitle{animation:none}}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:rgba(9,7,16,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .brand{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;letter-spacing:.04em}
 .brand .bd{font:700 20px "Playfair Display",Georgia,serif;letter-spacing:.12em;background:linear-gradient(110deg,#c9a26a,#f3d9aa 45%,#d8b07a);-webkit-background-clip:text;background-clip:text;color:transparent}
 .brand b{font-family:"Great Vibes",cursive;font-weight:400;font-size:28px;color:var(--aqua);padding:0 6px}
@@ -534,7 +537,7 @@ function render(ctx,tpl,d,t=null,opt={}){
   if(window.__WM)drawWM(ctx);
   ctx.restore();
 }
-function drawWM(x){x.save();x.globalAlpha=1;x.textAlign='center';x.textBaseline='middle';x.translate(W/2,H/2);x.rotate(-Math.PI/6);x.font='600 44px Montserrat, Arial, sans-serif';const T='MUESTRA  ·  DIGI INVITACIONES';
+function drawWM(x){if(window.__WM==='soft'){x.save();x.textAlign='center';x.textBaseline='middle';x.translate(W/2,H/2);x.rotate(-Math.PI/6);x.font='600 40px Montserrat, Arial, sans-serif';for(let r=-3;r<=3;r++){const y=r*520;x.lineWidth=2;x.strokeStyle='rgba(0,0,0,.08)';x.strokeText('MUESTRA  ·  DIGI INVITACIONES',0,y);x.fillStyle='rgba(255,255,255,.24)';x.fillText('MUESTRA  ·  DIGI INVITACIONES',0,y)}x.restore();return}x.save();x.globalAlpha=1;x.textAlign='center';x.textBaseline='middle';x.translate(W/2,H/2);x.rotate(-Math.PI/6);x.font='600 44px Montserrat, Arial, sans-serif';const T='MUESTRA  ·  DIGI INVITACIONES';
   for(let r=-11;r<=11;r++)for(let k=-2;k<=2;k++){const y=r*175,xx=k*900+(r%2?450:0);x.lineWidth=3;x.strokeStyle='rgba(0,0,0,.16)';x.strokeText(T,xx,y);x.fillStyle='rgba(255,255,255,.40)';x.fillText(T,xx,y)}x.restore()}
 
 /* destellos dorados para video */
@@ -923,10 +926,10 @@ $('c_pedido').addEventListener('paste',()=>{clearTimeout(armT);armT=setTimeout((
 let msgKind='presupuesto';
 function evTxt(){const t=curTpl();const n=state.data.nombre;const ev=t.ev==='Bodas'?'casamiento':t.ev==='15 años'?'fiesta de 15':t.ev.toLowerCase();return ev+(n?' de '+n:'')}
 function buildMsg(k){const c=state.client,hola='¡Hola'+(c.nombre?' '+c.nombre.split(' ')[0]:'')+'!';const firma='\n\n'+(SET.marca||'');const t=totals();
-  if(k==='presupuesto'){const lines=t.sel.map(p=>'• '+p.n+': '+(p.old>p.now?'~'+money(p.old)+'~ ':'')+'*'+money(p.now)+'*');return hola+' Te paso el presupuesto de la invitación para el '+evTxt()+':\n\n'+(lines.join('\n')||'• (elegí qué compra en el paso 1)')+'\n\nTotal: '+(t.old>t.now?'~'+money(t.old)+'~ ':'')+'*'+money(t.now)+'*\n\nApenas me confirmás, te armo una muestra para que veas cómo queda.'+firma}
+  if(k==='presupuesto'){const lines=t.sel.map(p=>'• '+p.n+': '+(p.old>p.now?'~'+money(p.old)+'~ ':'')+'*'+money(p.now)+'*');return hola+' Te paso el presupuesto de la invitación para el '+evTxt()+':\n\n'+(lines.join('\n')||'• (elegí qué compra en el paso 1)')+'\n\nTotal: '+(t.old>t.now?'~'+money(t.old)+'~ ':'')+'*'+money(t.now)+'*\n\nCuando me confirmes, te armo una muestra para que veas cómo queda y te aviso cuando esté lista.'+firma}
   if(k==='muestra')return hola+' Te mando una muestra de tu invitación para el '+evTxt()+'. Fijate que los datos estén bien (nombres, fecha, hora y dirección).\n\nSi te gusta, te paso los datos para el pago y te envío la invitación final, sin la marca de agua.'+firma;
   if(k==='pago')return hola+' Para confirmar tu invitación, el total es *'+money(t.now)+'*.\n\nPodés transferir a:\nAlias: *'+(SET.cobro||'[cargá tu alias en Precios y datos de cobro]')+'*'+(SET.titular?'\nTitular: '+SET.titular:'')+'\n\nCuando transfieras, mandame el comprobante por acá y te envío todo.'+firma;
-  if(k==='entrega'){const has=id=>c.items.includes(id);const parts=[];if(has('tarjeta')||!c.items.length)parts.push('• La imagen, para mandar por WhatsApp o subir a estados.');if(has('pdf'))parts.push('• El PDF: tocando los botones se abre la ubicación en Google Maps o Waze, se agenda en el calendario y se confirma la asistencia por WhatsApp.');if(has('video'))parts.push('• El video animado, ideal para estados.');if(c.link)parts.push('• Tu página web: '+c.link);else if(has('web')||has('esencial')||has('plus')||has('exclusiva'))parts.push('• Tu página web (te paso el link apenas esté online).');
+  if(k==='entrega'){const has=id=>c.items.includes(id);const parts=[];if(has('tarjeta')||!c.items.length)parts.push('• La imagen, para mandar por WhatsApp o subir a estados.');if(has('pdf'))parts.push('• El PDF: tocando los botones se abre la ubicación en Google Maps o Waze, se agenda en el calendario y se confirma la asistencia por WhatsApp.');if(has('video'))parts.push('• El video animado, ideal para estados.');if(c.link)parts.push('• Tu página web: '+c.link);else if(has('web')||has('esencial')||has('plus')||has('exclusiva'))parts.push('• Tu página web (te paso el link cuando esté online).');
     return hola+' ¡Tu invitación está lista! 🎉\n\nTe envío:\n'+parts.join('\n')+'\n\nPara invitar, reenviá estos archivos a tus contactos. ¡Gracias por elegirnos!'+firma}
   return ''}
 function renderMsg(){$('msgBox').value=buildMsg(msgKind);$('msgTabs').querySelectorAll('.chip').forEach(b=>b.classList.toggle('sel',b.dataset.msg===msgKind));const tel=pPhone(state.client.tel);const a=$('msgOpen');if(tel){a.href='https://wa.me/'+tel+'?text='+encodeURIComponent($('msgBox').value);a.style.opacity='';a.removeAttribute('aria-disabled')}else{a.href='https://wa.me/?text='+encodeURIComponent($('msgBox').value);a.style.opacity='.7'}}
