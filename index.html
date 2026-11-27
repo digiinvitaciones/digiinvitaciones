@@ -82,9 +82,9 @@ footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background
 #fx{position:fixed;inset:0;pointer-events:none;z-index:50}
 .waFloat{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:40}
 /* visor de tarjeta */
-#viewer{position:fixed;inset:0;z-index:60;background:rgba(5,4,3,.9);display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:14px}
-#viewer.on{display:flex}
-#viewer img{max-height:80vh;max-width:100%;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#viewer{position:fixed;inset:0;z-index:300;overscroll-behavior:contain;touch-action:none;background:rgba(5,4,3,.9);display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:14px}
+#viewer.on{display:flex}body.lock{overflow:hidden}body.lock #waFloat{display:none}#vX{position:absolute;top:max(12px,env(safe-area-inset-top));right:12px;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:rgba(11,10,9,.85);color:#f3d19a;font:400 28px/1 var(--serif);cursor:pointer}
+#viewer img{max-height:calc(100vh - 150px);max-height:calc(100dvh - 150px);width:auto;object-fit:contain;max-width:100%;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
 @media(hover:none){.card::before{animation:none}.kind{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(11,10,9,.9)}}
 @media(prefers-reduced-motion:reduce){#holo,.card::before{animation:none}.card{transition:none}}
 </style>
@@ -128,7 +128,7 @@ footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background
   <footer><b>DIGI INVITACIONES</b>Boutique digital de alta gama</footer>
 </div>
 <a class="cta waFloat" id="waFloat" target="_blank" rel="noopener">WhatsApp</a>
-<div id="viewer" role="dialog" aria-label="Vista de la tarjeta"><img id="vImg" alt=""><div class="heroBtns" style="margin:0"><a class="cta" id="vWant" target="_blank" rel="noopener">Quiero este</a><button class="cta ghost" id="vClose" type="button">Cerrar</button></div></div>
+<div id="viewer" role="dialog" aria-label="Vista de la tarjeta"><button id="vX" type="button" aria-label="Cerrar">×</button><img id="vImg" alt=""><div class="heroBtns" style="margin:0"><a class="cta" id="vWant" target="_blank" rel="noopener">Quiero este</a><button class="cta ghost" id="vClose" type="button">Cerrar</button></div></div>
 
 <script>
 /* ===== DATOS DEL CATÁLOGO =====
@@ -143,6 +143,10 @@ var DISENOS=[
  {ev:'Bautismo',tipo:'tarjeta',n:'Paloma rosa',d:'Imagen + PDF + video',img:'img/t-bau-paloma-rosa.jpg'},
  {ev:'Bautismo',tipo:'tarjeta',n:'Cuna celeste',d:'Imagen + PDF + video',img:'img/t-bau-cuna-celeste.jpg'},
  {ev:'Bautismo',tipo:'tarjeta',n:'Cuna rosa',d:'Imagen + PDF + video',img:'img/t-bau-cuna-rosa.jpg'},
+ {ev:'Bautismo',tipo:'tarjeta',n:'Paloma verde',d:'Imagen + PDF + video',img:'img/t-bau-paloma-verde.jpg'},
+ {ev:'Bautismo',tipo:'tarjeta',n:'Paloma lila',d:'Imagen + PDF + video',img:'img/t-bau-paloma-lila.jpg'},
+ {ev:'Bautismo',tipo:'tarjeta',n:'Cuna verde',d:'Imagen + PDF + video',img:'img/t-bau-cuna-verde.jpg'},
+ {ev:'Bautismo',tipo:'tarjeta',n:'Cuna lila',d:'Imagen + PDF + video',img:'img/t-bau-cuna-lila.jpg'},
  {ev:'Bodas',tipo:'web',n:'Satén',d:'Tarjeta que se mueve con el dedo',img:'img/bodas-saten.jpg',demo:'demos/bodas-saten/'},
  {ev:'Bodas',tipo:'tarjeta',n:'Foto completa',d:'Con la foto de los novios',img:'img/t-boda-foto.jpg'},
  {ev:'Bodas',tipo:'tarjeta',n:'Marfil y oro',d:'Arco con la foto de los novios',img:'img/t-boda-marfil.jpg'},
@@ -176,7 +180,9 @@ var DISENOS=[
  {ev:'Primer año',tipo:'tarjeta',n:'Safari',d:'Imagen + PDF + video',img:'img/t-inf-safari.jpg'},
  {ev:'Baby shower',tipo:'web',n:'Baby shower II',d:'Papel recortado con cigüeña',img:'img/baby-shower-ii.jpg',demo:'demos/baby-shower-ii/'},
  {ev:'Baby shower',tipo:'web',n:'Baby shower III',d:'Globo aerostático',img:'img/baby-shower-iii.jpg',demo:'demos/baby-shower-iii/'},
- {ev:'Baby shower',tipo:'web',n:'Baby shower IV',d:'Telón que se abre',img:'img/baby-shower-iv.jpg',demo:'demos/baby-shower-iv/'}
+ {ev:'Baby shower',tipo:'web',n:'Baby shower IV',d:'Telón que se abre',img:'img/baby-shower-iv.jpg',demo:'demos/baby-shower-iv/'},
+ {ev:'Baby shower',tipo:'tarjeta',n:'Arcoíris',d:'Imagen + PDF + video',img:'img/t-baby-arcoiris.jpg'},
+ {ev:'Baby shower',tipo:'tarjeta',n:'Cigüeña',d:'Imagen + PDF + video',img:'img/t-baby-ciguena.jpg'}
 ];
 (function(){
 var $=function(i){return document.getElementById(i)};
@@ -196,9 +202,11 @@ function grid(){var list=DISENOS.filter(function(d){return d.ev===cur});
    '<div class="price">'+(p.antes>p.ahora?'<s>'+money(p.antes)+'</s>':'')+(p.desde?'<small>desde </small>':'')+'<b>'+money(p.ahora)+'</b></div>'+
    '<div class="acts">'+(d.demo?'<a class="cta ghost" href="'+d.demo+'" target="_blank" rel="noopener">Ver demo</a>':'<button class="cta ghost" type="button" data-view="'+i+'">Ver grande</button>')+
    '<a class="cta" href="'+want(d)+'" target="_blank" rel="noopener">Quiero este</a></div></article>'}).join('');
- [].forEach.call(document.querySelectorAll('[data-view]'),function(b){b.onclick=function(){var d=list[+b.dataset.view];$('vImg').src=d.img.replace('.jpg','.jpg');$('vImg').alt='Tarjeta '+d.n;$('vWant').href=want(d);$('viewer').classList.add('on')}})}
+ [].forEach.call(document.querySelectorAll('[data-view]'),function(b){b.onclick=function(){var d=list[+b.dataset.view];$('vImg').src=d.img.replace('.jpg','.jpg');$('vImg').alt='Tarjeta '+d.n;$('vWant').href=want(d);openV()}})}
 $('tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;cur=b.dataset.ev;try{history.replaceState(null,'','#'+encodeURIComponent(cur))}catch(_){}tabs();grid()});
-$('vClose').onclick=function(){$('viewer').classList.remove('on')};$('viewer').addEventListener('click',function(e){if(e.target.id==='viewer')$('viewer').classList.remove('on')});
+function openV(){$('viewer').classList.add('on');document.body.classList.add('lock');try{history.pushState({v:1},'')}catch(_){}}
+function closeV(fromPop){if(!$('viewer').classList.contains('on'))return;$('viewer').classList.remove('on');document.body.classList.remove('lock');if(!fromPop){try{if(history.state&&history.state.v)history.back()}catch(_){}}}
+$('vClose').onclick=$('vX').onclick=function(){closeV()};$('viewer').addEventListener('click',function(e){if(e.target.id==='viewer'||e.target.id==='vImg')closeV()});window.addEventListener('popstate',function(){closeV(true)});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeV()});
 tabs();grid();
 
 /* lluvia suave de estrellas doradas y estela al mover el dedo */
