@@ -255,7 +255,7 @@ html.rvOn .rv.in.fmt,html.rvOn .rv.in.card{transition-delay:var(--rd,0s),var(--r
 #sbar{position:fixed;top:0;left:0;right:0;height:4px;z-index:260;pointer-events:none;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#7fe3d6,#c9a7ff,#f2a7c9,#f3d19a,#c8963e);box-shadow:0 0 10px rgba(201,167,255,.7),0 0 4px rgba(243,209,154,.8)}body.lock #sbar{display:none}
 html,body{overflow-x:hidden}@supports(overflow:clip){html,body{overflow-x:clip}}
 .fwrap{overflow-x:clip;padding-top:4px}
-#waFloat{transition:opacity .25s,transform .25s;display:inline-flex;align-items:center;justify-content:center;gap:8px}@media(max-width:640px){#waFloat{width:58px;height:58px;min-height:0!important;padding:0!important;border-radius:50%!important}#waFloat .wt{display:none}}#waFloat.away{opacity:0;transform:translateY(20px);pointer-events:none}
+#waFloat{transition:opacity .25s,transform .25s;display:inline-flex;align-items:center;justify-content:center;gap:8px}#waFloat{width:58px;height:58px;min-height:0!important;padding:0!important;border-radius:50%!important}#waFloat .wt{display:none}@media(min-width:900px){#waFloat{width:64px;height:64px}#waFloat svg{width:30px;height:30px}}#waFloat.away{opacity:0;transform:translateY(20px);pointer-events:none}
 /* estilo vidrio esmerilado como la tabla de precios */
 .deck .fq{background:linear-gradient(180deg,#15111f,#0f0c18)!important;border:1px solid var(--line)!important;overflow:hidden;padding-top:0!important}
 .deck .fq.back{border-color:rgba(226,182,118,.45)!important;box-shadow:0 10px 24px rgba(0,0,0,.55)}
