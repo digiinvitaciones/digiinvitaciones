@@ -201,7 +201,7 @@ $('waTop').href=wa('¡Hola! Quiero consultar por una invitación digital.');
 $('waFloat').href=wa('¡Hola! Quiero consultar por una invitación digital.');
 var cur=EVENTOS[0];try{var h=decodeURIComponent(location.hash.slice(1));if(EVENTOS.indexOf(h)>=0)cur=h}catch(e){}
 function tabs(){$('tabs').innerHTML=EVENTOS.map(function(e){return '<button class="tab" role="tab" aria-selected="'+(e===cur)+'" data-ev="'+esc(e)+'">'+esc(e)+'</button>'}).join('')}
-function want(d){return wa('¡Hola! Me gusta el diseño "'+d.n+'" de '+d.ev+'. Lo quiero en: (imagen / video / PDF / web). ¿Me pasás el formulario?')}
+function want(d){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);return wa('¡Hola! Me gusta el diseño "'+d.n+'" de '+d.ev+(m?' (código '+m[1]+')':'')+'.\nLo quiero en: (imagen / video / PDF / web)\n¿Me pasás el formulario?')}
 function grid(){var list=DISENOS.filter(function(d){return d.ev===cur});
  $('grid').innerHTML=list.map(function(d,i){var p=PRECIO[d.tipo];
   return '<article class="card"><span class="kind">'+(d.tipo==='web'?'Invitación web':'Tarjeta digital')+'</span>'+

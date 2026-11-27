@@ -74,6 +74,7 @@ input:focus,textarea:focus,select:focus{box-shadow:0 0 0 3px rgba(226,182,118,.3
 .job div{flex:1;min-width:0}
 .job b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .job span{font-size:12px;color:var(--muted)}
+.more{margin-top:10px}.more summary{cursor:pointer;color:#f3d19a;font-size:14px;padding:6px 0}
 .jobCard{border:1px solid rgba(226,182,118,.22);border-radius:14px;overflow:hidden}.jobCard .job{border:0;border-radius:0}.jobCard .job{flex-wrap:wrap}.jobCard .job>div{flex:1 1 150px}.jobCard .job .jbtns{display:flex;gap:6px;flex:1 1 100%;justify-content:flex-end}
 .ficha{padding:4px 14px 14px;font-size:13px;line-height:1.55;display:none}.jobCard.open .ficha{display:block}
 .ficha dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}.ficha dt{color:var(--muted)}.ficha dd{margin:0;overflow-wrap:anywhere}.ficha a{color:#f3d19a}
@@ -136,14 +137,16 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
         <div class="fields two">
           <div><label>Nombre del cliente</label><input id="c_nombre" placeholder="Quién te compra"></div>
           <div><label>WhatsApp del cliente</label><input id="c_tel" inputmode="tel" placeholder="11 5555 5555"></div>
+        </div>
+        <details class="more"><summary>Más datos del cliente (opcional)</summary><div class="fields two" style="margin-top:10px">
           <div><label>Email <small>(opcional)</small></label><input id="c_email" type="email" inputmode="email" placeholder="cliente@mail.com"></div>
           <div><label>DNI o CUIT <small>(opcional)</small></label><input id="c_dni" inputmode="numeric" placeholder="Para factura o comprobante"></div>
           <div><label>Ciudad <small>(opcional)</small></label><input id="c_ciudad" placeholder="Ciudad / provincia"></div>
           <div><label>Cómo te conoció <small>(opcional)</small></label><input id="c_origen" placeholder="Instagram, recomendación…"></div>
         </div>
-        <div class="fields"><div><label>Notas del cliente <small>(gustos, pedidos especiales, seña…)</small></label><textarea id="c_notas" style="min-height:70px" placeholder="Ej.: quiere tonos rosa viejo, pagó seña de $5.000"></textarea></div></div>
+        <div class="fields"><div><label>Notas del cliente <small>(gustos, pedidos especiales, seña…)</small></label><textarea id="c_notas" style="min-height:70px" placeholder="Ej.: quiere tonos rosa viejo, pagó seña de $5.000"></textarea></div></div></details>
         <div class="groupTitle">Pedido por WhatsApp</div>
-        <p class="hint">Mandale al cliente el formulario. Cuando te lo devuelva completo, pegalo acá abajo y los datos se cargan solos en la invitación.</p>
+        <p class="hint">Pegá acá lo que te manda el cliente: el mensaje de "Quiero este" de la página (elige el diseño y los formatos) o el formulario completo (arma la invitación sola).</p>
         <div class="row"><button class="btn small ghost" id="copyForm">Copiar formulario para el cliente</button></div>
         <textarea id="c_pedido" style="margin-top:10px;min-height:120px" placeholder="Evento: Bautismo&#10;Nombre: Mateo&#10;Fecha: 13/03/2027&#10;Hora: 11:00&#10;Lugar: …"></textarea>
         <div class="row" style="margin-top:10px"><button class="btn" id="armar">Cargar datos del pedido</button></div>
@@ -861,21 +864,33 @@ function pDate(v){let m=v.match(/(\d{1,2})\s*[\/.-]\s*(\d{1,2})(?:\s*[\/.-]\s*(\
 function pTime(v){let m=v.match(/(\d{1,2})\s*[:.]\s*(\d{2})/);if(m)return String(+m[1]).padStart(2,'0')+':'+m[2];m=v.match(/(\d{1,2})\s*(hs|h\b|horas)/i);return m?String(+m[1]).padStart(2,'0')+':00':''}
 function pPhone(v){let d=(v||'').replace(/\D/g,'').replace(/^0+/,'');if(d.length===12&&!d.startsWith('54')){for(const i of [2,3,4]){if(d.substr(i,2)==='15'){d=d.slice(0,i)+d.slice(i+2);break}}}if(d.length===10)d='549'+d;if(d.length===12&&d.startsWith('54')&&!d.startsWith('549'))d='549'+d.slice(2);return d}
 function parsePedido(txt){const o={};let last=null;(txt||'').split(/\r?\n/).forEach(l=>{const m=l.match(/^[^A-Za-zÁÉÍÓÚáéíóúÑñ]*([A-Za-zÁÉÍÓÚáéíóúÑñ][^:]{0,60}?)\s*:\s*(.*)$/);if(m){last=nz(m[1]);o[last]=(o[last]?o[last]+'\n':'')+m[2].trim()}else if(last&&l.trim()){o[last]+='\n'+l.trim()}});return o}
-function armarPedido(){
-  const o=parsePedido($('c_pedido').value);const keys=Object.keys(o).filter(k=>o[k]&&o[k].trim());
-  if(!keys.length){$('pedidoRes').innerHTML='<span class="no">No encontré datos. Pegá el mensaje completo, con una línea por dato (por ejemplo "Fecha: 13/03/2027").</span>';return}
+const WEB_TPL={'bautismo i':'bau-paloma-celeste','baby shower ii':'baby-arcoiris','saten':'boda-foto','xv medianoche':'xv-medianoche'};
+const nn=s=>nz(s).replace(/[^a-z0-9ñ ]+/g,' ').replace(/\s+/g,' ').trim();
+function findTpl(txt){const T=nn(txt);if(!T)return null;
+  const code=String(txt).match(/c[oó]digo\s*:?\s*([a-z0-9-]+)/i);if(code){const t=allTpls().find(x=>x.id===code[1].toLowerCase());if(t)return t}
+  for(const k in WEB_TPL){if(T.includes(k)){const t=tplById(WEB_TPL[k]);if(t)return t}}
+  let best=null,bl=0;allTpls().forEach(t=>{const names=[t.name,t.name.replace(/\(.*\)/,'')].map(nn).filter(Boolean);names.forEach(n=>{if(n.length>bl&&T.includes(n)){best=t;bl=n.length}})});return best}
+function formatosDe(txt){const m=String(txt).match(/(lo quiero en|formatos?|quiero)\s*:?\s*([^\n]*)/i);if(!m)return null;const t=nz(m[2]);if(/\(imagen \/ video/.test(t))return null;const ids=[];if(/imagen|jpg|foto|tarjeta/.test(t))ids.push('tarjeta');if(/video/.test(t))ids.push('video');if(/pdf/.test(t))ids.push('pdf');if(/web|pagina/.test(t))ids.push('web');return ids.length?ids:null}
+function armarPedido(auto){
+  const raw=$('c_pedido').value;const o=parsePedido(raw);const keys=Object.keys(o).filter(k=>o[k]&&o[k].trim());
+  const ft=findTpl((o['diseno que te gusto']||'')+'\n'+raw);const fm=formatosDe(raw);if(fm)state.client.items=fm.filter(id=>SET.products.find(p=>p.id===id));
+  const dataKeys=keys.filter(k=>!/(diseno|lo quiero|formato|hola|me gusta)/.test(k));
+  if(ft&&!dataKeys.length){selectTpl(ft.id);buildPicker();fillClient();$('pedidoRes').innerHTML='<div class="ok">Diseño elegido: '+esc(ft.ev+' · '+ft.name)+(fm?'. Formatos: '+esc(fm.map(id=>(SET.products.find(p=>p.id===id)||{n:id}).n).join(', ')):'')+'</div><div class="hint">Cuando el cliente te mande el formulario completo, pegalo acá y se arma solo.</div>';toast('Diseño elegido: '+ft.name);return}
+  if(!dataKeys.length){if(auto)return;$('pedidoRes').innerHTML='<span class="no">No encontré datos. Pegá el mensaje completo, con una línea por dato (por ejemplo "Fecha: 13/03/2027").</span>';return}
   const get=(...ws)=>{const k=keys.find(k=>ws.some(w=>k.includes(w)));return k?o[k].trim():''};
   const ok=[],no=[];
   // evento -> diseño
   const ev=nz(get('evento'));let evMatch=ev?EVENTOS.find(e=>ev.includes(nz(e).replace(' anos',''))||nz(e).includes(ev)):null;
   if(!evMatch&&/(xv|quince|15)/.test(ev))evMatch='15 años';if(!evMatch&&/(casamiento|boda|casam)/.test(ev))evMatch='Bodas';if(!evMatch&&/cumple/.test(ev))evMatch='Cumpleaños';
   let t=curTpl();
-  if(evMatch&&t.ev!==evMatch){const nt=allTpls().find(x=>x.ev===evMatch);if(nt){t=nt;state.tpl=nt.id}else no.push('No tengo tarjetas de '+evMatch+' todavía: elegí un diseño')}
+  if(ft){t=ft;state.tpl=ft.id;evMatch=evMatch||ft.ev;ok.push('Diseño: '+ft.name)}
+  else if(evMatch&&t.ev!==evMatch){const nt=allTpls().find(x=>x.ev===evMatch);if(nt){t=nt;state.tpl=nt.id}else no.push('No tengo tarjetas de '+evMatch+' todavía: elegí un diseño')}
   if(evMatch)ok.push('Evento: '+evMatch);else no.push('Evento');
   const d={...BASE,...t.d,nombre:'',fecha:'',hora:'',lugar:'',direccion:'',lugar2:'',hora2:'',direccion2:'',padres:'',wa:'',limite:'',dress:'',alias:'',letra:state.data.letra||'Great Vibes'};
   const cliente=get('tu nombre','mi nombre','cliente','quien');if(cliente&&!state.client.nombre){state.client.nombre=cliente}
   const nom=keys.find(k=>k.includes('nombre')&&!/(tu nombre|mi nombre|cliente)/.test(k));if(nom){d.nombre=o[nom].trim();ok.push('Nombre: '+d.nombre)}else no.push('Nombre');
   const edad=get('edad','cumple');if(edad){const n=edad.match(/\d+/);if(n)d.numero=(n[0]==='15'&&evMatch==='15 años')?'XV':n[0]}
+  if(edad&&/\d/.test(d.titulo||'')){const n=edad.match(/\d+/);if(n)d.titulo=d.titulo.replace(/\d+/,n[0]==='1'&&/añito/.test(d.titulo)?'1':n[0]);if(n&&n[0]==='1')d.titulo=d.titulo.replace(/Mis 1 años/,'Mi primer añito')}
   const fk=keys.find(k=>k.includes('fecha')&&!k.includes('confirm')&&!k.includes('antes'));const f=fk?pDate(o[fk]):'';if(f){d.fecha=f;ok.push('Fecha')}else no.push('Fecha');
   const hk=keys.find(k=>k.startsWith('hora')||k==='horario');const h=hk?pTime(o[hk]):'';if(h){d.hora=h;ok.push('Hora')}else no.push('Hora');
   const fiesta=get('despues','fiesta','festejamos');
@@ -891,9 +906,12 @@ function armarPedido(){
   state.data=d;state.touched=true;
   buildPicker();fillForm();fillClient();updatePhotoUI();redraw();
   $('pedidoRes').innerHTML='<div class="ok">Cargado: '+ok.map(esc).join(', ')+'</div>'+(no.length?'<div class="no">Falta o revisá: '+no.map(esc).join(', ')+'</div>':'');
-  toast('Datos cargados. Revisalos en el paso 3.');
+  toast('¡Invitación armada! Mirá la vista previa.');
+  if(auto&&innerWidth<900)setTimeout(()=>scrollTo({top:0,behavior:'smooth'}),400)
 }
-$('armar').onclick=armarPedido;
+$('armar').onclick=()=>armarPedido(false);
+let armT=null;$('c_pedido').addEventListener('input',()=>{clearTimeout(armT);armT=setTimeout(()=>{const v=$('c_pedido').value;if(v===FORM_TXT||!/\S/.test(v))return;armarPedido(true)},700)});
+$('c_pedido').addEventListener('paste',()=>{clearTimeout(armT);armT=setTimeout(()=>armarPedido(true),150)});
 
 /* mensajes de WhatsApp */
 let msgKind='presupuesto';
