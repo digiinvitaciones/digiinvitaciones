@@ -194,6 +194,18 @@ footer .fl{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margi
 .card,.fmt,.ptable,.fbox,details.group{background-color:rgba(12,9,22,.55)}
 
 .pickHead{display:flex;gap:14px;align-items:center;justify-content:center;margin:0 auto 18px;max-width:620px}.pickHead img{width:70px;aspect-ratio:9/16;object-fit:cover;border-radius:10px}.pickHead b{font:700 22px var(--play);display:block}.pickHead small{color:var(--muted)}
+@media(max-width:640px){
+.fmtGrid,.fmtGrid{grid-template-columns:minmax(0,1fr)!important;gap:10px}
+.fmt{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:14px;align-items:center;text-align:left;padding:10px 12px 10px 10px}
+.fmt>*{grid-column:2}
+.fmt .media{grid-column:1;grid-row:1/span 6;align-self:center;width:72px;border-radius:10px}
+.fmt .num{display:none}
+.fmt h3{font-size:18px;margin:2px 0 2px}
+.fmt p{margin:0 0 4px;font-size:12px;line-height:1.35}
+.fmt .from,.fmt .pr2{margin-bottom:6px}.fmt .from b,.fmt .pr2 b{font-size:17px}
+.fmt .cta{min-height:36px!important;height:auto;padding:7px 10px!important;font-size:11px!important;line-height:1.1}.fmt .row .cta{white-space:nowrap}
+#formatos .fmt p{display:none}
+}
 .fmt.on{box-shadow:0 0 0 2px #e2b676,0 0 22px rgba(226,182,118,.45)}
 .fmt .tog{margin-top:8px}.fmt .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .fmt .pr2{font-size:12px;color:var(--muted);margin-bottom:8px}.fmt .pr2 s{margin-right:6px}.fmt .pr2 b{font:600 20px var(--serif);color:#f3d19a}
@@ -234,6 +246,12 @@ nav.top .mk i{background:linear-gradient(100deg,#d9b3f5,#a9c8ff);-webkit-backgro
 .deck .fq.back{border-color:rgba(200,170,255,.55)!important;box-shadow:0 10px 24px rgba(0,0,0,.55),0 0 0 1px rgba(120,230,220,.35)}
 .deck .fq{position:absolute;left:50%;top:0;width:min(86%,440px);flex:none;background:linear-gradient(180deg,#221b33,#17131f)!important;box-shadow:0 14px 30px rgba(0,0,0,.45);touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab;transform-origin:50% 100%}
 .deck .fq:active{cursor:grabbing}
+
+/* aparición suave al hacer scroll */
+html.rvOn .rv{opacity:0;transform:translateY(26px) scale(.985);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--rd,0s)}
+html.rvOn .rv.in{opacity:1;transform:none}
+html.rvOn .rv.in.fmt,html.rvOn .rv.in.card{transition-delay:var(--rd,0s),var(--rd,0s),0s}
+@media(prefers-reduced-motion:reduce){html.rvOn .rv{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
@@ -276,7 +294,7 @@ nav.top .mk i{background:linear-gradient(100deg,#d9b3f5,#a9c8ff);-webkit-backgro
     <div id="pick" hidden></div>
     <div id="fmtInfo"><div class="fmtGrid">
       <div class="fmt"><div class="media"><span class="num">1 · Imagen</span><img loading="lazy" src="img/t-xv-medianoche.jpg" alt="Ejemplo de invitación en imagen"></div><h3>Imagen JPG</h3><p>Lista para estados, chats y redes. Se ve nítida en cualquier celular.</p><div class="from" data-from="imagen"></div><button class="cta ghost" type="button" id="exImg">Ver ejemplo</button></div>
-      <div class="fmt"><div class="media top"><span class="num">2 · PDF</span><img loading="lazy" src="muestras/f/xv-pdf.jpg" alt="Ejemplo de invitación en PDF con botones"></div><h3>PDF interactivo</h3><p>Con botones que se tocan: Google Maps, Waze, agendar y confirmar por WhatsApp.</p><div class="from" data-from="pdf"></div><a class="cta ghost" href="muestras/d/xv-medianoche.pdf" target="_blank" rel="noopener">Ver ejemplo</a></div>
+      <div class="fmt"><div class="media top"><span class="num">2 · PDF</span><img loading="lazy" src="muestras/f/xv-pdf.jpg" alt="Ejemplo de invitación en PDF con botones"></div><h3>PDF interactivo</h3><p>Con botones que se tocan: Google Maps, Waze, agendar y confirmar por WhatsApp.</p><div class="from" data-from="pdf"></div><button class="cta ghost" type="button" id="exPdf">Ver ejemplo</button></div>
       <div class="fmt"><div class="media"><span class="num">3 · Video</span><video muted loop playsinline autoplay preload="none" poster="muestras/f/xv-poster.jpg" src="muestras/f/xv.mp4"></video></div><h3>Video animado</h3><p>Brillos y movimiento suave, ideal para estados y reels.</p><div class="from" data-from="video"></div><a class="cta ghost" href="muestras/d/xv-medianoche.mp4" target="_blank" rel="noopener">Ver ejemplo</a></div>
       <div class="fmt"><div class="media"><span class="num">4 · Web</span><img loading="lazy" src="img/xv-medianoche.jpg" alt="Ejemplo de invitación web"></div><h3>Invitación web</h3><p>Página completa: apertura animada, cuenta regresiva, ubicación, regalos y confirmación.</p><div class="from" data-from="web"></div><a class="cta ghost" href="demos/xv-medianoche/" target="_blank" rel="noopener">Ver ejemplo</a></div>
     </div></div>
@@ -409,11 +427,10 @@ function card(d){var i=list.push(d)-1;
    '<div class="price"><small>desde </small><b>'+money(pr(d.ev,'imagen')[1])+'</b></div>'+
    '<div class="acts"><button class="cta" type="button" data-pick="'+i+'">Elegir este</button></div></article>'}
 function showFmt(d,f){var t=tplOf(d);
- if(f==='pdf'){window.open('muestras/d/'+t+'.pdf','_blank','noopener');return}
  if(f==='web'){window.open(d.demo||('muestras/d/'+t+'.html'),'_blank','noopener');return}
- var v=$('vVid'),im=$('vImg');$('vCap').textContent=d.n+(f==='video'?' · video':' · imagen JPG');
+ var v=$('vVid'),im=$('vImg');$('vCap').textContent=d.n+(f==='video'?' · video':f==='pdf'?' · PDF interactivo':' · imagen JPG');
  if(f==='video'){im.hidden=true;v.hidden=false;v.src='muestras/d/'+t+'.mp4';v.play().catch(function(){})}
- else{v.pause();v.hidden=true;v.removeAttribute('src');im.hidden=false;im.src=t?'muestras/d/'+t+'.jpg':d.img;im.alt=d.n}
+ else{v.pause();v.hidden=true;v.removeAttribute('src');im.hidden=false;im.src=t?'muestras/d/'+t+(f==='pdf'?'-pdf':'')+'.jpg':d.img;im.alt=d.n}
  $('vWant').onclick=function(e){e.preventDefault();closeV();pickAndGo(d)};$('vWant').href='#';$('vWant').textContent='Elegir este';openV()}
 function cards(ds){ds=ds.slice().sort(function(a,b){return (b.demo?1:0)-(a.demo?1:0)});return '<div class="grid">'+ds.map(card).join('')+'</div>'}
 function grid(){list=[];if(!cur){$('grid').innerHTML='<p class="gsub" style="padding:18px 0 8px">Tocá un evento para ver sus diseños.</p>';return}var ds=DISENOS.filter(function(d){return d.ev===cur});var gs=GRUPOS.filter(function(g){return ds.some(function(d){return d.g===g.k})});
@@ -427,6 +444,7 @@ function grid(){list=[];if(!cur){$('grid').innerHTML='<p class="gsub" style="pad
 /* tabla de precios y "desde" de los formatos */
 $('ptable').innerHTML='<div class="prow h"><span>Formato</span><span class="v">Bautismo, baby shower, infantiles y cumpleaños</span><span class="v">Bodas y 15 años</span></div>'+FORMATOS.map(function(f){return '<div class="prow"><span class="f">'+esc(f.n)+'<small>'+esc(f.d)+'</small></span><span class="v">'+priceHTML(PRECIOS.normal[f.k])+'</span><span class="v">'+priceHTML(PRECIOS.gala[f.k])+'</span></div>'}).join('');
 [].forEach.call(document.querySelectorAll('[data-from]'),function(e){var k=e.dataset.from,a=Math.min(PRECIOS.normal[k][1],PRECIOS.gala[k][1]);e.innerHTML='desde <b>'+money(a)+'</b>'});
+$('exPdf').onclick=function(){$('vWant').textContent='Consultar por WhatsApp';$('vCap').textContent='Ejemplo · PDF interactivo';$('vImg').src='muestras/d/xv-medianoche-pdf.jpg';$('vImg').alt='Ejemplo de PDF';$('vWant').onclick=null;$('vWant').href=wa('¡Hola! Quiero consultar por una invitación digital.');openV()};
 $('exImg').onclick=function(){$('vWant').textContent='Consultar por WhatsApp';$('vCap').textContent='Ejemplo · imagen JPG';$('vImg').src='muestras/d/xv-medianoche.jpg';$('vImg').alt='Ejemplo de imagen';$('vWant').onclick=null;$('vWant').href=wa('¡Hola! Quiero consultar por una invitación digital.');openV()};
 /* hoja de pedido */
 var od=null,osel=[];
@@ -480,6 +498,19 @@ var lt=0;addEventListener('pointermove',function(e){var t=Date.now();if(t-lt<40)
 addEventListener('pointerdown',function(e){for(var k=0;k<8;k++){var a=Math.random()*6.28;T.push({x:e.clientX,y:e.clientY,vx:Math.cos(a)*2,vy:Math.sin(a)*2,l:1})}},{passive:true});
 (function f(ts){x.clearRect(0,0,innerWidth,innerHeight);R.forEach(function(s){s.y+=s.v;if(s.y>innerHeight+6){s.y=-6;s.x=Math.random()*innerWidth}x.globalAlpha=.35+.3*Math.sin(ts/900+s.p);x.fillStyle=s.w?'#ffffff':'#f3d19a';star(s.x,s.y,s.r*2)});
  T=T.filter(function(t){t.x+=t.vx;t.y+=t.vy;t.l-=.03;if(t.l>0){x.globalAlpha=t.l;x.fillStyle='#e2b676';star(t.x,t.y,3)}return t.l>0});if(T.length>60)T.splice(0,T.length-60);x.globalAlpha=1;requestAnimationFrame(f)})(0);
+})();
+</script>
+<script>
+(function(){if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+document.documentElement.classList.add('rvOn');
+var SEL='section .eyebrow,section h2,section .sub,section .gsub,.tabs,.tab,.card,.fmt,.pickHead,.fwrap,.ptable,.fbox,details.group,footer>*';
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+function scan(){var sib={};[].forEach.call(document.querySelectorAll(SEL),function(el){if(el.classList.contains('rv')||el.closest('#viewer,#order,#pick,#pedido')||el.parentNode.closest('.rv'))return;el.classList.add('rv');
+ var p=el.parentNode,i=[].indexOf.call(p.children,el);if(/card|fmt|tab/.test(el.className))el.style.setProperty('--rd',Math.min(i%4,3)*.09+'s');
+ var r=el.getBoundingClientRect();if(r.top<innerHeight*.92&&r.bottom>0){requestAnimationFrame(function(){el.classList.add('in')})}else io.observe(el)})}
+var t;new MutationObserver(function(){clearTimeout(t);t=setTimeout(scan,30)}).observe(document.body,{childList:true,subtree:true});
+if(document.readyState!=='loading')scan();else document.addEventListener('DOMContentLoaded',scan);
+setTimeout(function(){[].forEach.call(document.querySelectorAll('.rv'),function(el){var r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)el.classList.add('in')})},2500);
 })();
 </script>
 </body>
