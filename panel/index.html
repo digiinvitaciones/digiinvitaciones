@@ -341,9 +341,9 @@ const D_CUMPLE={kicker:'Te invito a mi',titulo:'Cumpleaños',nombre:'Lucas',nume
 const TEMPLATES=[
  {id:'bau-paloma-celeste',ev:'Bautismo',name:'Paloma · celeste',img:'paloma-celeste',zone:[.575,.965],maxW:.84,ink:'#1d3b57',soft:'#335a78',gold:GOLD_DEEP,glow:'rgba(255,255,255,.55)',page:'#e3f0f8',d:{...D_BAU,nombre:'Mateo'}},
  {id:'bau-paloma-rosa',ev:'Bautismo',name:'Paloma · rosa',img:'paloma-rosa',zone:[.575,.965],maxW:.84,ink:'#5a2430',soft:'#7a3a45',gold:GOLD_DEEP,glow:'rgba(255,255,255,.55)',page:'#fbe9e8',d:{...D_BAU,nombre:'Valentina',alias:'vale.bautismo'}},
- {id:'bau-cuna-celeste',ev:'Bautismo',name:'Cuna · celeste',img:'cuna-celeste',zone:[.045,.53],maxW:.64,ink:'#1d3b57',soft:'#335a78',gold:GOLD_DEEP,glow:'rgba(255,255,255,.6)',page:'#e3f0f8',d:{...D_BAU,nombre:'Mateo'}},
- {id:'bau-cuna-rosa',ev:'Bautismo',name:'Cuna · rosa',img:'cuna-rosa',zone:[.045,.53],maxW:.64,ink:'#5a2430',soft:'#7a3a45',gold:GOLD_DEEP,glow:'rgba(255,255,255,.6)',page:'#fbe9e8',d:{...D_BAU,nombre:'Valentina',alias:'vale.bautismo'}},
- {id:'boda-foto',ev:'Bodas',name:'Foto completa',kind:'fotoFull',photo:'boda3',zone:[.54,.955],maxW:.84,ink:'#f7efe2',soft:'#e9dcc6',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.55)',page:'#14110d',dark:true,d:{...D_BODA}},
+ {id:'bau-cuna-celeste',ev:'Bautismo',name:'Cuna · celeste',img:'cuna-celeste',zone:[.045,.485],maxW:.64,ink:'#1d3b57',soft:'#335a78',gold:GOLD_DEEP,glow:'rgba(255,255,255,.6)',page:'#e3f0f8',d:{...D_BAU,nombre:'Mateo'}},
+ {id:'bau-cuna-rosa',ev:'Bautismo',name:'Cuna · rosa',img:'cuna-rosa',zone:[.045,.485],maxW:.64,ink:'#5a2430',soft:'#7a3a45',gold:GOLD_DEEP,glow:'rgba(255,255,255,.6)',page:'#fbe9e8',d:{...D_BAU,nombre:'Valentina',alias:'vale.bautismo'}},
+ {id:'boda-foto',ev:'Bodas',name:'Foto completa',kind:'fotoFull',photo:'boda3',zone:[.56,.955],maxW:.84,ink:'#f7efe2',soft:'#e9dcc6',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.55)',page:'#14110d',dark:true,d:{...D_BODA}},
  {id:'boda-marfil',ev:'Bodas',name:'Marfil y oro',kind:'marfil',photo:'boda1',zone:[.505,.94],maxW:.78,ink:'#3b2f24',soft:'#6b5845',gold:GOLD_DEEP,glow:'rgba(255,255,255,.0)',page:'#f5efe4',d:{...D_BODA}},
  {id:'boda-anillos',ev:'Bodas',name:'Anillos · noche',kind:'fotoTop',photo:'boda2',zone:[.47,.95],maxW:.82,ink:'#f4ecdf',soft:'#d8cbb4',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.4)',page:'#101826',dark:true,bgA:'#16233a',bgB:'#0a111d',d:{...D_BODA,nombre:'Camila & Tomás'}},
  {id:'xv-medianoche',ev:'15 años',name:'Medianoche',kind:'gala',bgA:'#1c2c5e',bgB:'#060b1e',zone:[.12,.93],maxW:.8,ink:'#f4ecdf',soft:'#c9bfae',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.4)',page:'#0a1128',dark:true,d:{...D_XV}},
@@ -374,7 +374,7 @@ function buildItems(ctx,tpl,d,opt){
   const glow=()=>shadow(tpl.glow,tpl.dark?10:14);
   if(d.kicker){items.push({h:62,gap:8,draw(y,s){const sz=fitSize(ctx,d.kicker.toUpperCase(),'600',28*s,SANS,maxW,10*s);ctx.fillStyle=soft;glow();drawSpaced(ctx,d.kicker.toUpperCase(),cx,y+40*s,10*s*sz/(28*s));noShadow()}})}
   if(d.titulo){items.push({h:112,draw(y,s){const sz=fitSize(ctx,d.titulo,'italic 500',96*s,SERIF,maxW);ctx.fillStyle=ink;glow();ctx.fillText(d.titulo,cx,y+82*s);noShadow()}})}
-  if(d.nombre){items.push({h:200,name:true,draw(y,s,t){
+  if(d.nombre){items.push({h:250,name:true,draw(y,s,t){
     const fam=`"${d.letra||'Great Vibes'}", cursive`;
     const sz=fitSize(ctx,d.nombre,'400',190*s,fam,maxW*.98);
     const by=y+150*s+(190*s-sz)*.35;
@@ -430,7 +430,7 @@ function drawBackground(ctx,tpl,d,t){
   let zone=tpl.zone.slice();
   if(tpl.custom){ctx.fillStyle=tpl.page;ctx.fillRect(0,0,W,H);if(tpl._img)cover(ctx,tpl._img,0,0,W,H,zoom)}
   else if(tpl.img){ctx.fillStyle=tpl.page;ctx.fillRect(0,0,W,H);if(IMGS[tpl.img])cover(ctx,IMGS[tpl.img],0,0,W,H,zoom,tpl.zone[0]<.3?1:0)}
-  else if(tpl.kind==='fotoFull'){const p=photoFor(tpl);ctx.fillStyle='#14110d';ctx.fillRect(0,0,W,H);if(p)cover(ctx,p,0,0,W,H,zoom,.3);const g=ctx.createLinearGradient(0,H*.3,0,H);g.addColorStop(0,'rgba(14,11,8,0)');g.addColorStop(.35,'rgba(14,11,8,.72)');g.addColorStop(1,'rgba(10,8,6,.94)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);frame(ctx,tpl,36)}
+  else if(tpl.kind==='fotoFull'){const p=photoFor(tpl);ctx.fillStyle='#14110d';ctx.fillRect(0,0,W,H);if(p)cover(ctx,p,0,0,W,H,zoom,.3);const g=ctx.createLinearGradient(0,H*.3,0,H);g.addColorStop(0,'rgba(14,11,8,0)');g.addColorStop(.32,'rgba(14,11,8,.82)');g.addColorStop(.6,'rgba(10,8,6,.93)');g.addColorStop(1,'rgba(10,8,6,.97)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);frame(ctx,tpl,36)}
   else if(tpl.kind==='fotoTop'){const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,tpl.bgA);g.addColorStop(1,tpl.bgB);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);const p=photoFor(tpl);const ph=H*.46;if(p){ctx.save();ctx.beginPath();ctx.rect(0,0,W,ph);ctx.clip();cover(ctx,p,0,0,W,ph,zoom,.5);ctx.restore();const f=ctx.createLinearGradient(0,ph*.55,0,ph);f.addColorStop(0,'rgba(0,0,0,0)');f.addColorStop(1,tpl.bgA);ctx.fillStyle=f;ctx.fillRect(0,0,W,ph+2)}frame(ctx,tpl,36)}
   else if(tpl.kind==='marfil'){ctx.fillStyle='#f6f0e5';ctx.fillRect(0,0,W,H);ctx.fillStyle=ctx.createPattern(paper(),'repeat');ctx.fillRect(0,0,W,H);
     const p=photoFor(tpl);const ax=200,aw=W-400,ay=150,ah=H*.47-150;
@@ -442,11 +442,14 @@ function drawBackground(ctx,tpl,d,t){
     const g=ctx.createRadialGradient(W/2,H*.38,60,W/2,H*.5,H*.75);g.addColorStop(0,tpl.bgA);g.addColorStop(1,tpl.bgB);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
     if(tpl.light){ctx.fillStyle=ctx.createPattern(paper(),'repeat');ctx.fillRect(0,0,W,H)}
     if(!tpl.light){const r=rand(11);for(let i=0;i<140;i++){const x=r()*W,y=r()*H,z=r();ctx.fillStyle=`rgba(243,209,154,${.15+z*.5})`;ctx.beginPath();ctx.arc(x,y,.8+z*2.2,0,7);ctx.fill()}}
-    if(d.numero){ctx.save();ctx.globalAlpha=tpl.light?.1:.09;setFont(ctx,'600',Math.min(760,5200/Math.max(2,d.numero.length)),SERIF);ctx.textAlign='center';ctx.fillStyle=goldGrad(ctx,0,W,H/2,tpl.gold);ctx.fillText(d.numero,W/2,H*.62);ctx.restore()}
     if(tpl.deco)decoCorners(ctx,tpl);
     frame(ctx,tpl,40);
     const p=state.foto;
     if(p){const r=210,cx=W/2,cy=330;ctx.save();ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.clip();cover(ctx,p,cx-r,cy-r,2*r,2*r,zoom,.35);ctx.restore();ctx.strokeStyle=goldGrad(ctx,cx-r,cx+r,cy,tpl.gold);ctx.lineWidth=5;ctx.beginPath();ctx.arc(cx,cy,r+6,0,7);ctx.stroke();ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(cx,cy,r+22,0,7);ctx.stroke();zone=[.31,.95]}
+    else if(d.numero){const cx=W/2,cy=300,r=118;const gg=goldGrad(ctx,cx-r,cx+r,cy,tpl.gold);ctx.strokeStyle=gg;ctx.lineWidth=3;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.stroke();ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(cx,cy,r+14,0,7);ctx.stroke();
+      ctx.save();ctx.textAlign='center';const sz=d.numero.length>2?92:118;setFont(ctx,'600',sz,SERIF);ctx.fillStyle=gg;ctx.shadowColor=tpl.dark?'rgba(0,0,0,.5)':'rgba(70,40,5,.25)';ctx.shadowBlur=tpl.dark?8:3;ctx.fillText(d.numero,cx,cy+sz*.33);ctx.restore();
+      ctx.fillStyle=gg;[-1,1].forEach(k=>{ctx.beginPath();const y0=cy+k*(r+14);ctx.moveTo(cx,y0-9);ctx.lineTo(cx+9,y0);ctx.lineTo(cx,y0+9);ctx.lineTo(cx-9,y0);ctx.closePath();ctx.fill()});
+      zone=[.26,.94]}
   }
   return zone;
 }
