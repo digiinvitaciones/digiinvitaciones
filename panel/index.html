@@ -74,6 +74,10 @@ input:focus,textarea:focus,select:focus{box-shadow:0 0 0 3px rgba(226,182,118,.3
 .job div{flex:1;min-width:0}
 .job b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .job span{font-size:12px;color:var(--muted)}
+.jobCard{border:1px solid rgba(226,182,118,.22);border-radius:14px;overflow:hidden}.jobCard .job{border:0;border-radius:0}.jobCard .job{flex-wrap:wrap}.jobCard .job>div{flex:1 1 150px}.jobCard .job .jbtns{display:flex;gap:6px;flex:1 1 100%;justify-content:flex-end}
+.ficha{padding:4px 14px 14px;font-size:13px;line-height:1.55;display:none}.jobCard.open .ficha{display:block}
+.ficha dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}.ficha dt{color:var(--muted)}.ficha dd{margin:0;overflow-wrap:anywhere}.ficha a{color:#f3d19a}
+.ficha .tot{font-weight:600;color:#f3d19a}
 .photoPrev{display:flex;align-items:center;gap:10px}
 .photoPrev img{width:54px;height:54px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#201b13;border:1px solid var(--gold);color:var(--ink);padding:12px 16px;border-radius:14px;z-index:50;font-size:14px;max-width:92vw;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.3s}
@@ -132,7 +136,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
         <div class="fields two">
           <div><label>Nombre del cliente</label><input id="c_nombre" placeholder="Quién te compra"></div>
           <div><label>WhatsApp del cliente</label><input id="c_tel" inputmode="tel" placeholder="11 5555 5555"></div>
+          <div><label>Email <small>(opcional)</small></label><input id="c_email" type="email" inputmode="email" placeholder="cliente@mail.com"></div>
+          <div><label>DNI o CUIT <small>(opcional)</small></label><input id="c_dni" inputmode="numeric" placeholder="Para factura o comprobante"></div>
+          <div><label>Ciudad <small>(opcional)</small></label><input id="c_ciudad" placeholder="Ciudad / provincia"></div>
+          <div><label>Cómo te conoció <small>(opcional)</small></label><input id="c_origen" placeholder="Instagram, recomendación…"></div>
         </div>
+        <div class="fields"><div><label>Notas del cliente <small>(gustos, pedidos especiales, seña…)</small></label><textarea id="c_notas" style="min-height:70px" placeholder="Ej.: quiere tonos rosa viejo, pagó seña de $5.000"></textarea></div></div>
         <div class="groupTitle">Pedido por WhatsApp</div>
         <p class="hint">Mandale al cliente el formulario. Cuando te lo devuelva completo, pegalo acá abajo y los datos se cargan solos en la invitación.</p>
         <div class="row"><button class="btn small ghost" id="copyForm">Copiar formulario para el cliente</button></div>
@@ -214,7 +223,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
           <button class="btn" id="exWeb">Página web<small>archivo listo para subir</small></button>
         </div>
         <p class="hint" style="margin-top:14px">El PDF y la página web traen los botones <b>Google Maps</b>, <b>Waze</b>, <b>Agendar en mi calendario</b> y <b>Confirmar por WhatsApp</b>.</p>
-        <div class="fields"><div><label>Link de la página web <small>(cuando la subas, para el mensaje de entrega)</small></label><input id="c_link" placeholder="https://…"></div></div>
+        <div class="fields"><div><label>Link de la página web <small>(cuando la subas, para el mensaje de entrega)</small></label><input id="c_link" placeholder="https://…"></div>
+          <div><label>Otros links entregados <small>(Drive, video, PDF… uno por renglón)</small></label><textarea id="c_links" style="min-height:64px" placeholder="https://…"></textarea></div></div>
 
         <div class="groupTitle">Mensajes listos para WhatsApp</div>
         <div class="chips" id="msgTabs">
@@ -245,7 +255,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
           <button class="chip" data-f="pagado">Pagados</button>
           <button class="chip" data-f="entregado">Entregados</button>
         </div>
+        <input id="jobSearch" type="search" placeholder="Buscar por nombre, teléfono o festejado" style="margin-top:12px">
         <div class="jobs" id="jobs" style="margin-top:12px"></div>
+        <div class="groupTitle">Respaldo de tus clientes</div>
+        <p class="hint">Tus clientes quedan guardados solo en este equipo. Descargá un respaldo cada tanto (y antes de cambiar de celu). Para tenerlos en el celu y en la compu, descargá el respaldo en uno y cargalo en el otro: se suman sin borrar nada.</p>
+        <div class="row"><button class="btn small" id="bkSave">Descargar respaldo</button><label class="btn small ghost" for="bkFile" style="cursor:pointer;text-transform:none;letter-spacing:normal">Cargar respaldo</label><input id="bkFile" type="file" accept=".json,application/json" hidden><button class="btn small ghost" id="bkCsv">Planilla para Excel</button></div>
       </div>
     </details>
 
@@ -745,19 +759,47 @@ trail=trail.filter(function(t){t.x+=t.vx;t.y+=t.vy;t.l-=.025;if(t.l>0)star(t.x*d
 async function saveJob(silent){
   const id=state.jobId||('j'+Date.now());state.jobId=id;
   const thumb=document.createElement('canvas');thumb.width=135;thumb.height=240;const x=thumb.getContext('2d');x.setTransform(135/W,0,0,240/H,0,0);render(x,curTpl(),state.data);
-  try{await DB.put('trabajos',{id,tpl:state.tpl,data:{...state.data},client:{...state.client},foto:state.fotoBlob||null,thumb:thumb.toDataURL('image/jpeg',.7),at:Date.now()});if(!silent)toast('Cliente guardado en este equipo.');listJobs()}catch(e){toast('No se pudo guardar: '+e.message)}
+  const prev=(await DB.all('trabajos')).find(j=>j.id===id);const T=totals();const compra={items:T.sel.map(p=>({id:p.id,n:p.n,precio:+p.now||0})),total:T.now};
+  try{await DB.put('trabajos',{id,tpl:state.tpl,data:{...state.data},client:{...state.client},compra,foto:state.fotoBlob||null,thumb:thumb.toDataURL('image/jpeg',.7),creado:(prev&&prev.creado)||Date.now(),at:Date.now()});if(!silent)toast('Cliente guardado en este equipo.');listJobs()}catch(e){toast('No se pudo guardar: '+e.message)}
 }
 let jobFilter='activos';
 async function listJobs(){
   const all=(await DB.all('trabajos')).sort((a,b)=>b.at-a.at);const box=$('jobs');box.innerHTML='';
-  const jobs=all.filter(j=>{const e=(j.client&&j.client.estado)||'pedido';return jobFilter==='activos'?e!=='entregado':e===jobFilter});
+  const q=($('jobSearch').value||'').toLowerCase().trim();
+  const jobs=all.filter(j=>{const e=(j.client&&j.client.estado)||'pedido';if(q){const c=j.client||{};return [c.nombre,c.tel,c.email,j.data&&j.data.nombre].join(' ').toLowerCase().includes(q)}return jobFilter==='activos'?e!=='entregado':e===jobFilter});
   if(!jobs.length){box.innerHTML='<p class="hint">'+(all.length?'No hay clientes en esta lista.':'Todavía no guardaste clientes. Usá "Guardar cliente" en el paso 4.')+'</p>';return}
-  jobs.forEach(j=>{const t=tplById(j.tpl)||customTpls.find(x=>x.id===j.tpl);const c=j.client||{};const e=c.estado||'pedido';const el=document.createElement('div');el.className='job';
+  jobs.forEach(j=>{const t=tplById(j.tpl)||customTpls.find(x=>x.id===j.tpl);const c=j.client||{};const e=c.estado||'pedido';const card=document.createElement('div');card.className='jobCard';const el=document.createElement('div');el.className='job';
     el.innerHTML=`<img src="${j.thumb}" alt="" style="width:40px;height:72px;border-radius:6px;object-fit:cover"><div><b>${esc(c.nombre||j.data.nombre||'Sin nombre')}</b><span>${esc(j.data.nombre||'')}${t?' · '+esc(t.ev):''}${j.data.fecha?' · '+esc(fmtCorta(j.data.fecha)):''}</span></div><span class="estado ${e}">${e}</span>`;
     const o=document.createElement('button');o.className='btn small';o.textContent='Abrir';o.onclick=async()=>{if(!t)return toast('Ese diseño ya no está.');state.tpl=j.tpl;state.data={...BASE,...j.data};state.client={...NEW_CLIENT(),...(j.client||{})};state.jobId=j.id;state.touched=true;state.fotoBlob=j.foto||null;state.foto=j.foto?await loadImg(URL.createObjectURL(j.foto)):null;buildPicker();fillForm();fillClient();updatePhotoUI();redraw();$('accClient').open=true;scrollTo({top:0,behavior:'smooth'});toast('Cliente abierto.')};
     const dl=document.createElement('button');dl.className='btn small ghost';dl.textContent='Borrar';dl.onclick=async()=>{if(dl.dataset.sure!=='1'){dl.dataset.sure='1';dl.textContent='¿Seguro?';setTimeout(()=>{dl.dataset.sure='';dl.textContent='Borrar'},4000);return}await DB.del('trabajos',j.id);if(state.jobId===j.id)state.jobId=null;listJobs()};
-    el.append(o,dl);box.appendChild(el)});
+    const ver=document.createElement('button');ver.className='btn small ghost';ver.textContent='Ficha';ver.onclick=()=>card.classList.toggle('open');
+    const bx=document.createElement('span');bx.className='jbtns';bx.append(ver,o,dl);el.append(bx);card.appendChild(el);const f=document.createElement('div');f.className='ficha';f.innerHTML=fichaHTML(j,t);card.appendChild(f);box.appendChild(card)});
 }
+function fdate(ms){if(!ms)return '';const d=new Date(ms);return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear()}
+function fiso(s){const d=parseDate(s);return d?d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear():''}
+function linkA(u){u=String(u||'').trim();if(!u)return '';const ok=/^https?:\/\//i.test(u);return ok?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>`:esc(u)}
+function fichaHTML(j,t){const c=j.client||{},d=j.data||{},k=j.compra;const rows=[];const add=(a,b)=>{if(b)rows.push(`<dt>${a}</dt><dd>${b}</dd>`)};
+  add('Cliente',esc(c.nombre||''));if(c.tel){const n=pPhone(c.tel);add('WhatsApp',`<a href="https://wa.me/${n}" target="_blank" rel="noopener">${esc(c.tel)}</a>`)}
+  add('Email',c.email?`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`:'');add('DNI / CUIT',esc(c.dni||''));add('Ciudad',esc(c.ciudad||''));add('Nos conoció por',esc(c.origen||''));
+  add('Pedido',fdate(j.creado||j.at));add('Pagó',fiso(c.pagadoEl));add('Entregado',fiso(c.entregadoEl));
+  add('Evento',esc((t?t.ev:'')+(d.nombre?' de '+d.nombre:'')));add('Diseño',esc(t?t.name:''));add('Fecha del evento',esc([fiso(d.fecha),d.hora?fmtHora(d.hora):''].filter(Boolean).join(' · ')));add('Lugar',esc([d.lugar,d.direccion].filter(Boolean).join(', ')));
+  if(k&&k.items&&k.items.length)add('Compró',k.items.map(i=>esc(i.n)+' · '+money(i.precio)).join('<br>')+`<br><span class="tot">Total ${money(k.total)}</span>`);
+  else if(c.items&&c.items.length)add('Compró',esc(c.items.map(id=>{const p=SET.products.find(x=>x.id===id);return p?p.n:id}).join(', ')));
+  const ls=[c.link,...String(c.links||'').split(/\n+/)].filter(x=>x&&x.trim());if(ls.length)add('Links',ls.map(linkA).join('<br>'));
+  add('Notas',esc(c.notas||'').replace(/\n/g,'<br>'));add('Estado',esc(c.estado||'pedido'));
+  return '<dl>'+rows.join('')+'</dl>'}
+$('jobSearch').addEventListener('input',()=>listJobs());
+/* respaldo */
+function b64(blob){return new Promise(ok=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=()=>ok(null);r.readAsDataURL(blob)})}
+$('bkSave').onclick=async()=>{const all=await DB.all('trabajos');const out=[];for(const j of all){const o={...j};if(j.foto instanceof Blob)o.foto=await b64(j.foto);out.push(o)}
+  const blob=new Blob([JSON.stringify({app:'DIGI panel',v:1,fecha:new Date().toISOString(),ajustes:SET,trabajos:out})],{type:'application/json'});
+  const d=new Date();await download(blob,'respaldo-clientes-'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'.json');toast(all.length+' clientes en el respaldo.')};
+$('bkFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const js=JSON.parse(await f.text());const list=js.trabajos||[];let nuevos=0,act=0;const have=await DB.all('trabajos');
+  for(const j of list){if(!j||!j.id)continue;const old=have.find(x=>x.id===j.id);if(old&&(old.at||0)>=(j.at||0))continue;if(typeof j.foto==='string'&&j.foto.startsWith('data:')){j.foto=await (await fetch(j.foto)).blob()}await DB.put('trabajos',j);old?act++:nuevos++}
+  toast(nuevos+' clientes nuevos y '+act+' actualizados.');listJobs()}catch(err){toast('Ese archivo no es un respaldo del panel.')}e.target.value=''});
+$('bkCsv').onclick=async()=>{const all=(await DB.all('trabajos')).sort((a,b)=>(a.creado||a.at)-(b.creado||b.at));const H=['Pedido','Cliente','WhatsApp','Email','DNI/CUIT','Ciudad','Evento','Festejado','Fecha evento','Compró','Total','Estado','Pagó','Entregado','Links','Notas'];
+  const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';const rows=all.map(j=>{const c=j.client||{},d=j.data||{},t=tplById(j.tpl)||customTpls.find(x=>x.id===j.tpl),k=j.compra||{};return [fdate(j.creado||j.at),c.nombre,c.tel,c.email,c.dni,c.ciudad,t?t.ev:'',d.nombre,fiso(d.fecha),(k.items||[]).map(i=>i.n).join(' + '),k.total||'',c.estado||'pedido',fiso(c.pagadoEl),fiso(c.entregadoEl),[c.link,c.links].filter(Boolean).join(' '),c.notas].map(q).join(';')});
+  await download(new Blob(['\ufeff'+[H.map(q).join(';'),...rows].join('\r\n')],{type:'text/csv'}),'clientes.csv')};
 $('jobFilter').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;jobFilter=b.dataset.f;$('jobFilter').querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel',c===b));listJobs()});
 
 /* ============ precios y ajustes ============ */
@@ -784,10 +826,11 @@ function renderTotal(){const t=totals();$('total').innerHTML=`<span>Total</span>
 $('items').addEventListener('change',e=>{const id=e.target.dataset.id;if(!id)return;const it=state.client.items;if(e.target.checked){if(!it.includes(id))it.push(id)}else state.client.items=it.filter(x=>x!==id);renderTotal();renderMsg()});
 
 /* ============ cliente ============ */
-function fillClient(){const c=state.client;$('c_nombre').value=c.nombre||'';$('c_tel').value=c.tel||'';$('c_link').value=c.link||'';renderItems();setEstadoUI();renderMsg()}
-[['c_nombre','nombre'],['c_tel','tel'],['c_link','link']].forEach(([id,k])=>$(id).addEventListener('input',e=>{state.client[k]=e.target.value;renderMsg()}));
+const CFIELDS=[['c_nombre','nombre'],['c_tel','tel'],['c_email','email'],['c_dni','dni'],['c_ciudad','ciudad'],['c_origen','origen'],['c_notas','notas'],['c_link','link'],['c_links','links']];
+function fillClient(){const c=state.client;CFIELDS.forEach(([id,k])=>$(id).value=c[k]||'');renderItems();setEstadoUI();renderMsg()}
+CFIELDS.forEach(([id,k])=>$(id).addEventListener('input',e=>{state.client[k]=e.target.value;renderMsg()}));
 function setEstadoUI(){$('estados').querySelectorAll('.chip').forEach(b=>b.classList.toggle('sel',b.dataset.estado===state.client.estado))}
-$('estados').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;state.client.estado=b.dataset.estado;setEstadoUI();saveJob(true);toast('Estado: '+b.textContent+'. Cliente guardado.')});
+$('estados').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;state.client.estado=b.dataset.estado;const hoy=new Date().toISOString().slice(0,10);if(b.dataset.estado==='pagado'&&!state.client.pagadoEl)state.client.pagadoEl=hoy;if(b.dataset.estado==='entregado'&&!state.client.entregadoEl)state.client.entregadoEl=hoy;setEstadoUI();saveJob(true);toast('Estado: '+b.textContent+'. Cliente guardado.')});
 $('newClient').onclick=()=>{state.jobId=null;state.client=NEW_CLIENT();state.foto=null;state.fotoBlob=null;state.touched=false;const t=curTpl();state.data={...BASE,...t.d};$('c_pedido').value='';$('pedidoRes').innerHTML='';fillForm();fillClient();updatePhotoUI();redraw();toast('Listo para un cliente nuevo.')};
 
 /* formulario que se le manda al cliente */
