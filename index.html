@@ -98,7 +98,7 @@ section{padding:40px 0;scroll-margin-top:64px}
 .gtitle{font:600 26px/1.2 var(--serif);color:#f3d19a;text-align:center;margin:8px 0 4px}
 .gsub{text-align:center;color:var(--muted);font-size:13px;margin:0 0 16px}
 .group+.group{margin-top:34px}
-.ftags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:10px 4px 8px}.ftags span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(226,182,118,.3);border-radius:10px;padding:4px 8px;color:var(--muted)}
+.ftags small{flex-basis:100%;text-align:center;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}.ftags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:10px 4px 8px}.ftags span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(226,182,118,.3);border-radius:10px;padding:4px 8px;color:var(--muted)}
 .gtag{position:absolute;top:18px;right:18px;font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:6px 9px;border-radius:12px;background:rgba(255,255,255,.88);color:#3a2a14}
 details.group{border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.02);margin-bottom:12px}
 details.group>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px;font:600 24px var(--serif);color:#f3d19a}
@@ -205,7 +205,7 @@ footer b{display:block;font:600 22px var(--serif);letter-spacing:.2em;background
     <details class="q"><summary>¿Qué formato me conviene?</summary><p>La imagen es ideal para mandar por chat y subir a estados. El PDF suma botones para llegar al lugar, agendar la fecha y confirmar por WhatsApp. El video llama la atención en estados y reels. La invitación web es la experiencia completa, con apertura animada, cuenta regresiva, galería, regalos y confirmación de asistencia. Podés pedir uno o varios.</p></details>
     <details class="q"><summary>¿Cómo pago?</summary><p>Por transferencia o Mercado Pago. Primero te mandamos la muestra para que la apruebes, y cuando está todo bien, pagás y te la entregamos sin marca de agua.</p></details>
     <details class="q"><summary>¿Cuánto tarda?</summary><p>Apenas nos pasás los datos te enviamos la muestra. Con tu aprobación y el pago, la recibís enseguida.</p></details>
-    <details class="q"><summary>¿Puedo cambiar los colores?</summary><p>Sí. Cada diseño tiene varias paletas para elegir. En las demos con el botón "Personalizar" o con los círculos de color podés probarlas.</p></details>
+    <details class="q"><summary>¿Puedo cambiar los colores?</summary><p>Sí. Muchos diseños tienen varias paletas. En algunas demos hay un botón "Personalizar" para probar colores y letras antes de pedirla; contanos cuál te gustó y la armamos así.</p></details>
     <details class="q"><summary>¿Cómo la comparto?</summary><p>Reenviás la imagen, el PDF o el link por WhatsApp, Instagram o donde quieras.</p></details>
   </section>
 
@@ -299,10 +299,10 @@ function want(d,sel){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img)||(d.demo&&/dem
  return wa('¡Hola! Me gusta el diseño "'+d.n+'" de '+d.ev+(code?' (código '+code+')':'')+'.\nLo quiero en: '+(names.length?names.join(', ')+'\nTotal: '+money(t):'(imagen / video / PDF / web)')+'\n¿Me pasás el formulario?')}
 var list=[];
 function card(d){var i=list.push(d)-1;
-  return '<article class="card"><span class="kind">'+(d.demo?'Web animada':'Diseño')+'</span>'+
+  return '<article class="card">'+
    '<img class="shot" loading="lazy" src="'+d.img+'" alt="Portada del diseño '+esc(d.n)+'">'+
-   '<h3>'+esc(d.n)+'</h3><p>'+esc(d.demo?d.d:'Imagen, PDF, video y web')+'</p>'+
-   '<div class="ftags"><span>JPG</span><span>PDF</span><span>Video</span><span>Web</span></div>'+
+   '<h3>'+esc(d.n)+'</h3><p>'+esc(d.demo?d.d+'. Tocá Ver demo para probarla.':'Tocá Ver grande para mirarla.')+'</p>'+
+   '<div class="ftags"><small>Disponible en</small><span>JPG</span><span>PDF</span><span>Video</span><span>Web</span></div>'+
    '<div class="price"><small>desde </small><b>'+money(pr(d.ev,'imagen')[1])+'</b></div>'+
    '<div class="acts">'+(d.demo?'<a class="cta ghost" href="'+d.demo+'" target="_blank" rel="noopener">Ver demo</a>':'<button class="cta ghost" type="button" data-view="'+i+'">Ver grande</button>')+
    '<button class="cta" type="button" data-want="'+i+'">Quiero este</button></div></article>'}
