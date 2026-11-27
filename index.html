@@ -285,7 +285,7 @@ nav.top .lk a{font-size:13px!important;letter-spacing:.16em;padding:14px 16px!im
 .fq .fg{display:flex!important;justify-content:space-between;align-items:center;gap:10px}.fq .fg .cn{color:#f3d19a;letter-spacing:.12em;white-space:nowrap}
 .fq .num2 small{font:600 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;-webkit-text-fill-color:#cdbfa6;vertical-align:middle}
 .fq .num2{background:rgba(226,182,118,.08)!important;-webkit-text-fill-color:#f3d19a!important;color:#f3d19a!important;font-size:24px!important}#fcount,#scount{display:none}
-.ddots{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin:0 auto 8px;max-width:420px}
+.ddots{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin:0 auto 16px;max-width:420px}
 .ddots button{width:26px;height:26px;font-size:10px!important;border-radius:50%;border:1px solid var(--line);background:rgba(12,9,22,.6);color:#cdbfa6;font:600 11px var(--sans);cursor:pointer;padding:0}
 .ddots button.on{background:var(--gmet);color:#1d1408;border-color:rgba(255,236,190,.85)}
 #fprev:disabled,#fnext:disabled,#sprev:disabled,#snext:disabled{opacity:.3;cursor:default}
@@ -513,8 +513,8 @@ function sum(){var t=0,o=0;$('sum').innerHTML='<div class="sumRow"><b>'+esc(P.n)
 function deck(R,PV,NX,CT){var r=$(R);r.classList.add('deck');var cs=[].slice.call(r.querySelectorAll('.fq')),n=cs.length,idx=0,pad=function(v){return (v<10?'0':'')+v};
  cs.forEach(function(c,i){var fg=c.querySelector('.fg'),nm=c.querySelector('.num2');
   if(fg)fg.innerHTML='<span>'+fg.textContent+'</span><span class="cn">'+(i+1)+' de '+n+'</span>';
-  if(nm)nm.innerHTML='<small>Paso</small> '+pad(i+1)+' <small>de '+pad(n)+'</small>'});
- var dots=document.createElement('div');dots.className='ddots';dots.innerHTML=cs.map(function(_,i){return '<button type="button" aria-label="Ir a la tarjeta '+(i+1)+'">'+(i+1)+'</button>'}).join('');r.parentNode.insertBefore(dots,r.nextSibling);
+  if(nm){var g=document.createElement('span');g.className='fg';g.innerHTML='<span>Paso '+(i+1)+'</span><span class="cn">'+(i+1)+' de '+n+'</span>';nm.replaceWith(g)}});
+ var dots=document.createElement('div');dots.className='ddots';dots.innerHTML=cs.map(function(_,i){return '<button type="button" aria-label="Ir a la tarjeta '+(i+1)+'">'+(i+1)+'</button>'}).join('');r.parentNode.insertBefore(dots,r);
  [].forEach.call(dots.children,function(d,i){d.onclick=function(){go(i)}});
  function pos(c,i){var k=i-idx;c.style.pointerEvents=k?'none':'auto';c.classList.toggle('back',k>0);
   if(k<0){c.style.zIndex=n+5+k;c.style.transform='translate(-170%,-10px) rotate(-12deg)';c.style.opacity=0;return}
