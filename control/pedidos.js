@@ -10,7 +10,7 @@ async function pedidos(URL){
    for(let m=1;m<(1<<n);m++){const sel=fs.filter((k,i)=>m&(1<<i));if(sel.includes('web')&&sel.includes('premium'))continue;
     const url=digiWant(d,sel);const msg=decodeURIComponent(url.split('text=')[1]);
     const t=sel.reduce((a,k)=>a+digiPr(d.ev,k)[1],0);
-    const mm=/c[oó]digo ([a-z0-9-]+)/.exec(msg);const code=mm?mm[1]:'';const want=d.demo?'w-'+(/demos\/([a-z0-9-]+)/.exec(d.demo)||[])[1]:(/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img)||[])[1];if(code!==want){out.push({bad:d.n+': el catálogo manda código '+code+' y debería ser '+want});continue}
+    const mm=/c[oó]digo ([A-Za-z0-9-]+)/.exec(msg);const corto=mm?mm[1]:'';if(!/^[A-Z]{2}-\d{2,3}$/.test(corto)){out.push({bad:d.n+': no tiene código corto en codigos.js (manda '+corto+')'});continue}const code=(window.DIGI_CODIGOS||{})[corto]||'';const want=d.demo?'w-'+(/demos\/([a-z0-9-]+)/.exec(d.demo)||[])[1]:(/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img)||[])[1];if(code!==want){out.push({bad:d.n+': el catálogo manda código '+code+' y debería ser '+want});continue}
     out.push({dp:JSON.stringify(digiPair),n:d.n,ev:d.ev,code,msg,items:sel.map(k=>K[k]).sort(),t})}});return out});
  // formulario de la página: se completa para cada diseño (con todos sus formatos menos web común si hay premium)
  const forms=await page.evaluate(()=>{const out=[];const D=new Date();D.setDate(D.getDate()+40);const iso=D.toISOString().slice(0,10);
