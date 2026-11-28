@@ -83,6 +83,7 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
   const OK_ILU={'demos/baby-shower-ii/':1};if(r.fotos.length&&!OK_ILU[w])mal(w,'muestra '+r.fotos.length+' foto(s): revisar que no sean de personas ('+r.fotos.join(', ')+')');
   if(pe.length)mal(w,'error en la página: '+pe[0]);await p.close()}
  // ---------- pedidos de punta a punta: cada diseño y cada combinación de formatos, del catálogo al panel ----------
+ {const f=await require('./webs-infantiles.js')(URL);f.forEach(x=>fallas.push(x))}
  {const r=await require('./pedidos.js')(URL);r.fallas.forEach(f=>fallas.push(f));console.log('Pedidos probados del catálogo al panel: '+r.total)}
  await b.close();
  console.log(fallas.length?fallas.join('\n')+`\n\n${fallas.length} cosa(s) para corregir.`:'✓ Todo cumple la lista de control.');

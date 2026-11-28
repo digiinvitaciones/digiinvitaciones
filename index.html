@@ -457,7 +457,7 @@ nav.top .lk a.waMenu{color:#f6dc94}@media(max-width:560px){nav.top .lk a.waMenu{
    PRECIOS: "antes" sale tachado. */
 var WHATSAPP='5492646280242';
 /* COBRO: alias y titular para la seña. Si Sandra publica precios desde el panel con su alias, precios.js lo reemplaza. */
-var COBRO={alias:'',titular:''};
+var COBRO={alias:'',titular:'Sandra Rojas'};
 (function(o){if(o&&o.cobro&&o.cobro.alias)COBRO={alias:String(o.cobro.alias),titular:String(o.cobro.titular||'')}})(window.DIGI_PRECIOS);
 /* PRECIOS por formato: [antes (tachado), ahora]. "gala" = Bodas y 15 años. */
 var PRECIOS={
@@ -709,7 +709,7 @@ function fPayHTML(){var s=fSena(FQ.t);
  if(!COBRO.alias)return '<div class="fPay" id="fPay"><b>Seña para empezar: '+money(s)+'</b><p>Te pasamos los datos para transferir por WhatsApp. Con la seña empezamos tu invitación y te mandamos la muestra dentro de las 48 horas hábiles.</p></div>';
  return '<div class="fPay" id="fPay"><div class="fpT">Para empezar tu invitación</div><div class="fpM">Seña: <b>'+money(s)+'</b><small>El 50% de '+money(FQ.t)+'. El resto lo pagás después de ver la muestra.</small></div>'
  +'<div class="fpA"><span>Alias</span><b id="fpAlias">'+esc(COBRO.alias)+'</b><button type="button" class="cta gold" id="fpCopy">Copiar alias</button></div>'
- +(COBRO.titular?'<div class="fpH">A nombre de <b>'+esc(COBRO.titular)+'</b>. Fijate que coincida en tu banco antes de transferir.</div>':'')
+ +(COBRO.titular?'<div class="fpH">Titular de la cuenta: <b>'+esc(COBRO.titular)+'</b><br>Es la dueña de DIGI INVITACIONES. Fijate que coincida en tu banco antes de transferir.</div>':'')
  +'<a class="cta ghost" id="fpComp" href="#">Ya transferí: mandar el comprobante</a><p class="fpN">Con la seña empezamos tu invitación y te mandamos la muestra dentro de las 48 horas hábiles.</p></div>'}
 function fPayBind(){var c=$('fpCopy');if(c)c.onclick=function(){var a=COBRO.alias,ok=function(){c.textContent='✓ Copiado'};try{navigator.clipboard.writeText(a).then(ok,function(){fCopyOld(a);ok()})}catch(_){fCopyOld(a);ok()}};
  var m=$('fpComp');if(m)m.onclick=function(e){e.preventDefault();var t='¡Hola! Ya transferí la seña de '+money(fSena(FQ.t))+' para la invitación de '+(fVal('nombre')||'')+' ("'+FQ.d.n+'"). Te mando el comprobante:';var w=window.open(wa(t),'_blank','noopener');if(!w)location.href=wa(t)}}

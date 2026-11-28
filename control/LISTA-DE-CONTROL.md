@@ -49,6 +49,8 @@ Se publica recién cuando `revisar.js` muestra **"✓ Todo cumple la lista de co
 - El panel cobra lo mismo que el catálogo en todos los formatos y eventos (también Web Premium), y al pegar el pedido "Quiero este" marca los mismos formatos. revisar.js lo controla.
 - Formulario del pedido (#pform en el catálogo): datos del cliente + invitación, borrador guardado, avisos de errores (fecha pasada, teléfono sin 10 números, alias o CBU mal escrito, nombres largos). Sus claves "Clave: valor" son las que lee el panel; control/pedidos.js completa el formulario en cada diseño y verifica que el panel cargue todo.
 - Condiciones (página, formulario y mensajes del panel iguales): seña 50%, 2 cambios sin cargo y después $2.000 c/u, entrega 48 hs hábiles desde seña + datos, cambio de fecha/hora/lugar post entrega sin cargo, seña no reembolsable.
+- Webs infantiles I a V: el panel las completa con los datos del cliente (FILLS bloques, pixeles, autos, sheriff, estrellas) y no les puede quedar ningún dato de ejemplo (control/webs-infantiles.js).
+- Códigos cortos de diseño (BO-01, IN-07…) en codigos.js: fuente única para página, formulario, WhatsApp y panel. Nunca cambiar ni reutilizar un código; los nuevos van al final.
 - El panel arranca con la vista previa vacía (logo de DIGI); arriba aparece el diseño que pidió el cliente. El paso 2 avisa "Ya elegido".
 
 **Protección de muestras**
