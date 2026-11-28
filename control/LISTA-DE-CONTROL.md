@@ -33,6 +33,7 @@ Se publica recién cuando `revisar.js` muestra **"✓ Todo cumple la lista de co
 - Sin recuadros de vidrio esmerilado sobre los diseños: el texto va directo sobre el fondo.
 - Texto nunca encimado ni cortado. Los nombres de portada entran completos.
 - Sello de muestra suave: una firma chica.
+- Nunca usar el efecto de rayos de sol que giran en las portadas, ni en ningún lado. Usar otros efectos: luces que flotan, brillo que pasa, destellos.
 
 **Webs**
 - Todas las pestañas y acordeones arrancan **cerrados**, por ejemplo el paso 1 de confirmar asistencia. Esto vale también para el catálogo y el panel.

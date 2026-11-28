@@ -246,7 +246,7 @@ body:not(.locked) .fxbtn{display:grid}
 /* portada cerrada */
 #cover{position:fixed;inset:0;z-index:50;display:grid;place-items:center;overflow:hidden;background:#6BC9EC;transition:opacity .9s .15s,visibility 0s 1.05s}
 #cover.open{opacity:0;visibility:hidden}
-.rays{position:absolute;inset:-60%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.34) 0 8deg,transparent 8deg 16deg);-webkit-mask-image:radial-gradient(circle,#000 0,transparent 42%);mask-image:radial-gradient(circle,#000 0,transparent 42%);animation:spin 70s linear infinite}
+.rays{display:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 .badge{position:relative;width:min(66vw,260px);aspect-ratio:1;margin:0 auto 18px;transition:transform .95s cubic-bezier(.6,0,.4,1)}
 .badge .sv{position:absolute;inset:0;animation:spin 22s linear infinite;filter:drop-shadow(0 8px 0 rgba(11,79,140,.35))}
@@ -273,6 +273,7 @@ body.go .starwrap.drop{animation-delay:.25s}
   #cover,.badge,.cover-in,.tl li::before,.tl .ln,.tile i,.acc-p{transition:none!important}
 }
 </style>
+<style>.rays{display:none!important}.glowbg{position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(255,255,255,.45),rgba(255,255,255,0) 60%);animation:glowp 4s ease-in-out infinite}@keyframes glowp{50%{opacity:.55}}@media (prefers-reduced-motion:reduce){.glowbg{animation:none}}</style>
 </head>
 <body class="locked">
 
@@ -285,7 +286,7 @@ body.go .starwrap.drop{animation-delay:.25s}
 </div>
 
 <div id="cover">
-  <div class="rays" aria-hidden="true"></div>
+  <div class="glowbg" aria-hidden="true"></div>
   <div class="cover-in">
     <div class="badge" aria-hidden="true"><div class="sv" id="coverStar"></div><b>5</b></div>
     <p class="out cname"><span class="fit" data-pad="30">MARCOS</span></p>
