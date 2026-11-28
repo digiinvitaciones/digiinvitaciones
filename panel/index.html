@@ -338,7 +338,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
           </details>
         </div>
         <div class="fields two" style="margin-top:12px">
-          <div><label>Alias o CBU para cobrar</label><input id="s_cobro" placeholder="tu.alias.mp"></div>
+          <div><label>Alias para cobrar</label><input id="s_cobro" placeholder="tu.alias.mp"></div>
+          <div><label>CVU o CBU</label><input id="s_cvu" inputmode="numeric" placeholder="22 números"></div>
           <div><label>Titular de la cuenta</label><input id="s_titular"></div>
           <div style="grid-column:1/-1"><label>Nombre de tu marca <small>(firma de los mensajes)</small></label><input id="s_marca"></div>
         </div>
@@ -1173,22 +1174,24 @@ const PRODUCTS_DEF=[
  {id:'webp',n:'Invitación web Premium (sobre, música y fotos)',old:33000,now:28000,oldG:42000,nowG:36000},
 ];
 const PRICE_V=3;
-let SET={products:JSON.parse(JSON.stringify(PRODUCTS_DEF)),cobro:'',titular:'',marca:'DIGI INVITACIONES',pv:PRICE_V};
+let SET={products:JSON.parse(JSON.stringify(PRODUCTS_DEF)),cobro:'digi.invita.79',cvu:'0000003100092801018557',titular:'Sandra Viviana Rojas',marca:'DIGI INVITACIONES',pv:PRICE_V};
 try{const v=JSON.parse(localStorage.getItem('panel_settings')||'null');if(v){SET={...SET,...v};if(v.pv!==PRICE_V){SET.products=JSON.parse(JSON.stringify(PRODUCTS_DEF));SET.pv=PRICE_V}}}catch(e){}
+if(!(SET.cobro||'').trim()){SET.cobro='digi.invita.79';SET.cvu=SET.cvu||'0000003100092801018557';SET.titular=SET.titular||'Sandra Viviana Rojas'}
+if(SET.cvu==null)SET.cvu='';
 PRODUCTS_DEF.forEach(p=>{if(!SET.products.find(x=>x.id===p.id))SET.products.push(JSON.parse(JSON.stringify(p)))});
 const GALA=ev=>ev==='Bodas'||ev==='15 años';
 function priced(){const ev=(curTpl()||{}).ev,g=GALA(ev);return SET.products.filter(p=>p.id!=='webp'||ev==='Bodas').map(p=>({...p,now:g&&p.nowG!=null?p.nowG:p.now,old:g&&p.oldG!=null?p.oldG:p.old}))}
 function saveSet(){try{localStorage.setItem('panel_settings',JSON.stringify(SET))}catch(e){}}
 const money=n=>'$'+Math.round(+n||0).toLocaleString('es-AR');
 function renderPriceEd(){$('priceEd').innerHTML='<div class="priceHead"><span></span><span>Bautismo, infantiles, baby shower y otros</span><span>Bodas y 15 años</span></div>'+SET.products.map((p,i)=>`<div class="priceRow"><div class="pn"><input data-i="${i}" data-k="n" value="${esc(p.n)}" aria-label="Producto"></div><div class="pp"><label>Antes<input data-i="${i}" data-k="old" inputmode="numeric" value="${p.old||''}"></label><label>Ahora<input data-i="${i}" data-k="now" inputmode="numeric" value="${p.now||''}"></label></div><div class="pp"><label>Antes<input data-i="${i}" data-k="oldG" inputmode="numeric" value="${p.oldG||''}"></label><label>Ahora<input data-i="${i}" data-k="nowG" inputmode="numeric" value="${p.nowG||''}"></label></div></div>`).join('');
-  $('s_cobro').value=SET.cobro||'';$('s_titular').value=SET.titular||'';$('s_marca').value=SET.marca||''}
+  $('s_cobro').value=SET.cobro||'';$('s_titular').value=SET.titular||'';$('s_cvu').value=SET.cvu||'';$('s_marca').value=SET.marca||''}
 $('priceEd').addEventListener('input',e=>{const t=e.target;if(!t.dataset.k)return;const p=SET.products[+t.dataset.i];p[t.dataset.k]=t.dataset.k==='n'?t.value:+(t.value.replace(/\D/g,''))||0;saveSet();renderItems();renderMsg()});
-['cobro','titular','marca'].forEach(k=>$('s_'+k).addEventListener('input',e=>{SET[k]=e.target.value;if(k!=='marca'){SET.dirty=true;pubMsg('Cambiaste tus datos de cobro: tocá "Publicar estos precios en la página" para que la página muestre tu alias.','no')}saveSet();renderMsg()}));
+['cobro','cvu','titular','marca'].forEach(k=>$('s_'+k).addEventListener('input',e=>{SET[k]=e.target.value;if(k!=='marca'){SET.dirty=true;pubMsg('Cambiaste tus datos de cobro: tocá "Publicar estos precios en la página" para que la página muestre tu alias.','no')}saveSet();renderMsg()}));
 /* ===== publicar precios en la página (precios.js del repo) ===== */
 const GH_REPO='digiinvitaciones/digiinvitaciones',GH_FILE='precios.js',FMAP={tarjeta:'imagen',pdf:'pdf',video:'video',web:'web',webp:'premium'};
 const ghTok=()=>{try{return localStorage.getItem('digi_gh_token')||''}catch(e){return ''}};
 function pubMsg(h,cls){$('pubRes').innerHTML=`<span class="${cls||''}">${h}</span>`}
-function preciosObj(){const o={normal:{},gala:{}};SET.products.forEach(p=>{const k=FMAP[p.id];if(!k)return;o.normal[k]=[+p.old||+p.now,+p.now];o.gala[k]=[+(p.oldG??p.old)||+(p.nowG??p.now),+(p.nowG??p.now)]});if((SET.cobro||'').trim())o.cobro={alias:SET.cobro.trim(),titular:(SET.titular||'').trim()};o.actualizado=new Date().toISOString().slice(0,10);return o}
+function preciosObj(){const o={normal:{},gala:{}};SET.products.forEach(p=>{const k=FMAP[p.id];if(!k)return;o.normal[k]=[+p.old||+p.now,+p.now];o.gala[k]=[+(p.oldG??p.old)||+(p.nowG??p.now),+(p.nowG??p.now)]});if((SET.cobro||'').trim())o.cobro={alias:SET.cobro.trim(),cvu:(SET.cvu||'').trim(),titular:(SET.titular||'').trim()};o.actualizado=new Date().toISOString().slice(0,10);return o}
 function b64(str){return btoa(unescape(encodeURIComponent(str)))}
 async function publicarPrecios(){
   const tok=ghTok();if(!tok){$('ghMore').open=true;pubMsg('Primero cargá la clave para publicar (abajo). Se hace una sola vez.','no');return}
@@ -1326,11 +1329,11 @@ const senaDe=n=>Math.ceil((+n||0)/2/100)*100;
 function buildMsg(k){const c=state.client,hola='¡Hola'+(c.nombre?' '+c.nombre.split(' ')[0]:'')+'!';const firma='\n\n'+(SET.marca||'');const t=totals();
   if(k==='presupuesto'){const lines=t.sel.map(p=>'• '+p.n+': '+(p.old>p.now?'~'+money(p.old)+'~ ':'')+'*'+money(p.now)+'*');return hola+' Te paso el presupuesto de la invitación para '+evTxt()+':\n\n'+(lines.join('\n')||'• (elegí qué compra en el paso 1)')+'\n\nTotal: '+(t.old>t.now?'~'+money(t.old)+'~ ':'')+'*'+money(t.now)+'*\n\nCuando me confirmes, te armo una muestra para que veas cómo queda y te aviso cuando esté lista.'+firma}
   if(k==='muestra')return hola+' Te mando una muestra de tu invitación para '+evTxt()+'. Fijate que los datos estén bien (nombres, fecha, hora y dirección). Tenés 2 cambios sin cargo.\n\nSi te gusta, te paso los datos para el pago del resto y te envío la invitación final, sin la marca de agua.'+firma;
-  const alias='\n\nPodés transferir a:\nAlias: *'+(SET.cobro||'[cargá tu alias en Precios y datos de cobro]')+'*'+(SET.titular?'\nTitular: '+SET.titular:'');
+  const alias='\n\nPodés transferir a:\nAlias: *'+(SET.cobro||'[cargá tu alias en Precios y datos de cobro]')+'*'+(SET.cvu?'\nCVU: '+SET.cvu:'')+(SET.titular?'\nTitular: '+SET.titular:'');
   if(k==='sena')return hola+' Para empezar tu invitación te pido una seña del 50%: *'+money(senaDe(t.now))+'* (el total es '+money(t.now)+').'+alias+'\n\nCuando transfieras, mandame el comprobante por acá. Con la seña arranco y te mando la muestra dentro de las 48 horas hábiles.'+firma;
   if(k==='recordar')return msgRecordar(c,state.data,curTpl());
   if(k==='pago'&&(c.estado==='senado'||c.sena)){const sena=c.sena||senaDe(t.now);return hola+' ¡Qué bueno que te gustó! El resto a pagar es *'+money(Math.max(0,t.now-sena))+'* (total '+money(t.now)+' menos la seña de '+money(sena)+').'+alias+'\n\nCuando transfieras, mandame el comprobante y te envío la invitación final, sin marca de agua.'+firma}
-  if(k==='pago')return hola+' Para confirmar tu invitación, el total es *'+money(t.now)+'*.\n\nPodés transferir a:\nAlias: *'+(SET.cobro||'[cargá tu alias en Precios y datos de cobro]')+'*'+(SET.titular?'\nTitular: '+SET.titular:'')+'\n\nCuando transfieras, mandame el comprobante por acá y te envío todo.'+firma;
+  if(k==='pago')return hola+' Para confirmar tu invitación, el total es *'+money(t.now)+'*.\n\nPodés transferir a:\nAlias: *'+(SET.cobro||'[cargá tu alias en Precios y datos de cobro]')+'*'+(SET.cvu?'\nCVU: '+SET.cvu:'')+(SET.titular?'\nTitular: '+SET.titular:'')+'\n\nCuando transfieras, mandame el comprobante por acá y te envío todo.'+firma;
   if(k==='entrega'){const has=id=>c.items.includes(id);const parts=[];if(has('tarjeta')||!c.items.length)parts.push('• La imagen, para mandar por WhatsApp o subir a estados.');if(has('pdf'))parts.push('• El PDF: tocando los botones se abre la ubicación en Google Maps o Waze, se agenda en el calendario y se confirma la asistencia por WhatsApp.');if(has('video'))parts.push('• El video animado, ideal para estados.');if(c.link)parts.push('• Tu página web: '+c.link);else if(has('web')||has('esencial')||has('plus')||has('exclusiva'))parts.push('• Tu página web (te paso el link cuando esté online).');
     return hola+' ¡Tu invitación está lista! 🎉\n\nTe envío:\n'+parts.join('\n')+'\n\nPara invitar, reenviá estos archivos a tus contactos. ¡Gracias por elegirnos!'+firma}
   return ''}
