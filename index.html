@@ -294,6 +294,34 @@ nav.top .lk a{font-size:13px!important;letter-spacing:.16em;padding:14px 16px!im
 .ddots button.on{background:var(--gmet);color:#1d1408;border-color:rgba(255,236,190,.85)}
 #fprev:disabled,#fnext:disabled,#sprev:disabled,#snext:disabled{opacity:.3;cursor:default}
 nav.top .lk a.waMenu{color:#f6dc94}@media(max-width:560px){nav.top .lk a.waMenu{background:var(--gmet);color:#1d1408!important;text-align:center;margin-top:6px;border:1px solid rgba(255,236,190,.85)}}
+/* formulario del pedido (28/11) */
+#pform{position:fixed;inset:0;z-index:320;background:rgba(5,4,3,.88);display:none;align-items:center;justify-content:center;overscroll-behavior:contain}
+#pform.on{display:flex}
+#pform [hidden]{display:none!important}#pform .f2>label{min-width:0}#pform input[type=date],#pform input[type=time]{min-width:0;max-width:100%}
+#pform .sheet{width:100%;max-width:560px;max-height:94vh;max-height:94dvh;overflow:auto;background:linear-gradient(180deg,#151126,#0c0a16);border:1px solid var(--line);border-radius:24px;padding:18px 16px calc(20px + env(safe-area-inset-bottom,0px))}
+#pform .oHead p{color:var(--muted);font-size:13px}
+#pform fieldset{border:1px solid rgba(226,182,118,.28);border-radius:18px;padding:14px 14px 6px;margin:16px 0;background:rgba(255,255,255,.03);min-width:0}
+#pform legend{font:600 21px var(--serif);color:#f3d58c;padding:0 8px}
+#pform label{display:block;font:600 13px var(--sans);color:#f1e6cf;margin:0 0 14px}
+#pform label small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:2px}
+#pform input:not([type=checkbox]),#pform select,#pform textarea{display:block;width:100%;margin-top:6px;padding:12px 14px;border-radius:14px;border:1px solid rgba(226,182,118,.45);background:#fffaf0;color:#2a1d0c;font:500 16px var(--sans);min-height:46px;box-sizing:border-box;-webkit-appearance:none;appearance:none}
+#pform textarea{min-height:80px;resize:vertical}
+#pform input:focus,#pform select:focus,#pform textarea:focus{outline:2px solid #d6ae5a;outline-offset:1px}
+#pform .bad{border-color:#ff6b8a!important;box-shadow:0 0 0 3px rgba(255,107,138,.3)}
+#pform .f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#pform .fChk{display:flex;gap:10px;align-items:flex-start;font-weight:500;line-height:1.35}
+#pform .fChk input{width:22px;height:22px;flex:none;accent-color:#d6ae5a;margin:0}
+#pform .fChk input.bad{outline:3px solid #ff6b8a}
+.fIntro{color:var(--muted);font-size:13px;margin:12px 4px 0;line-height:1.45}
+.fDraft{font-size:13px;color:#9fe0b0;margin:8px 4px 0}.fDraft button{background:none;border:0;color:#f3d58c;text-decoration:underline;font:inherit;cursor:pointer;padding:0}
+.fCond{border:1px solid rgba(226,182,118,.4);border-radius:18px;padding:14px;background:rgba(214,174,90,.07);font-size:13px;line-height:1.45;color:#efe3c6}
+.fCond b{font:600 19px var(--serif);color:#f3d58c}.fCond ul{margin:8px 0 12px 18px;padding:0}.fCond li{margin:4px 0}
+.fErr,.fWarn,.fOk{border-radius:14px;padding:12px 14px;margin:14px 0 0;font-size:13.5px;line-height:1.45}
+.fErr{background:rgba(255,107,138,.12);border:1px solid rgba(255,107,138,.6);color:#ffd9e1}.fErr ul{margin:6px 0 0 18px;padding:0}
+.fWarn{background:rgba(214,174,90,.12);border:1px solid rgba(214,174,90,.6);color:#f6e7c4}
+.fOk{background:rgba(70,170,110,.14);border:1px solid rgba(110,210,150,.6);color:#dcffe8}
+#pform .oBtns{display:grid;gap:10px;margin-top:16px}
+.fAsk{text-align:center;font-size:13px;color:var(--muted);margin:14px 0 0}.fAsk a{color:#f3d58c}
 </style>
 </head>
 <body>
@@ -346,8 +374,8 @@ nav.top .lk a.waMenu{color:#f6dc94}@media(max-width:560px){nav.top .lk a.waMenu{
     <span class="eyebrow">Paso 4 de 4</span>
     <h2>Tu pedido</h2>
     <div class="sumBox"><div id="sum"></div><div class="oTotal"><span>Total</span><span><s id="sOld"></s><b id="sTot"></b></span></div>
-    <div class="oBtns"><a class="cta" id="sSend" target="_blank" rel="noopener">Pedir por WhatsApp</a><a class="cta ghost" href="#paso2" id="sBack">Cambiar diseño</a></div>
-    <p class="pnote">Se abre WhatsApp con tu pedido armado. Te respondemos y te pasamos un formulario corto con los datos del evento.</p></div>
+    <div class="oBtns"><a class="cta" id="sSend" href="#">Completar mis datos</a><a class="cta ghost" href="#paso2" id="sBack">Cambiar diseño</a></div>
+    <p class="pnote">Completás un formulario corto con tus datos y los del evento, y nos llega todo junto por WhatsApp.</p></div>
   </section>
 
   <section id="como">
@@ -359,7 +387,7 @@ nav.top .lk a.waMenu{color:#f6dc94}@media(max-width:560px){nav.top .lk a.waMenu{
   <section id="preguntas">
     <span class="eyebrow">Dudas</span>
     <h2>Preguntas frecuentes</h2>
-    <div class="fwrap"><div class="frail" id="frail"><article class="fq"><span class="fg">Pedido y pago</span><h3>¿Veo cómo queda antes de pagar?</h3><p>Sí. Con tus datos armamos una muestra con marca de agua y te la mandamos por WhatsApp. Si te gusta, pagás y te entregamos la versión final.</p></article><article class="fq"><span class="fg">Pedido y pago</span><h3>¿Cómo pago?</h3><p>Por transferencia o Mercado Pago al alias que te pasamos por WhatsApp. Con el comprobante, te entregamos la invitación.</p></article><article class="fq"><span class="fg">Diseño y cambios</span><h3>¿Qué formato me conviene?</h3><p>Imagen para chats y estados. PDF con botones de ubicación y confirmación. Video para estados y reels. Web, la experiencia completa con cuenta regresiva y confirmación.</p></article><article class="fq"><span class="fg">Diseño y cambios</span><h3>¿Puedo cambiar textos, colores o poner mi foto?</h3><p>Sí. Antes de aprobar la muestra pedís los cambios de texto. Muchos diseños vienen en varios colores, y en los que llevan foto nos la mandás por WhatsApp.</p></article><article class="fq"><span class="fg">Entrega y uso</span><h3>¿Con cuánto tiempo la pido?</h3><p>Idealmente una o dos semanas antes de querer enviarla. Los tiempos los coordinamos por WhatsApp al tomar tu pedido.</p></article><article class="fq"><span class="fg">Entrega y uso</span><h3>¿Cómo la recibo y la comparto?</h3><p>Te llega por WhatsApp: archivos o un link. La reenviás donde quieras, y tus invitados confirman asistencia con un botón que te escribe por WhatsApp.</p></article></div><div class="fnav"><button type="button" class="fbtn" id="fprev" aria-label="Anterior">‹</button><span id="fcount" class="fcnt"></span><button type="button" class="fbtn" id="fnext" aria-label="Siguiente">›</button></div><p class="pnote" style="margin-top:6px">Deslizá a la izquierda para ver la siguiente y a la derecha para volver</p></div>
+    <div class="fwrap"><div class="frail" id="frail"><article class="fq"><span class="fg">Pedido y pago</span><h3>¿Veo cómo queda antes de pagar?</h3><p>Sí. Con la seña del 50% armamos tu invitación y te mandamos una muestra con marca de agua por WhatsApp. Incluye 2 cambios sin cargo. Cuando te gusta, pagás el resto y te entregamos la versión final.</p></article><article class="fq"><span class="fg">Pedido y pago</span><h3>¿Cómo pago?</h3><p>Por transferencia o Mercado Pago al alias que te pasamos por WhatsApp. Una seña del 50% para empezar y el resto al aprobar la muestra. La seña no se devuelve si se cancela el pedido.</p></article><article class="fq"><span class="fg">Diseño y cambios</span><h3>¿Qué formato me conviene?</h3><p>Imagen para chats y estados. PDF con botones de ubicación y confirmación. Video para estados y reels. Web, la experiencia completa con cuenta regresiva y confirmación.</p></article><article class="fq"><span class="fg">Diseño y cambios</span><h3>¿Puedo pedir cambios?</h3><p>Sí. La muestra incluye 2 cambios sin cargo; después, $2.000 cada uno. Si después de la entrega cambia la fecha, la hora o el lugar, te la actualizamos sin cargo.</p></article><article class="fq"><span class="fg">Entrega y uso</span><h3>¿Con cuánto tiempo la pido?</h3><p>Te la entregamos dentro de las 48 horas hábiles desde que recibimos la seña y tus datos completos. Lo ideal es pedirla una o dos semanas antes de querer enviarla.</p></article><article class="fq"><span class="fg">Entrega y uso</span><h3>¿Cómo la recibo y la comparto?</h3><p>Te llega por WhatsApp: archivos o un link. La reenviás donde quieras, y tus invitados confirman asistencia con un botón que te escribe por WhatsApp.</p></article></div><div class="fnav"><button type="button" class="fbtn" id="fprev" aria-label="Anterior">‹</button><span id="fcount" class="fcnt"></span><button type="button" class="fbtn" id="fnext" aria-label="Siguiente">›</button></div><p class="pnote" style="margin-top:6px">Deslizá a la izquierda para ver la siguiente y a la derecha para volver</p></div>
   </section>
 
   <section id="precios">
@@ -373,7 +401,42 @@ nav.top .lk a.waMenu{color:#f6dc94}@media(max-width:560px){nav.top .lk a.waMenu{
   <footer><b>DIGI Invitaciones</b><span class="fl"><a id="waFoot" target="_blank" rel="noopener">WhatsApp</a><a href="#paso1">Diseños</a><a href="#precios">Precios</a><a href="#preguntas">Preguntas frecuentes</a></span><small>Boutique digital de alta gama · © 2026</small></footer>
 </div>
 <a class="cta waFloat" id="waFloat" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg><span class="wt">WhatsApp</span></a>
-<div id="order" role="dialog" aria-label="Elegí los formatos"><div class="sheet"><div class="oHead"><img id="oImg" alt=""><div><h3 id="oName"></h3><p id="oEv"></p></div></div><div class="gsub" style="text-align:left;margin:0 4px 4px">Marcá los formatos que querés:</div><div id="oItems"></div><div class="oTotal"><span>Total</span><span><s id="oOld"></s><b id="oTot"></b></span></div><div class="oBtns"><a class="cta" id="oSend" target="_blank" rel="noopener">Pedir por WhatsApp</a><button class="cta ghost" type="button" id="oClose">Volver</button></div></div></div>
+<div id="order" role="dialog" aria-label="Elegí los formatos"><div class="sheet"><div class="oHead"><img id="oImg" alt=""><div><h3 id="oName"></h3><p id="oEv"></p></div></div><div class="gsub" style="text-align:left;margin:0 4px 4px">Marcá los formatos que querés:</div><div id="oItems"></div><div class="oTotal"><span>Total</span><span><s id="oOld"></s><b id="oTot"></b></span></div><div class="oBtns"><a class="cta" id="oSend" href="#">Completar mis datos</a><button class="cta ghost" type="button" id="oClose">Volver</button></div></div></div>
+<div id="pform" role="dialog" aria-label="Tus datos para la invitación"><div class="sheet"><form id="fForm" novalidate>
+<div class="oHead"><img id="fImg" alt=""><div><h3 id="fName"></h3><p><span id="fEv"></span> · <span id="fFmts"></span></p></div></div>
+<div class="oTotal"><span>Total</span><span><s id="fOld"></s><b id="fTot"></b></span></div>
+<p class="fIntro">Completá tus datos y los de la invitación. Se guarda solo mientras escribís: si te vas, cuando vuelvas sigue acá.</p>
+<p class="fDraft" id="fDraft" hidden>Recuperamos lo que habías escrito. <button type="button" id="fClear">Empezar de cero</button></p>
+<fieldset><legend>1 · Tus datos</legend>
+<label>Tu nombre y apellido *<input data-f="cnombre" autocomplete="name" maxlength="60"></label>
+<label>Tu WhatsApp *<small>Con código de área, sin 0 ni 15. Ej: 264 555 1234</small><input data-f="ctel" type="tel" inputmode="tel" autocomplete="tel" maxlength="20"></label>
+<label>Ciudad<input data-f="ciudad" autocomplete="address-level2" maxlength="40"></label>
+<label>Email <small>(opcional)</small><input data-f="email" type="email" inputmode="email" autocomplete="email" maxlength="60"></label>
+<label>¿Cómo nos conociste?<select data-f="origen"><option value="">Elegí una opción</option><option>Instagram</option><option>Facebook</option><option>Estado de WhatsApp</option><option>Me lo recomendaron</option><option>Ya compré antes</option><option>Otro</option></select></label>
+</fieldset>
+<fieldset><legend>2 · Tu invitación</legend>
+<label><span id="fNomL">Nombre *</span><small>Así como querés que aparezca.</small><input data-f="nombre" maxlength="60"></label>
+<label id="fEdadW">Edad que cumple<input data-f="edad" inputmode="numeric" maxlength="3"></label>
+<div class="f2"><label>Fecha *<input data-f="fecha" type="date"></label><label>Hora *<input data-f="hora" type="time"></label></div>
+<label>Lugar *<small>Nombre del salón, quinta o casa.</small><input data-f="lugar" maxlength="60"></label>
+<label>Dirección *<small>Calle, número y ciudad, para el mapa.</small><input data-f="direccion" maxlength="90"></label>
+<label id="fFiestaW">Después festejamos en <small>(opcional: lugar, dirección y hora)</small><input data-f="fiesta" maxlength="120"></label>
+<label class="fChk"><input type="checkbox" data-f="mismo" checked> Los invitados confirman asistencia a mi WhatsApp</label>
+<label id="fWaConfW" hidden>WhatsApp para confirmar asistencia *<input data-f="waconf" type="tel" inputmode="tel" maxlength="20"></label>
+<label>Confirmar asistencia antes del <small>(opcional)</small><input data-f="limite" type="date"></label>
+<label>Vestimenta <small>(opcional)</small><input data-f="dress" maxlength="60"></label>
+<label>Alias o CBU para regalos <small>(opcional)</small><input data-f="alias" maxlength="30" autocapitalize="off"></label>
+<label>Frase <small>(opcional)</small><input data-f="frase" maxlength="120"></label>
+<label id="fCancW">Canción para la web <small>(nombre y artista)</small><input data-f="cancion" maxlength="80"></label>
+<label>¿Algo más que tengamos que saber? <small>(opcional)</small><textarea data-f="notas" maxlength="400" rows="3"></textarea></label>
+</fieldset>
+<div class="fCond"><b>Condiciones</b><ul><li>Seña del 50% para empezar; el resto, al aprobar la muestra.</li><li>Te mandamos una muestra con marca de agua. Incluye 2 cambios sin cargo; después, $2.000 cada uno.</li><li>Entrega dentro de las 48 horas hábiles desde la seña y estos datos completos.</li><li>Cambiar fecha, hora o lugar después de la entrega no tiene cargo.</li><li>La seña no se devuelve si se cancela el pedido.</li></ul>
+<label class="fChk"><input type="checkbox" data-f="acepto"> Leí y acepto las condiciones</label></div>
+<div id="fMsg" aria-live="polite"></div>
+<div class="oBtns"><button class="cta gold" type="submit" id="fSend">Enviar mi pedido por WhatsApp</button><button class="cta ghost" type="button" id="fClose">Volver</button></div>
+<p class="fAsk">¿Solo querés consultar algo? <a href="#" id="fAsk">Escribinos sin completar nada</a></p>
+</form></div></div>
+
 <div id="webv" role="dialog" aria-label="Invitación web de muestra"><div class="wbar"><button id="wBack" type="button">← Volver al catálogo</button><a class="cta" id="wWant" href="#">Elegir este</a></div><iframe id="wFr" title="Invitación web de muestra" allow="autoplay; clipboard-write"></iframe></div>
 <div id="viewer" role="dialog" aria-label="Vista de la tarjeta"><button id="vX" type="button" aria-label="Cerrar">×</button><div id="vCap" class="eyebrow" style="margin:0"></div><div class="wmk" id="vBox"><img id="vImg" alt="" draggable="false"><video id="vVid" playsinline loop muted hidden disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback"></video></div><div class="heroBtns" style="margin:0"><a class="cta" id="vWant" target="_blank" rel="noopener">Elegir este</a><button class="cta ghost" id="vClose" type="button">Cerrar</button></div></div>
 
@@ -486,14 +549,16 @@ $('waMenu').href=$('waFoot').href=$('waFloat').href=wa('¡Hola! Quiero consultar
 var cur=null;try{var h=decodeURIComponent(location.hash.slice(1));if(EVENTOS.indexOf(h)>=0)cur=h}catch(e){}
 function grp(ev){return GALA.indexOf(ev)>=0?'gala':'normal'}
 function pr(ev,k){return PRECIOS[grp(ev)][k]}
+/* Web Premium (sobre, música y fotos) es solo para Bodas */
+function fmts(ev){return FORMATOS.filter(function(f){return f.k!=='premium'||ev==='Bodas'})}window.digiFmts=fmts;window.digiPr=pr;window.digiWant=function(d,sel){return want(d,sel)};
 function priceHTML(a){return (a[0]>a[1]?'<s>'+money(a[0])+'</s>':'')+'<b>'+money(a[1])+'</b>'}
 function cnt(e){return DISENOS.filter(function(d){return d.ev===e}).length}
 function tabs(){$('tabs').innerHTML=EVENTOS.map(function(e){return '<button class="tab" role="tab" aria-selected="'+(e===cur)+'" data-ev="'+esc(e)+'">'+esc(e)+' <small style="opacity:.7">'+cnt(e)+'</small></button>'}).join('')}
-function want(d,sel){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img)||(d.demo&&/demos\/([a-z0-9-]+)/.exec(d.demo));var code=m?(d.demo?'w-':'')+m[1]:'';
+function want(d,sel){var m=d.demo?/demos\/([a-z0-9-]+)/.exec(d.demo):/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);var code=m?(d.demo?'w-':'')+m[1]:'';
  var t=0;var names=FORMATOS.filter(function(f){return sel&&sel.indexOf(f.k)>=0}).map(function(f){t+=pr(d.ev,f.k)[1];return f.n});
  return wa('¡Hola! Me gusta el diseño "'+d.n+'" de '+d.ev+(code?' (código '+code+')':'')+'.\nLo quiero en: '+(names.length?names.join(', ')+'\nTotal: '+money(t):'(imagen / video / PDF / web)')+'\n¿Me pasás el formulario?')}
 var list=[];
-var DEMO_PAIR={'xv-holografica':'xv-holo','infantiles-i-bloques':'web-bloques','infantiles-ii-pixeles':'web-pixeles','infantiles-iii-autos':'web-autos','infantiles-iv-sheriff':'web-sheriff','infantiles-v-estrellas':'web-estrellas','bautismo-i':'bau-paloma-verde','bodas-saten':'boda-saten','xv-medianoche':'xv-medianoche','baby-shower-ii':'baby-arcoiris','baby-shower-iii':'baby-globo','baby-shower-iv':'baby-telon'};
+var DEMO_PAIR={'xv-holografica':'xv-holo','infantiles-i-bloques':'web-bloques','infantiles-ii-pixeles':'web-pixeles','infantiles-iii-autos':'web-autos','infantiles-iv-sheriff':'web-sheriff','infantiles-v-estrellas':'web-estrellas','bautismo-i':'bau-paloma-verde','bodas-saten':'boda-saten','xv-medianoche':'xv-medianoche','baby-shower-ii':'baby-arcoiris','baby-shower-iii':'baby-globo','baby-shower-iv':'baby-telon'};window.digiPair=DEMO_PAIR;
 function tplOf(d){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);if(m)return m[1];m=d.demo&&/demos\/([a-z0-9-]+)/.exec(d.demo);return m?DEMO_PAIR[m[1]]:''}
 function card(d){var i=list.push(d)-1;
   return '<article class="card">'+
@@ -519,14 +584,14 @@ function grid(){list=[];if(!cur){$('grid').innerHTML='<p class="gsub" style="pad
  [].forEach.call($('grid').querySelectorAll('[data-fmt]'),function(b){b.onclick=function(){showFmt(list[+b.dataset.i],b.dataset.fmt)}});
  [].forEach.call(document.querySelectorAll('[data-pick]'),function(b){b.onclick=function(){pickAndGo(list[+b.dataset.pick])}})}
 /* tabla de precios y "desde" de los formatos */
-$('ptable').innerHTML='<div class="prow h"><span>Formato</span><span class="v">Bautismo, baby shower, infantiles y cumpleaños</span><span class="v">Bodas y 15 años</span></div>'+FORMATOS.map(function(f){return '<div class="prow"><span class="f">'+esc(f.n)+'<small>'+esc(f.d)+'</small></span><span class="v">'+priceHTML(PRECIOS.normal[f.k])+'</span><span class="v">'+priceHTML(PRECIOS.gala[f.k])+'</span></div>'}).join('');
+$('ptable').innerHTML='<div class="prow h"><span>Formato</span><span class="v">Bautismo, baby shower, infantiles y cumpleaños</span><span class="v">Bodas y 15 años</span></div>'+FORMATOS.map(function(f){var pm=f.k==='premium';return '<div class="prow"><span class="f">'+esc(f.n)+'<small>'+esc(f.d)+(pm?' · solo bodas':'')+'</small></span><span class="v">'+(pm?'<span style="opacity:.55">—</span>':priceHTML(PRECIOS.normal[f.k]))+'</span><span class="v">'+priceHTML(PRECIOS.gala[f.k])+'</span></div>'}).join('');
 [].forEach.call(document.querySelectorAll('[data-from]'),function(e){var k=e.dataset.from,a=Math.min(PRECIOS.normal[k][1],PRECIOS.gala[k][1]);e.innerHTML='desde <b>'+money(a)+'</b>'});
 $('exPdf').onclick=function(){$('vWant').textContent='Consultar por WhatsApp';$('vCap').textContent='Ejemplo · PDF interactivo';$('vImg').src='muestras/d/xv-medianoche-pdf.jpg';$('vImg').alt='Ejemplo de PDF';$('vWant').onclick=null;$('vWant').href=wa('¡Hola! Quiero consultar por una invitación digital.');openV()};
 $('exImg').onclick=function(){$('vWant').textContent='Consultar por WhatsApp';$('vCap').textContent='Ejemplo · imagen JPG';$('vImg').src='muestras/d/xv-medianoche.jpg';$('vImg').alt='Ejemplo de imagen';$('vWant').onclick=null;$('vWant').href=wa('¡Hola! Quiero consultar por una invitación digital.');openV()};
 /* hoja de pedido */
 var od=null,osel=[];
 function openO(d){od=d;osel=['imagen'];$('oImg').src=d.img;$('oName').textContent=d.n;$('oEv').textContent=d.ev+(d.demo?' · invitación web animada':'');renderO();$('order').classList.add('on');document.body.classList.add('lock');try{history.pushState({o:1},'')}catch(_){}}
-function renderO(){var t=0,o=0;$('oItems').innerHTML=FORMATOS.map(function(f){var a=pr(od.ev,f.k),on=osel.indexOf(f.k)>=0;if(on){t+=a[1];o+=Math.max(a[0],a[1])}return '<label class="oItem"><input type="checkbox" data-k="'+f.k+'"'+(on?' checked':'')+'><span><b>'+esc(f.n)+'</b><small>'+esc(f.d)+'</small></span><span class="v">'+priceHTML(a)+'</span></label>'}).join('');
+function renderO(){var t=0,o=0;$('oItems').innerHTML=fmts(od.ev).map(function(f){var a=pr(od.ev,f.k),on=osel.indexOf(f.k)>=0;if(on){t+=a[1];o+=Math.max(a[0],a[1])}return '<label class="oItem"><input type="checkbox" data-k="'+f.k+'"'+(on?' checked':'')+'><span><b>'+esc(f.n)+'</b><small>'+esc(f.d)+'</small></span><span class="v">'+priceHTML(a)+'</span></label>'}).join('');
  $('oTot').textContent=money(t);$('oOld').textContent=o>t?money(o):'';var s=$('oSend');s.href=want(od,osel);s.setAttribute('aria-disabled',osel.length?'false':'true')}
 $('oItems').addEventListener('change',function(e){var k=e.target.dataset.k;if(!k)return;osel=e.target.checked?osel.concat(k):osel.filter(function(x){return x!==k});renderO()});
 function closeO(fromPop){if(!$('order').classList.contains('on'))return;$('order').classList.remove('on');document.body.classList.remove('lock');if(!fromPop){try{if(history.state&&history.state.o)history.back()}catch(_){}}}
@@ -541,10 +606,10 @@ $('vClose').onclick=$('vX').onclick=function(){closeV()};$('viewer').addEventLis
 var P=null,psel=[];
 var FDESC={imagen:'Para chats, estados y redes',pdf:'Con botones: Maps, Waze, agendar y confirmar',video:'Animado, para estados y reels',web:'Página completa con cuenta regresiva y confirmación'};
 var FK={imagen:'jpg',pdf:'pdf',video:'video',web:'web'};
-function pick(d){P=d;psel=psel.length?psel:['imagen'];var t=tplOf(d);
+function pick(d){P=d;psel=psel.filter(function(k){return k!=='premium'||d.ev==='Bodas'});psel=psel.length?psel:['imagen'];var t=tplOf(d);
  $('p3eb').textContent='Paso 3 de 4';$('p3t').textContent='¿En qué formato la querés?';$('p3s').textContent='Tocá "Ver" para mirar cada formato de este diseño y marcá los que querés. Podés elegir varios.';
  $('fmtInfo').hidden=true;var k=$('pick');k.hidden=false;
- k.innerHTML='<div class="pickHead"><img src="'+d.img+'" alt=""><div><b>'+esc(d.n)+'</b><small>'+esc(d.ev)+'</small></div></div><div class="fmtGrid">'+FORMATOS.map(function(f){var a=pr(d.ev,f.k),on=psel.indexOf(f.k)>=0;
+ k.innerHTML='<div class="pickHead"><img src="'+d.img+'" alt=""><div><b>'+esc(d.n)+'</b><small>'+esc(d.ev)+'</small></div></div><div class="fmtGrid">'+fmts(d.ev).map(function(f){var a=pr(d.ev,f.k),on=psel.indexOf(f.k)>=0;
   return '<div class="fmt'+(on?' on':'')+'" data-k="'+f.k+'"><div class="media"><img loading="lazy" src="img/t-'+t+'.jpg" alt=""><span class="num">'+esc(f.n)+'</span></div><h3>'+esc(f.n)+'</h3><p>'+esc(FDESC[f.k])+'</p><div class="pr2">'+priceHTML(a)+'</div><div class="row"><button class="cta ghost" type="button" data-see="'+f.k+'">Ver</button><button class="cta'+(on?' gold':' ghost')+'" type="button" data-tog="'+f.k+'">'+(on?'✓ Lo quiero':'Lo quiero')+'</button></div></div>'}).join('')+'</div>';
  [].forEach.call(k.querySelectorAll('[data-see]'),function(b){b.onclick=function(){showFmt(P,FK[b.dataset.see])}});
  [].forEach.call(k.querySelectorAll('[data-tog]'),function(b){b.onclick=function(){var x=b.dataset.tog;psel=psel.indexOf(x)>=0?psel.filter(function(y){return y!==x}):psel.concat(x);pick(P);}});
@@ -552,6 +617,76 @@ function pick(d){P=d;psel=psel.length?psel:['imagen'];var t=tplOf(d);
 function pickAndGo(d){pick(d);setTimeout(function(){$('formatos').scrollIntoView({behavior:'smooth'})},60)}
 function sum(){var t=0,o=0;$('sum').innerHTML='<div class="sumRow"><b>'+esc(P.n)+'</b><span style="font:500 13px var(--sans);color:var(--muted)">'+esc(P.ev)+'</span></div>'+FORMATOS.filter(function(f){return psel.indexOf(f.k)>=0}).map(function(f){var a=pr(P.ev,f.k);t+=a[1];o+=Math.max(a[0],a[1]);return '<div class="sumRow"><span>'+esc(f.n)+'</span><span>'+money(a[1])+'</span></div>'}).join('')+(psel.length?'':'<p class="gsub" style="margin:12px 0">Marcá al menos un formato en el paso 3.</p>');
  $('sTot').textContent=money(t);$('sOld').textContent=o>t?money(o):'';$('sSend').href=want(P,psel);$('sSend').setAttribute('aria-disabled',psel.length?'false':'true');$('sSend').classList.add('gold')}
+/* ===== Formulario único del pedido (28/11): datos del cliente + datos de la invitación.
+   Manda UN mensaje de WhatsApp que el panel lee entero. Las claves "Clave: valor" tienen que coincidir con las que lee el panel
+   (armarPedido). control/pedidos.js prueba el viaje formulario -> panel. ===== */
+var FQ=null;
+var F_SIN_EDAD=['Bodas','Bautismo','Baby shower'];
+function fLabelNom(ev){return ev==='Bodas'?'Nombres de los novios':ev==='Bautismo'?'Nombre de quien se bautiza':ev==='Baby shower'?'Nombre del bebé (o "Baby shower de…")':'Nombre del festejado o festejada'}
+function fKey(){return 'digi_form_'+(FQ&&FQ.code||'')}
+function fHoy(){var d=new Date();d.setHours(0,0,0,0);return d}
+function fIso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function fDMY(v){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||'');return m?m[3]+'/'+m[2]+'/'+m[1]:''}
+function fTel(v){var n=String(v||'').replace(/\D/g,'');if(n.indexOf('549')===0)n=n.slice(3);else if(n.indexOf('54')===0)n=n.slice(2);if(n.charAt(0)==='0')n=n.slice(1);n=n.replace(/^(\d{2,4})15(\d{6,8})$/,'$1$2');return n}
+function openF(d,sel){if(!sel||!sel.length)return;var m=d.demo?/demos\/([a-z0-9-]+)/.exec(d.demo):/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);
+ FQ={d:d,sel:sel.slice(),code:m?(d.demo?'w-':'')+m[1]:''};var ev=d.ev,t=0,o=0;
+ var names=FORMATOS.filter(function(f){return sel.indexOf(f.k)>=0}).map(function(f){var a=pr(ev,f.k);t+=a[1];o+=Math.max(a[0],a[1]);return f.n});FQ.names=names;FQ.t=t;
+ $('fImg').src=d.img;$('fName').textContent=d.n;$('fEv').textContent=ev;$('fFmts').textContent=names.join(' + ');$('fTot').textContent=money(t);$('fOld').textContent=o>t?money(o):'';
+ $('fNomL').textContent=fLabelNom(ev)+' *';$('fEdadW').hidden=F_SIN_EDAD.indexOf(ev)>=0;$('fCancW').hidden=sel.indexOf('premium')<0;
+ $('fFiestaW').hidden=!(ev==='Bautismo'||ev==='Bodas');
+ var min=fHoy();min.setDate(min.getDate()+2);$('pform').querySelector('[data-f="fecha"]').min=fIso(min);
+ var saved=null;try{saved=JSON.parse(localStorage.getItem(fKey())||'null')}catch(_){}
+ [].forEach.call($('pform').querySelectorAll('[data-f]'),function(i){var v=saved?saved[i.dataset.f]:undefined;if(i.type==='checkbox')i.checked=v===undefined?i.defaultChecked:!!v;else i.value=v||''});
+ $('fMsg').innerHTML='';$('fDraft').hidden=!saved;fSync();
+ $('pform').classList.add('on');document.body.classList.add('lock');$('pform').querySelector('.sheet').scrollTop=0;try{history.pushState({f:1},'')}catch(_){}}
+function closeF(fromPop){if(!$('pform').classList.contains('on'))return;$('pform').classList.remove('on');document.body.classList.remove('lock');if(!fromPop){try{if(history.state&&history.state.f)history.back()}catch(_){}}}
+function fVal(k){var i=$('pform').querySelector('[data-f="'+k+'"]');return i?(i.type==='checkbox'?i.checked:String(i.value||'').trim()):''}
+function fSave(){var o={};[].forEach.call($('pform').querySelectorAll('[data-f]'),function(i){o[i.dataset.f]=i.type==='checkbox'?i.checked:i.value});try{localStorage.setItem(fKey(),JSON.stringify(o))}catch(_){}}
+function fSync(){$('fWaConfW').hidden=fVal('mismo')}
+/* revisa todo y devuelve la lista de problemas; marca los campos */
+function fCheck(){var err=[],warn=[],ev=FQ.d.ev;[].forEach.call($('pform').querySelectorAll('.bad'),function(x){x.classList.remove('bad')});
+ function bad(k,msg){var i=$('pform').querySelector('[data-f="'+k+'"]');if(i)i.classList.add('bad');err.push(msg)}
+ if(fVal('cnombre').length<3)bad('cnombre','Escribí tu nombre y apellido.');
+ var tel=fTel(fVal('ctel'));if(tel.length!==10)bad('ctel','Tu WhatsApp tiene que tener 10 números con el código de área, sin 0 ni 15 (ej: 264 555 1234).');
+ if(fVal('email')&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(fVal('email')))bad('email','Revisá el email (o dejalo vacío).');
+ var nom=fVal('nombre');if(!nom)bad('nombre','Falta: '+fLabelNom(ev).toLowerCase()+'.');else if(nom.length>32)warn.push('El nombre es largo ('+nom.length+' letras). Si hace falta, lo acomodamos para que se lea bien.');
+ if(!$('fEdadW').hidden){var e=fVal('edad');if(e&&!/^\d{1,3}$/.test(e))bad('edad','La edad va solo con números (ej: 5).')}
+ var f=fVal('fecha');if(!f)bad('fecha','Falta la fecha del evento.');else{var fd=new Date(f+'T00:00:00');if(fd<fHoy())bad('fecha','La fecha del evento ya pasó. Revisala.');else{var lim=fHoy();lim.setDate(lim.getDate()+2);if(fd<lim)warn.push('Tu evento es muy pronto: escribinos por WhatsApp para ver si llegamos.');if(fd.getFullYear()>fHoy().getFullYear()+2)bad('fecha','Revisá el año de la fecha.')}}
+ if(!fVal('hora'))bad('hora','Falta la hora.');
+ if(!fVal('lugar'))bad('lugar','Falta el lugar (nombre del salón o casa).');
+ if(!fVal('direccion'))bad('direccion','Falta la dirección.');
+ if(!fVal('mismo')){var w=fTel(fVal('waconf'));if(w.length!==10)bad('waconf','El WhatsApp para confirmar tiene que tener 10 números con el código de área.')}
+ var lc=fVal('limite');if(lc&&f&&lc>=f)bad('limite','"Confirmar antes del" tiene que ser antes de la fecha del evento.');
+ if(lc&&new Date(lc+'T00:00:00')<fHoy())bad('limite','"Confirmar antes del" ya pasó.');
+ var al=fVal('alias');if(al){var dig=al.replace(/\s/g,'');if(/^\d+$/.test(dig)){if(dig.length!==22)bad('alias','El CBU o CVU tiene 22 números. Revisalo (o poné el alias).')}else if(!/^[A-Za-z0-9.\-]{6,20}$/.test(al))bad('alias','El alias tiene entre 6 y 20 letras, números o puntos, sin espacios (ej: sofia.fiesta.15).')}
+ if(!fVal('acepto'))bad('acepto','Para enviar tenés que aceptar las condiciones.');
+ return {err:err,warn:warn}}
+function fMsgTxt(){var d=FQ.d,ev=d.ev,L=[];var add=function(k,v){if(v)L.push(k+': '+v)};
+ L.push('¡Hola! Quiero el diseño "'+d.n+'" de '+ev+' (código '+FQ.code+').');
+ L.push('Lo quiero en: '+FQ.names.join(', '));L.push('Total: '+money(FQ.t));L.push('');
+ L.push('*MIS DATOS*');add('Mi nombre',fVal('cnombre'));add('Mi WhatsApp',fTel(fVal('ctel')));add('Ciudad',fVal('ciudad'));add('Email',fVal('email'));add('Cómo los conocí',fVal('origen'));L.push('');
+ L.push('*LA INVITACIÓN*');add('Evento',ev);add('Nombre del festejado/a o de los novios',fVal('nombre'));if(!$('fEdadW').hidden)add('Edad que cumple',fVal('edad'));
+ add('Fecha (día/mes/año)',fDMY(fVal('fecha')));add('Hora',fVal('hora'));add('Lugar',fVal('lugar'));add('Dirección',fVal('direccion'));
+ if(!$('fFiestaW').hidden)add('Después festejamos en',fVal('fiesta'));
+ add('WhatsApp para confirmar asistencia',fVal('mismo')?fTel(fVal('ctel')):fTel(fVal('waconf')));add('Confirmar antes del',fDMY(fVal('limite')));
+ add('Vestimenta',fVal('dress'));add('Alias para regalos',fVal('alias'));add('Frase',fVal('frase'));if(!$('fCancW').hidden)add('Canción',fVal('cancion'));add('Comentarios',fVal('notas'));
+ L.push('');L.push('Acepto las condiciones: seña del 50% para empezar, 2 cambios sin cargo y entrega en 48 horas hábiles.');
+ return L.join('\n')}
+function fSend(e){e.preventDefault();var r=fCheck();
+ if(r.err.length){$('fMsg').innerHTML='<div class="fErr"><b>Revisá esto antes de enviar:</b><ul>'+r.err.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div>';var b=$('pform').querySelector('.bad');if(b){b.scrollIntoView({block:'center',behavior:'smooth'});try{b.focus({preventScroll:true})}catch(_){}}return}
+ fSave();var url=wa(fMsgTxt());$('fMsg').innerHTML=r.warn.length?'<div class="fWarn">'+r.warn.map(esc).join('<br>')+'</div>':'';
+ var w=window.open(url,'_blank','noopener');if(!w)location.href=url;
+ $('fMsg').innerHTML+='<div class="fOk">¡Listo! Se abrió WhatsApp con tu pedido: tocá <b>Enviar</b> allá. Te respondemos con la seña y en cuanto la recibimos armamos tu muestra.</div>'}
+$('pform').addEventListener('input',function(e){if(e.target.dataset&&e.target.dataset.f){if(e.target.classList.contains('bad'))e.target.classList.remove('bad');fSave();if(e.target.dataset.f==='mismo')fSync()}});
+$('pform').addEventListener('change',function(e){if(e.target.dataset&&e.target.dataset.f==='mismo')fSync()});
+$('fForm').addEventListener('submit',fSend);
+$('fClose').onclick=function(){closeF()};$('fAsk').onclick=function(e){e.preventDefault();var w=window.open(wa('¡Hola! Tengo una consulta sobre el diseño "'+FQ.d.n+'" de '+FQ.d.ev+'.'),'_blank','noopener')};
+$('fClear').onclick=function(){try{localStorage.removeItem(fKey())}catch(_){}openF(FQ.d,FQ.sel);closeF(true);$('pform').classList.add('on');document.body.classList.add('lock')};
+window.addEventListener('popstate',function(){closeF(true)});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeF()});
+/* los dos botones de pedido abren el formulario */
+['oSend','sSend'].forEach(function(id){$(id).addEventListener('click',function(e){e.preventDefault();if(this.getAttribute('aria-disabled')==='true')return;if(id==='oSend'){var d=od,s=osel;closeO();setTimeout(function(){openF(d,s)},30)}else openF(P,psel)})});
+window.digiForm={open:openF,msg:fMsgTxt,check:fCheck};
+
 [].forEach.call(document.querySelectorAll('h2'),function(h){if(h.id==='p3t')return;var t=h.textContent.trim(),i=t.lastIndexOf(' ');if(i>0)h.innerHTML=esc(t.slice(0,i+1))+'<span class="g">'+esc(t.slice(i+1))+'</span>'});
 function deck(R,PV,NX,CT){var r=$(R);r.classList.add('deck');var cs=[].slice.call(r.querySelectorAll('.fq')),n=cs.length,idx=0,pad=function(v){return (v<10?'0':'')+v};
  cs.forEach(function(c,i){var fg=c.querySelector('.fg'),nm=c.querySelector('.num2');
