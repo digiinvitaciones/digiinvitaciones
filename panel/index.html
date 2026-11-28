@@ -629,6 +629,7 @@ function allTpls(){return TEMPLATES.filter(t=>!t.hidden).concat(customTpls)}
 /* mismos grupos que el catálogo: Nena, Nene, Neutro, Bebés */
 const TPL_G={"bau-paloma-celeste": "varon", "bau-paloma-rosa": "nena", "bau-cuna-celeste": "varon", "bau-cuna-rosa": "nena", "bau-paloma-verde": "todos", "bau-paloma-lila": "nena", "bau-cuna-verde": "todos", "bau-cuna-lila": "nena", "inf-mariposas": "nena", "inf-ballet": "nena", "inf-pasteleria": "nena", "inf-autos": "varon", "inf-helados": "nena", "inf-espacio": "varon", "inf-futbol": "varon", "inf-granja": "todos", "inf-dinosaurios": "varon", "inf-piratas": "varon", "inf-bloques": "varon", "inf-princesa": "nena", "inf-sirenas": "nena", "inf-superheroe": "varon", "inf-unicornio": "nena", "inf-invierno": "nena", "inf-primer-luna": "bebe", "inf-primer-ciervo": "bebe", "inf-primer-ovejita": "bebe", "inf-osito": "bebe", "inf-primer-ositos": "bebe", "inf-safari": "bebe", "inf-osito-cumple": "todos", "baby-arcoiris": "todos", "baby-globo": "todos", "baby-telon": "todos", "baby-ciguena": "todos"};
 const GRUPOS_P=[['nena','Nena'],['varon','Nene'],['todos','Neutro'],['bebe','Bebés · primer añito']];
+const WEB_ULTIMO=['15 años']; // en estos eventos las webs van debajo de los diseños nuevos
 function buildPicker(){
   const body=$('designBody');body.innerHTML='';
   const inEv=(x,ev)=>x.ev===ev||(ev==='Infantiles'&&x.ev==='Primer año');
@@ -637,7 +638,8 @@ function buildPicker(){
     const det=document.createElement('details');det.className='sub';det.dataset.ev=ev;
     
     const cnt=[list.length?list.length+' tarjeta'+(list.length>1?'s':''):'',webs.length?webs.length+' web':''].filter(Boolean).join(' · ');
-    det.innerHTML=`<summary>${ev}<span>${cnt}</span></summary>${webs.length?'<div class="lbl wlbl">Invitaciones web completas</div><div class="grid wgrid"></div>':''}${list.length?(webs.length?'<div class="lbl wlbl">Tarjetas</div>':'')+'<div class="grid tgrid"></div>':''}`;
+    const wH=webs.length?'<div class="lbl wlbl">Invitaciones web completas</div><div class="grid wgrid"></div>':'',tH=list.length?(webs.length?'<div class="lbl wlbl">Tarjetas</div>':'')+'<div class="grid tgrid"></div>':'';
+    det.innerHTML=`<summary>${ev}<span>${cnt}</span></summary>`+(WEB_ULTIMO.includes(ev)?tH+wH:wH+tH);
     const wg=det.querySelector('.wgrid');if(wg)webs.forEach(w=>{const b=document.createElement('button');b.className='tpl web'+(w.id===state.web?' sel':'');b.type='button';b.dataset.web=w.id;b.innerHTML=`<img loading="lazy" alt="" src="${webCover(w)}"><span class="badge">Web</span>${esc(w.name)}`;b.onclick=()=>selectWeb(w.id);wg.appendChild(b)});
     det.addEventListener('toggle',()=>{if(det.open)body.querySelectorAll('details.sub').forEach(o=>{if(o!==det)o.open=false})});
     const tg=det.querySelector('.tgrid');
