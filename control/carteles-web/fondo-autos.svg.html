@@ -1,0 +1,31 @@
+<!doctype html><meta charset=utf-8><style>html,body{margin:0;width:1080px;height:1920px;overflow:hidden}</style>
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffaf0"/><stop offset=".55" stop-color="#fff3df"/><stop offset="1" stop-color="#ffe2b8"/></linearGradient>
+<pattern id="chk" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#fff"/><rect width="20" height="20" fill="#222"/><rect x="20" y="20" width="20" height="20" fill="#222"/></pattern>
+<g id="car"><path d="M-150 10 Q-150 -30 -110 -38 L-60 -42 L-30 -78 Q-20 -88 10 -88 L60 -88 Q85 -88 95 -70 L112 -40 L150 -34 Q172 -30 172 0 L172 18 L-150 18 Z" fill="var(--c)" stroke="#1d1d1d" stroke-width="7" stroke-linejoin="round"/>
+<path d="M-18 -42 L4 -74 L52 -74 L72 -42 Z" fill="#cfe9ff" stroke="#1d1d1d" stroke-width="6" stroke-linejoin="round"/>
+<path d="M150 -34 L176 -60 L184 -60 L178 -26" fill="var(--c)" stroke="#1d1d1d" stroke-width="6" stroke-linejoin="round"/>
+<circle cx="-62" cy="-6" r="26" fill="#fff" stroke="#1d1d1d" stroke-width="6"/>
+<rect x="-130" y="-4" width="30" height="10" rx="4" fill="#fff" opacity=".7"/>
+<circle cx="-92" cy="22" r="38" fill="#2a2a2a"/><circle cx="-92" cy="22" r="16" fill="#cfcfcf"/>
+<circle cx="112" cy="22" r="38" fill="#2a2a2a"/><circle cx="112" cy="22" r="16" fill="#cfcfcf"/></g>
+<g id="cone"><path d="M-30 40 L-8 -50 L8 -50 L30 40 Z" fill="#ff7a1a" stroke="#1d1d1d" stroke-width="5" stroke-linejoin="round"/><path d="M-19 -5 L19 -5 L23 12 L-23 12 Z" fill="#fff"/><rect x="-44" y="36" width="88" height="14" rx="6" fill="#ff7a1a" stroke="#1d1d1d" stroke-width="5"/></g>
+<g id="tire"><ellipse cx="0" cy="0" rx="58" ry="20" fill="#2a2a2a" stroke="#111" stroke-width="4"/><rect x="-58" y="-34" width="116" height="34" fill="#2a2a2a"/><ellipse cx="0" cy="-34" rx="58" ry="20" fill="#3a3a3a" stroke="#111" stroke-width="4"/><ellipse cx="0" cy="-34" rx="26" ry="9" fill="#1a1a1a"/></g>
+</defs>
+<rect width="1080" height="1920" fill="url(#sky)"/>
+<g fill="#ffd1a1" opacity=".55"><circle cx="160" cy="240" r="10"/><circle cx="900" cy="180" r="14"/><circle cx="980" cy="520" r="8"/><circle cx="90" cy="640" r="12"/><circle cx="820" cy="760" r="9"/></g>
+<path d="M0 1080 Q300 1000 560 1060 T1080 1020 L1080 1920 L0 1920 Z" fill="#9fd67a"/>
+<path d="M0 1120 Q320 1040 560 1100 T1080 1060 L1080 1920 L0 1920 Z" fill="#7fc45a"/>
+<path d="M-60 1920 C 200 1660 120 1450 520 1360 S 1100 1300 1160 1180 L1160 1360 C 1100 1480 760 1480 640 1530 S 340 1700 300 1920 Z" fill="#4a4d57" stroke="#2e3038" stroke-width="10"/>
+<path d="M120 1920 C 330 1690 260 1500 580 1440 S 1060 1390 1160 1270" fill="none" stroke="#fff" stroke-width="12" stroke-dasharray="60 46"/>
+<path d="M-60 1920 C 200 1660 120 1450 520 1360 S 1100 1300 1160 1180" fill="none" stroke="#e33" stroke-width="22" stroke-dasharray="44 44"/>
+<path d="M-60 1920 C 200 1660 120 1450 520 1360 S 1100 1300 1160 1180" fill="none" stroke="#fff" stroke-width="22" stroke-dasharray="44 44" stroke-dashoffset="44"/>
+<g><rect x="150" y="1030" width="18" height="300" fill="#555"/><rect x="900" y="980" width="18" height="300" fill="#555"/><path d="M159 1040 Q530 1000 909 990 L909 1070 Q530 1080 159 1120 Z" fill="url(#chk)" stroke="#222" stroke-width="5"/></g>
+<use href="#car" style="--c:#2f6fe4" transform="translate(800 1300) scale(.62) rotate(-6)"/>
+<use href="#car" style="--c:#ffcc1f" transform="translate(600 1480) scale(.8) rotate(-12)"/>
+<use href="#car" style="--c:#e83a3a" transform="translate(330 1700) scale(1.02) rotate(-22)"/>
+<g font-family="Arial Black,Arial" font-weight="900" text-anchor="middle" fill="#1d1d1d"><text x="800" y="1302" font-size="20" transform="rotate(-6 800 1300)">3</text><text x="582" y="1484" font-size="26" transform="rotate(-12 600 1480)">7</text><text x="300" y="1702" font-size="34" transform="rotate(-22 330 1700)">1</text></g>
+<use href="#cone" transform="translate(110 1460) scale(.9)"/><use href="#cone" transform="translate(980 1560) scale(1.1)"/><use href="#cone" transform="translate(760 1820)"/>
+<use href="#tire" transform="translate(940 1250) scale(.7)"/><use href="#tire" transform="translate(940 1222) scale(.7)"/><use href="#tire" transform="translate(70 1830)"/><use href="#tire" transform="translate(70 1790)"/><use href="#tire" transform="translate(70 1750)"/>
+</svg>
