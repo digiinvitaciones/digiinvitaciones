@@ -37,6 +37,12 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
   if(d.padres)mal('Plantilla '+t.id,'tiene nombres de padres');
   if(P.g[t.id]==='todos'&&!t.noText&&d.nombre!=='Nombre')mal('Plantilla '+t.id,'es neutra y su nombre de ejemplo es "'+d.nombre+'" (debe ser "Nombre")');
  }
+ // códigos cortos (codigos.js): únicos, uno por diseño, y el link directo #CODIGO abre ese diseño
+ {await page.goto(URL);await page.waitForTimeout(1500);const k=await page.evaluate(()=>{const c=window.DIGI_CODIGOS||{};const v=Object.values(c);const r=[];
+   if(new Set(v).size!==v.length)r.push('hay dos códigos para el mismo diseño');DISENOS.forEach(d=>{if(!digiCod(d))r.push(d.n+' no tiene código')});
+   Object.keys(c).forEach(x=>{if(!/^[A-Z]{2}-\d{2,3}$/.test(x))r.push('código mal escrito: '+x)});return r});k.forEach(x=>mal('Códigos',x));
+  const c1=await page.evaluate(()=>Object.keys(window.DIGI_CODIGOS)[5]);await page.goto(URL+'#'+c1);await page.waitForTimeout(1800);
+  if(!(await page.evaluate(()=>!!document.querySelector('.card.hl'))))mal('Catálogo','el link directo #'+c1+' no muestra el diseño');}
  // precios: el panel cobra lo mismo que muestra el catálogo, y el pedido pegado marca los formatos correctos
  {const cp=await (async()=>{await page.goto(URL);await page.waitForTimeout(1500);return page.evaluate(()=>PRECIOS)})();
   await page.goto(URL+'panel/');await page.waitForTimeout(2500);
@@ -77,6 +83,7 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
   const OK_ILU={'demos/baby-shower-ii/':1};if(r.fotos.length&&!OK_ILU[w])mal(w,'muestra '+r.fotos.length+' foto(s): revisar que no sean de personas ('+r.fotos.join(', ')+')');
   if(pe.length)mal(w,'error en la página: '+pe[0]);await p.close()}
  // ---------- pedidos de punta a punta: cada diseño y cada combinación de formatos, del catálogo al panel ----------
+ {const f=await require('./webs-infantiles.js')(URL);f.forEach(x=>fallas.push(x))}
  {const r=await require('./pedidos.js')(URL);r.fallas.forEach(f=>fallas.push(f));console.log('Pedidos probados del catálogo al panel: '+r.total)}
  await b.close();
  console.log(fallas.length?fallas.join('\n')+`\n\n${fallas.length} cosa(s) para corregir.`:'✓ Todo cumple la lista de control.');

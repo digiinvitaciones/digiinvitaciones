@@ -88,6 +88,10 @@ section{padding:40px 0;scroll-margin-top:64px}
 .price b{font:600 26px var(--serif);color:#f3d58c}
 .price small{color:var(--muted);font-size:12px}
 .acts{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:0 4px}
+.dcode{text-align:center;font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:2px 0 4px}.dcode b{color:#f3d58c;letter-spacing:.12em;font-weight:600;padding:2px 8px;border:1px solid rgba(226,182,118,.45);border-radius:20px;margin-left:4px}
+.dshare,.pshare{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:none;border:0;color:#f3d9aa;font:500 13px var(--sans);padding:8px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(243,217,170,.45)}
+.pshare{margin:12px auto 0;display:flex}
+.card.hl{box-shadow:0 0 0 2px #f6dc94,0 0 34px rgba(246,220,148,.55)!important;transition:box-shadow .4s}
 .acts .cta{min-height:46px;font-size:12px;padding:12px 10px;letter-spacing:.1em}
 /* formatos */
 .fmtGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
@@ -320,6 +324,12 @@ nav.top .lk a.waMenu{color:#f6dc94}@media(max-width:560px){nav.top .lk a.waMenu{
 .fErr{background:rgba(255,107,138,.12);border:1px solid rgba(255,107,138,.6);color:#ffd9e1}.fErr ul{margin:6px 0 0 18px;padding:0}
 .fWarn{background:rgba(214,174,90,.12);border:1px solid rgba(214,174,90,.6);color:#f6e7c4}
 .fOk{background:rgba(70,170,110,.14);border:1px solid rgba(110,210,150,.6);color:#dcffe8}
+.fPay{margin-top:14px;padding:16px;border-radius:18px;border:1.5px solid #d6ae5a;background:linear-gradient(180deg,rgba(214,174,90,.16),rgba(214,174,90,.05));text-align:center;display:grid;gap:12px}
+.fPay p{font-size:13px;color:#efe3c6;line-height:1.45;margin:0}.fPay>b{font:600 22px var(--serif);color:#f6dc94}
+.fpT{font:600 13px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#f3d58c}
+.fpM{font:600 26px var(--serif);color:#fff6e4}.fpM b{color:#f6dc94;font-size:34px}.fpM small{display:block;font:500 12.5px var(--sans);color:var(--muted);margin-top:4px}
+.fpA{display:grid;gap:8px;padding:12px;border-radius:14px;background:rgba(0,0,0,.25);border:1px dashed rgba(246,220,148,.6)}.fpA span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}.fpA b{font:600 21px var(--sans);color:#fff6e4;word-break:break-all}
+.fpH{font-size:13px;color:#efe3c6}.fpH b{color:#f6dc94}.fpN{font-size:12px!important;color:var(--muted)!important}
 #pform .oBtns{display:grid;gap:10px;margin-top:16px}
 .fAsk{text-align:center;font-size:13px;color:var(--muted);margin:14px 0 0}.fAsk a{color:#f3d58c}
 </style>
@@ -335,7 +345,7 @@ nav.top .lk a.waMenu{color:#f6dc94}@media(max-width:560px){nav.top .lk a.waMenu{
       <h1 class="h1"><span class="d">DIGI</span><span class="i">Invitaciones</span></h1>
       <div class="bt">Boutique digital de <em>alta gama</em></div>
       <p class="lead">Te guiamos paso a paso: elegís el evento, el diseño y los formatos que querés (imagen, PDF interactivo, video o invitación web), y nos mandás el pedido por WhatsApp.</p>
-      <div class="heroBtns"><a class="cta gold" href="#paso1">Empezar</a><a class="cta navy" href="#como">Cómo es</a></div>
+      <div class="heroBtns"><a class="cta gold" href="#paso1">Empezar</a><a class="cta navy" href="#como">Cómo es</a></div><button class="pshare" type="button" id="pShare"></button>
     </div>
     <div class="heroPhone" aria-hidden="true"><div class="ph"><span class="k">Mis quince</span><span class="n">Camila</span><i></i><span class="b">Abrir invitación</span></div></div>
   </header>
@@ -440,12 +450,15 @@ nav.top .lk a.waMenu{color:#f6dc94}@media(max-width:560px){nav.top .lk a.waMenu{
 <div id="webv" role="dialog" aria-label="Invitación web de muestra"><div class="wbar"><button id="wBack" type="button">← Volver al catálogo</button><a class="cta" id="wWant" href="#">Elegir este</a></div><iframe id="wFr" title="Invitación web de muestra" allow="autoplay; clipboard-write"></iframe></div>
 <div id="viewer" role="dialog" aria-label="Vista de la tarjeta"><button id="vX" type="button" aria-label="Cerrar">×</button><div id="vCap" class="eyebrow" style="margin:0"></div><div class="wmk" id="vBox"><img id="vImg" alt="" draggable="false"><video id="vVid" playsinline loop muted hidden disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback"></video></div><div class="heroBtns" style="margin:0"><a class="cta" id="vWant" target="_blank" rel="noopener">Elegir este</a><button class="cta ghost" id="vClose" type="button">Cerrar</button></div></div>
 
-<script>document.write('<script src="precios.js?v='+Math.floor(Date.now()/60000)+'"><\/script>')</script>
+<script>document.write('<script src="precios.js?v='+Math.floor(Date.now()/60000)+'"><\/script><script src="codigos.js?v='+Math.floor(Date.now()/60000)+'"><\/script>')</script>
 <script>
 /* ===== DATOS DEL CATÁLOGO =====
    WHATSAPP: tu número con código de país, sin + ni espacios (ej: 5491155555555).
    PRECIOS: "antes" sale tachado. */
 var WHATSAPP='5492646280242';
+/* COBRO: alias y titular para la seña. Si Sandra publica precios desde el panel con su alias, precios.js lo reemplaza. */
+var COBRO={alias:'',titular:'Sandra Rojas'};
+(function(o){if(o&&o.cobro&&o.cobro.alias)COBRO={alias:String(o.cobro.alias),titular:String(o.cobro.titular||'')}})(window.DIGI_PRECIOS);
 /* PRECIOS por formato: [antes (tachado), ahora]. "gala" = Bodas y 15 años. */
 var PRECIOS={
  normal:{imagen:[7000,6000],pdf:[10000,8000],video:[12000,10000],web:[26000,22000],premium:[33000,28000]},
@@ -554,7 +567,13 @@ function fmts(ev){return FORMATOS.filter(function(f){return f.k!=='premium'||ev=
 function priceHTML(a){return (a[0]>a[1]?'<s>'+money(a[0])+'</s>':'')+'<b>'+money(a[1])+'</b>'}
 function cnt(e){return DISENOS.filter(function(d){return d.ev===e}).length}
 function tabs(){$('tabs').innerHTML=EVENTOS.map(function(e){return '<button class="tab" role="tab" aria-selected="'+(e===cur)+'" data-ev="'+esc(e)+'">'+esc(e)+' <small style="opacity:.7">'+cnt(e)+'</small></button>'}).join('')}
-function want(d,sel){var m=d.demo?/demos\/([a-z0-9-]+)/.exec(d.demo):/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);var code=m?(d.demo?'w-':'')+m[1]:'';
+/* código interno del diseño y código corto visible (codigos.js es la fuente única) */
+function intCod(d){var m=d.demo?/demos\/([a-z0-9-]+)/.exec(d.demo):/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);return m?(d.demo?'w-':'')+m[1]:''}
+var COD_INV=(function(){var o={},c=window.DIGI_CODIGOS||{};for(var k in c)o[c[k]]=k;return o})();
+function codDe(d){return COD_INV[intCod(d)]||''}
+function dByCod(c){c=String(c||'').toUpperCase();var i=(window.DIGI_CODIGOS||{})[c];if(!i)return null;for(var k=0;k<DISENOS.length;k++)if(intCod(DISENOS[k])===i)return DISENOS[k];return null}
+window.digiCod=codDe;window.digiByCod=dByCod;
+function want(d,sel){var code=codDe(d)||intCod(d);
  var t=0;var names=FORMATOS.filter(function(f){return sel&&sel.indexOf(f.k)>=0}).map(function(f){t+=pr(d.ev,f.k)[1];return f.n});
  return wa('¡Hola! Me gusta el diseño "'+d.n+'" de '+d.ev+(code?' (código '+code+')':'')+'.\nLo quiero en: '+(names.length?names.join(', ')+'\nTotal: '+money(t):'(imagen / video / PDF / web)')+'\n¿Me pasás el formulario?')}
 var list=[];
@@ -563,10 +582,10 @@ function tplOf(d){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);if(m)return m[1];
 function card(d){var i=list.push(d)-1;
   return '<article class="card">'+
    '<div class="wmk" data-fmt="jpg" data-i="'+i+'" style="cursor:zoom-in"><img class="shot" loading="lazy" draggable="false" src="'+d.img+'" alt="Portada del diseño '+esc(d.n)+'"></div>'+
-   '<h3>'+esc(d.n)+'</h3><p>'+esc(d.demo?d.d:'Elegante y lista para compartir')+'</p>'+
+   '<h3>'+esc(d.n)+'</h3>'+(codDe(d)?'<div class="dcode">Código <b>'+codDe(d)+'</b></div>':'')+'<p>'+esc(d.demo?d.d:'Elegante y lista para compartir')+'</p>'+
    '<div class="ftags"><small>Tocá para verla en cada formato</small><button type="button" data-fmt="jpg" data-i="'+i+'">JPG</button><button type="button" data-fmt="pdf" data-i="'+i+'">PDF</button><button type="button" data-fmt="video" data-i="'+i+'">Video</button><button type="button" data-fmt="web" data-i="'+i+'">Web</button>'+(d.prem?'<button type="button" class="fprem" data-fmt="premium" data-i="'+i+'">✦ Web Premium: sobre, música y fotos</button>':'')+'</div>'+
    '<div class="price"><small>desde </small><b>'+money(pr(d.ev,'imagen')[1])+'</b></div>'+
-   '<div class="acts"><button class="cta" type="button" data-pick="'+i+'">Elegir este</button></div></article>'}
+   '<div class="acts"><button class="cta" type="button" data-pick="'+i+'">Elegir este</button><button class="dshare" type="button" data-share="'+i+'">'+SHARE_ICO+' Compartir este diseño</button></div></article>'}
 function showFmt(d,f){var t=tplOf(d);
  if(f==='web'){openW(d.demo||('muestras/d/'+t+'.html'),d);return}
  if(f==='premium'){openW('muestras/d/'+t+'-premium.html',d);return}
@@ -582,7 +601,14 @@ function grid(){list=[];if(!cur){$('grid').innerHTML='<p class="gsub" style="pad
  $('grid').innerHTML=h;
  [].forEach.call($('grid').querySelectorAll('details.group'),function(dt){dt.addEventListener('toggle',function(){if(dt.open)[].forEach.call($('grid').querySelectorAll('details.group'),function(o){if(o!==dt)o.open=false})})});
  [].forEach.call($('grid').querySelectorAll('[data-fmt]'),function(b){b.onclick=function(){showFmt(list[+b.dataset.i],b.dataset.fmt)}});
- [].forEach.call(document.querySelectorAll('[data-pick]'),function(b){b.onclick=function(){pickAndGo(list[+b.dataset.pick])}})}
+ [].forEach.call(document.querySelectorAll('[data-pick]'),function(b){b.onclick=function(){pickAndGo(list[+b.dataset.pick])}});
+ [].forEach.call($('grid').querySelectorAll('[data-share]'),function(b){b.onclick=function(){shareD(list[+b.dataset.share])}})}
+/* compartir: la página o un diseño puntual (link directo con su código) */
+var SHARE_ICO='<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>';
+function baseUrl(){return location.origin+location.pathname}
+function doShare(title,text,url){if(navigator.share){navigator.share({title:title,text:text,url:url}).catch(function(){});return}var u='https://wa.me/?text='+encodeURIComponent(text+'\n'+url);var w=window.open(u,'_blank','noopener');if(!w)location.href=u}
+function shareD(d){var c=codDe(d);doShare('DIGI INVITACIONES · '+d.n,'Mirá esta invitación de '+d.ev+': "'+d.n+'"'+(c?' (código '+c+')':'')+'. Está en el catálogo de DIGI INVITACIONES:',baseUrl()+'#'+(c||encodeURIComponent(d.ev)))}
+function shareP(){doShare('DIGI INVITACIONES','Mirá el catálogo de invitaciones digitales de DIGI INVITACIONES: bodas, 15 años, infantiles, bautismos y más. Imagen, PDF, video y web.',baseUrl())}
 /* tabla de precios y "desde" de los formatos */
 $('ptable').innerHTML='<div class="prow h"><span>Formato</span><span class="v">Bautismo, baby shower, infantiles y cumpleaños</span><span class="v">Bodas y 15 años</span></div>'+FORMATOS.map(function(f){var pm=f.k==='premium';return '<div class="prow"><span class="f">'+esc(f.n)+'<small>'+esc(f.d)+(pm?' · solo bodas':'')+'</small></span><span class="v">'+(pm?'<span style="opacity:.55">—</span>':priceHTML(PRECIOS.normal[f.k]))+'</span><span class="v">'+priceHTML(PRECIOS.gala[f.k])+'</span></div>'}).join('');
 [].forEach.call(document.querySelectorAll('[data-from]'),function(e){var k=e.dataset.from,a=Math.min(PRECIOS.normal[k][1],PRECIOS.gala[k][1]);e.innerHTML='desde <b>'+money(a)+'</b>'});
@@ -629,15 +655,15 @@ function fIso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'
 function fDMY(v){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||'');return m?m[3]+'/'+m[2]+'/'+m[1]:''}
 function fTel(v){var n=String(v||'').replace(/\D/g,'');if(n.indexOf('549')===0)n=n.slice(3);else if(n.indexOf('54')===0)n=n.slice(2);if(n.charAt(0)==='0')n=n.slice(1);n=n.replace(/^(\d{2,4})15(\d{6,8})$/,'$1$2');return n}
 function openF(d,sel){if(!sel||!sel.length)return;var m=d.demo?/demos\/([a-z0-9-]+)/.exec(d.demo):/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);
- FQ={d:d,sel:sel.slice(),code:m?(d.demo?'w-':'')+m[1]:''};var ev=d.ev,t=0,o=0;
+ FQ={d:d,sel:sel.slice(),code:codDe(d)||intCod(d)};var ev=d.ev,t=0,o=0;
  var names=FORMATOS.filter(function(f){return sel.indexOf(f.k)>=0}).map(function(f){var a=pr(ev,f.k);t+=a[1];o+=Math.max(a[0],a[1]);return f.n});FQ.names=names;FQ.t=t;
- $('fImg').src=d.img;$('fName').textContent=d.n;$('fEv').textContent=ev;$('fFmts').textContent=names.join(' + ');$('fTot').textContent=money(t);$('fOld').textContent=o>t?money(o):'';
+ $('fImg').src=d.img;$('fName').textContent=d.n;$('fEv').textContent=ev+(codDe(d)?' · Código '+codDe(d):'');$('fFmts').textContent=names.join(' + ');$('fTot').textContent=money(t);$('fOld').textContent=o>t?money(o):'';
  $('fNomL').textContent=fLabelNom(ev)+' *';$('fEdadW').hidden=F_SIN_EDAD.indexOf(ev)>=0;$('fCancW').hidden=sel.indexOf('premium')<0;
  $('fFiestaW').hidden=!(ev==='Bautismo'||ev==='Bodas');
  var min=fHoy();min.setDate(min.getDate()+2);$('pform').querySelector('[data-f="fecha"]').min=fIso(min);
  var saved=null;try{saved=JSON.parse(localStorage.getItem(fKey())||'null')}catch(_){}
  [].forEach.call($('pform').querySelectorAll('[data-f]'),function(i){var v=saved?saved[i.dataset.f]:undefined;if(i.type==='checkbox')i.checked=v===undefined?i.defaultChecked:!!v;else i.value=v||''});
- $('fMsg').innerHTML='';$('fDraft').hidden=!saved;fSync();
+ $('fMsg').innerHTML='';$('fSend').textContent='Enviar mi pedido por WhatsApp';$('fDraft').hidden=!saved;fSync();
  $('pform').classList.add('on');document.body.classList.add('lock');$('pform').querySelector('.sheet').scrollTop=0;try{history.pushState({f:1},'')}catch(_){}}
 function closeF(fromPop){if(!$('pform').classList.contains('on'))return;$('pform').classList.remove('on');document.body.classList.remove('lock');if(!fromPop){try{if(history.state&&history.state.f)history.back()}catch(_){}}}
 function fVal(k){var i=$('pform').querySelector('[data-f="'+k+'"]');return i?(i.type==='checkbox'?i.checked:String(i.value||'').trim()):''}
@@ -661,9 +687,10 @@ function fCheck(){var err=[],warn=[],ev=FQ.d.ev;[].forEach.call($('pform').query
  var al=fVal('alias');if(al){var dig=al.replace(/\s/g,'');if(/^\d+$/.test(dig)){if(dig.length!==22)bad('alias','El CBU o CVU tiene 22 números. Revisalo (o poné el alias).')}else if(!/^[A-Za-z0-9.\-]{6,20}$/.test(al))bad('alias','El alias tiene entre 6 y 20 letras, números o puntos, sin espacios (ej: sofia.fiesta.15).')}
  if(!fVal('acepto'))bad('acepto','Para enviar tenés que aceptar las condiciones.');
  return {err:err,warn:warn}}
+function fSena(t){return Math.ceil((+t||0)/2/100)*100}
 function fMsgTxt(){var d=FQ.d,ev=d.ev,L=[];var add=function(k,v){if(v)L.push(k+': '+v)};
  L.push('¡Hola! Quiero el diseño "'+d.n+'" de '+ev+' (código '+FQ.code+').');
- L.push('Lo quiero en: '+FQ.names.join(', '));L.push('Total: '+money(FQ.t));L.push('');
+ L.push('Lo quiero en: '+FQ.names.join(', '));L.push('Total: '+money(FQ.t));L.push('Seña (50%): '+money(fSena(FQ.t)));L.push('');
  L.push('*MIS DATOS*');add('Mi nombre',fVal('cnombre'));add('Mi WhatsApp',fTel(fVal('ctel')));add('Ciudad',fVal('ciudad'));add('Email',fVal('email'));add('Cómo los conocí',fVal('origen'));L.push('');
  L.push('*LA INVITACIÓN*');add('Evento',ev);add('Nombre del festejado/a o de los novios',fVal('nombre'));if(!$('fEdadW').hidden)add('Edad que cumple',fVal('edad'));
  add('Fecha (día/mes/año)',fDMY(fVal('fecha')));add('Hora',fVal('hora'));add('Lugar',fVal('lugar'));add('Dirección',fVal('direccion'));
@@ -674,9 +701,19 @@ function fMsgTxt(){var d=FQ.d,ev=d.ev,L=[];var add=function(k,v){if(v)L.push(k+'
  return L.join('\n')}
 function fSend(e){e.preventDefault();var r=fCheck();
  if(r.err.length){$('fMsg').innerHTML='<div class="fErr"><b>Revisá esto antes de enviar:</b><ul>'+r.err.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div>';var b=$('pform').querySelector('.bad');if(b){b.scrollIntoView({block:'center',behavior:'smooth'});try{b.focus({preventScroll:true})}catch(_){}}return}
- fSave();var url=wa(fMsgTxt());$('fMsg').innerHTML=r.warn.length?'<div class="fWarn">'+r.warn.map(esc).join('<br>')+'</div>':'';
+ fSave();$('fSend').textContent='Volver a abrir WhatsApp con mi pedido';var url=wa(fMsgTxt());$('fMsg').innerHTML=r.warn.length?'<div class="fWarn">'+r.warn.map(esc).join('<br>')+'</div>':'';
  var w=window.open(url,'_blank','noopener');if(!w)location.href=url;
- $('fMsg').innerHTML+='<div class="fOk">¡Listo! Se abrió WhatsApp con tu pedido: tocá <b>Enviar</b> allá. Te respondemos con la seña y en cuanto la recibimos armamos tu muestra.</div>'}
+ $('fMsg').innerHTML+='<div class="fOk">¡Listo! Se abrió WhatsApp con tu pedido: tocá <b>Enviar</b> allá.</div>'+fPayHTML();fPayBind();setTimeout(function(){var x=$('fPay');if(x)x.scrollIntoView({block:'center',behavior:'smooth'})},250)}
+/* pantalla de pago de la seña, después de enviar el pedido */
+function fPayHTML(){var s=fSena(FQ.t);
+ if(!COBRO.alias)return '<div class="fPay" id="fPay"><b>Seña para empezar: '+money(s)+'</b><p>Te pasamos los datos para transferir por WhatsApp. Con la seña empezamos tu invitación y te mandamos la muestra dentro de las 48 horas hábiles.</p></div>';
+ return '<div class="fPay" id="fPay"><div class="fpT">Para empezar tu invitación</div><div class="fpM">Seña: <b>'+money(s)+'</b><small>El 50% de '+money(FQ.t)+'. El resto lo pagás después de ver la muestra.</small></div>'
+ +'<div class="fpA"><span>Alias</span><b id="fpAlias">'+esc(COBRO.alias)+'</b><button type="button" class="cta gold" id="fpCopy">Copiar alias</button></div>'
+ +(COBRO.titular?'<div class="fpH">Titular de la cuenta: <b>'+esc(COBRO.titular)+'</b><br>Es la dueña de DIGI INVITACIONES. Fijate que coincida en tu banco antes de transferir.</div>':'')
+ +'<a class="cta ghost" id="fpComp" href="#">Ya transferí: mandar el comprobante</a><p class="fpN">Con la seña empezamos tu invitación y te mandamos la muestra dentro de las 48 horas hábiles.</p></div>'}
+function fPayBind(){var c=$('fpCopy');if(c)c.onclick=function(){var a=COBRO.alias,ok=function(){c.textContent='✓ Copiado'};try{navigator.clipboard.writeText(a).then(ok,function(){fCopyOld(a);ok()})}catch(_){fCopyOld(a);ok()}};
+ var m=$('fpComp');if(m)m.onclick=function(e){e.preventDefault();var t='¡Hola! Ya transferí la seña de '+money(fSena(FQ.t))+' para la invitación de '+(fVal('nombre')||'')+' ("'+FQ.d.n+'"). Te mando el comprobante:';var w=window.open(wa(t),'_blank','noopener');if(!w)location.href=wa(t)}}
+function fCopyOld(t){var x=document.createElement('textarea');x.value=t;x.style.position='fixed';x.style.opacity='0';document.body.appendChild(x);x.select();try{document.execCommand('copy')}catch(_){}x.remove()}
 $('pform').addEventListener('input',function(e){if(e.target.dataset&&e.target.dataset.f){if(e.target.classList.contains('bad'))e.target.classList.remove('bad');fSave();if(e.target.dataset.f==='mismo')fSync()}});
 $('pform').addEventListener('change',function(e){if(e.target.dataset&&e.target.dataset.f==='mismo')fSync()});
 $('fForm').addEventListener('submit',fSend);
@@ -685,7 +722,7 @@ $('fClear').onclick=function(){try{localStorage.removeItem(fKey())}catch(_){}ope
 window.addEventListener('popstate',function(){closeF(true)});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeF()});
 /* los dos botones de pedido abren el formulario */
 ['oSend','sSend'].forEach(function(id){$(id).addEventListener('click',function(e){e.preventDefault();if(this.getAttribute('aria-disabled')==='true')return;if(id==='oSend'){var d=od,s=osel;closeO();setTimeout(function(){openF(d,s)},30)}else openF(P,psel)})});
-window.digiForm={open:openF,msg:fMsgTxt,check:fCheck};
+window.digiForm={open:openF,msg:fMsgTxt,check:fCheck,sena:function(){return fSena(FQ.t)},pay:fPayHTML,cobro:function(){return COBRO}};
 
 [].forEach.call(document.querySelectorAll('h2'),function(h){if(h.id==='p3t')return;var t=h.textContent.trim(),i=t.lastIndexOf(' ');if(i>0)h.innerHTML=esc(t.slice(0,i+1))+'<span class="g">'+esc(t.slice(i+1))+'</span>'});
 function deck(R,PV,NX,CT){var r=$(R);r.classList.add('deck');var cs=[].slice.call(r.querySelectorAll('.fq')),n=cs.length,idx=0,pad=function(v){return (v<10?'0':'')+v};
@@ -710,6 +747,11 @@ function deck(R,PV,NX,CT){var r=$(R);r.classList.add('deck');var cs=[].slice.cal
  addEventListener('resize',lay);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(lay);lay()}
 deck('frail','fprev','fnext','fcount');deck('srail','sprev','snext','scount');
 tabs();grid();
+$('pShare').innerHTML=SHARE_ICO+' Compartir esta página';$('pShare').onclick=shareP;
+function irACod(){var h='';try{h=decodeURIComponent(location.hash.slice(1))}catch(_){}var d=/^[A-Za-z]{2}-\d{2,3}$/.test(h)&&dByCod(h);if(!d)return;
+ cur=d.ev;tabs();grid();$('paso2').hidden=false;var i=list.indexOf(d);var b=$('grid').querySelector('[data-pick="'+i+'"]');if(!b)return;var c=b.closest('.card');var g=c.closest('details');if(g)g.open=true;
+ c.classList.add('hl');setTimeout(function(){c.scrollIntoView({behavior:'smooth',block:'center'})},300);setTimeout(function(){c.classList.remove('hl')},6000)}
+irACod();window.addEventListener('hashchange',irACod);
 
 /* pocas estrellas que caen (detrás) y estrellitas al tocar o deslizar el dedo (adelante) */
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;

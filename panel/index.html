@@ -352,6 +352,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
 <footer>Todo se guarda en este equipo. No se sube nada a internet.</footer>
 
 <script src="jspdf.umd.min.js"></script>
+<script src="../codigos.js"></script>
 <script src="web-inv.js"></script>
 <script>
 "use strict";
@@ -725,7 +726,7 @@ function sparkles(ctx,t,tpl){const r=rand(5);for(let i=0;i<46;i++){const x=r()*W
 const pv=$('preview'),pctx=pv.getContext('2d');
 let anim=null;
 function curTpl(){return tplById(state.tpl)}
-function dsgState(){const e=$('dsgState');if(!e)return;const w=state.web&&typeof webById==='function'&&webById(state.web);const t=curTpl();if(state.blank||!t){e.className='';e.textContent='Si pegaste el pedido del cliente, ya queda elegido solo'}else{e.className='ok';e.textContent='✓ Ya elegido: '+(w?'invitación web '+w.name:t.name)+'. Tocá solo si querés cambiarlo.'}}
+function dsgState(){const e=$('dsgState');if(!e)return;const w=state.web&&typeof webById==='function'&&webById(state.web);const t=curTpl();if(state.blank||!t){e.className='';e.textContent='Si pegaste el pedido del cliente, ya queda elegido solo'}else{e.className='ok';const ci=w?'w-'+w.dir:t.id;const cc=Object.keys(window.DIGI_CODIGOS||{}).find(k=>DIGI_CODIGOS[k]===ci)||Object.keys(window.DIGI_CODIGOS||{}).find(k=>DIGI_CODIGOS[k]==='w-'+Object.keys(DEMO_PAIR).find(x=>DEMO_PAIR[x]===t.id));e.textContent='✓ Ya elegido: '+(w?'invitación web '+w.name:t.name)+(cc?' · '+cc:'')+'. Tocá solo si querés cambiarlo.'}}
 function draw(){dsgState();if(anim)return;pctx.setTransform(1,0,0,1,0,0);pctx.clearRect(0,0,W,H);if(state.blank)return drawEmpty(pctx);render(pctx,curTpl(),state.data)}
 /* vista previa vacía: el panel no arranca con un diseño fijo; aparece el que pide el cliente */
 let LOGO=null;function drawEmpty(ctx){
@@ -1182,12 +1183,12 @@ const money=n=>'$'+Math.round(+n||0).toLocaleString('es-AR');
 function renderPriceEd(){$('priceEd').innerHTML='<div class="priceHead"><span></span><span>Bautismo, infantiles, baby shower y otros</span><span>Bodas y 15 años</span></div>'+SET.products.map((p,i)=>`<div class="priceRow"><div class="pn"><input data-i="${i}" data-k="n" value="${esc(p.n)}" aria-label="Producto"></div><div class="pp"><label>Antes<input data-i="${i}" data-k="old" inputmode="numeric" value="${p.old||''}"></label><label>Ahora<input data-i="${i}" data-k="now" inputmode="numeric" value="${p.now||''}"></label></div><div class="pp"><label>Antes<input data-i="${i}" data-k="oldG" inputmode="numeric" value="${p.oldG||''}"></label><label>Ahora<input data-i="${i}" data-k="nowG" inputmode="numeric" value="${p.nowG||''}"></label></div></div>`).join('');
   $('s_cobro').value=SET.cobro||'';$('s_titular').value=SET.titular||'';$('s_marca').value=SET.marca||''}
 $('priceEd').addEventListener('input',e=>{const t=e.target;if(!t.dataset.k)return;const p=SET.products[+t.dataset.i];p[t.dataset.k]=t.dataset.k==='n'?t.value:+(t.value.replace(/\D/g,''))||0;saveSet();renderItems();renderMsg()});
-['cobro','titular','marca'].forEach(k=>$('s_'+k).addEventListener('input',e=>{SET[k]=e.target.value;saveSet();renderMsg()}));
+['cobro','titular','marca'].forEach(k=>$('s_'+k).addEventListener('input',e=>{SET[k]=e.target.value;if(k!=='marca'){SET.dirty=true;pubMsg('Cambiaste tus datos de cobro: tocá "Publicar estos precios en la página" para que la página muestre tu alias.','no')}saveSet();renderMsg()}));
 /* ===== publicar precios en la página (precios.js del repo) ===== */
 const GH_REPO='digiinvitaciones/digiinvitaciones',GH_FILE='precios.js',FMAP={tarjeta:'imagen',pdf:'pdf',video:'video',web:'web',webp:'premium'};
 const ghTok=()=>{try{return localStorage.getItem('digi_gh_token')||''}catch(e){return ''}};
 function pubMsg(h,cls){$('pubRes').innerHTML=`<span class="${cls||''}">${h}</span>`}
-function preciosObj(){const o={normal:{},gala:{}};SET.products.forEach(p=>{const k=FMAP[p.id];if(!k)return;o.normal[k]=[+p.old||+p.now,+p.now];o.gala[k]=[+(p.oldG??p.old)||+(p.nowG??p.now),+(p.nowG??p.now)]});o.actualizado=new Date().toISOString().slice(0,10);return o}
+function preciosObj(){const o={normal:{},gala:{}};SET.products.forEach(p=>{const k=FMAP[p.id];if(!k)return;o.normal[k]=[+p.old||+p.now,+p.now];o.gala[k]=[+(p.oldG??p.old)||+(p.nowG??p.now),+(p.nowG??p.now)]});if((SET.cobro||'').trim())o.cobro={alias:SET.cobro.trim(),titular:(SET.titular||'').trim()};o.actualizado=new Date().toISOString().slice(0,10);return o}
 function b64(str){return btoa(unescape(encodeURIComponent(str)))}
 async function publicarPrecios(){
   const tok=ghTok();if(!tok){$('ghMore').open=true;pubMsg('Primero cargá la clave para publicar (abajo). Se hace una sola vez.','no');return}
@@ -1260,11 +1261,13 @@ function pPhone(v){let d=(v||'').replace(/\D/g,'').replace(/^0+/,'');if(d.length
 function parsePedido(txt){const o={};let last=null;(txt||'').split(/\r?\n/).forEach(l=>{if(!l.trim()||/^\s*[*_—–-]+[^:]*[*_—–-]+\s*$/.test(l)){last=null;return}const m=l.match(/^[^A-Za-zÁÉÍÓÚáéíóúÑñ]*([A-Za-zÁÉÍÓÚáéíóúÑñ][^:]{0,60}?)\s*:\s*(.*)$/);if(m){last=nz(m[1]);o[last]=(o[last]?o[last]+'\n':'')+m[2].trim()}else if(last&&l.trim()){o[last]+='\n'+l.trim()}});return o}
 /* mismo DEMO_PAIR que el catálogo (index.html): invitación web -> plantilla de su JPG/PDF/video. revisar.js controla que coincidan */
 const DEMO_PAIR={'xv-holografica':'xv-holo','infantiles-i-bloques':'web-bloques','infantiles-ii-pixeles':'web-pixeles','infantiles-iii-autos':'web-autos','infantiles-iv-sheriff':'web-sheriff','infantiles-v-estrellas':'web-estrellas','bautismo-i':'bau-paloma-verde','bodas-saten':'boda-saten','xv-medianoche':'xv-medianoche','baby-shower-ii':'baby-arcoiris','baby-shower-iii':'baby-globo','baby-shower-iv':'baby-telon'};
-function findWeb(txt){const code=String(txt).match(/c[oó]digo\s*:?\s*([a-z0-9-]+)/i);if(code){const c=code[1].toLowerCase();const dir=c.replace(/^w-/,'');return WEBS.find(w=>w.id===c)||WEBS.find(w=>w.dir===dir&&w.pair===DEMO_PAIR[dir])||WEBS.find(w=>w.dir===dir)||null}
+/* código corto visible (codigos.js, fuente única) -> código interno */
+function codInt(c){c=String(c||'');const m=(window.DIGI_CODIGOS||{})[c.toUpperCase()];return (m||c).toLowerCase()}
+function findWeb(txt){const code=String(txt).match(/c[oó]digo\s*:?\s*([a-z0-9-]+)/i);if(code){const c=codInt(code[1]);const dir=c.replace(/^w-/,'');return WEBS.find(w=>w.id===c)||WEBS.find(w=>w.dir===dir&&w.pair===DEMO_PAIR[dir])||WEBS.find(w=>w.dir===dir)||null}
   const T=' '+nn(txt)+' ';const pal=/\b(rosa|verde|lila|lavanda)\b/.exec(T);for(const w of WEBS){const k=nn(w.name.split('·')[0]);if(T.includes(' '+k+' ')){if(w.dir==='bautismo-i'&&pal){const p=pal[1]==='lavanda'?'lila':pal[1];return WEBS.find(x=>x.id==='w-bautismo-i-'+p)||w}return w}}return null}
 const nn=s=>nz(s).replace(/[^a-z0-9ñ ]+/g,' ').replace(/\s+/g,' ').trim();
 function findTpl(txt){const T=nn(txt);if(!T)return null;
-  const code=String(txt).match(/c[oó]digo\s*:?\s*([a-z0-9-]+)/i);if(code){const c=code[1].toLowerCase();const t=allTpls().find(x=>x.id===c)||tplById(DEMO_PAIR[c.replace(/^w-/,'')]);if(t)return t}
+  const code=String(txt).match(/c[oó]digo\s*:?\s*([a-z0-9-]+)/i);if(code){const c=codInt(code[1]);const t=allTpls().find(x=>x.id===c)||tplById(DEMO_PAIR[c.replace(/^w-/,'')]);if(t)return t}
   let best=null,bl=0;allTpls().forEach(t=>{const names=[t.name,t.name.replace(/\(.*\)/,'')].map(nn).filter(Boolean);names.forEach(n=>{if(n.length>bl&&T.includes(n)){best=t;bl=n.length}})});return best}
 function formatosDe(txt){const m=String(txt).match(/(lo quiero en)\s*:\s*([^\n]*)/i)||String(txt).match(/(lo quiero en|formatos?|quiero)\s*:?\s*([^\n]*)/i);if(!m)return null;const t=nz(m[2]);if(/\(imagen \/ video/.test(t))return null;const ids=[];if(/imagen|jpg|foto|tarjeta/.test(t))ids.push('tarjeta');if(/video/.test(t))ids.push('video');if(/pdf/.test(t))ids.push('pdf');if(/premium/.test(t))ids.push('webp');else if(/web|pagina/.test(t))ids.push('web');return ids.length?ids:null}
 function armarPedido(auto){

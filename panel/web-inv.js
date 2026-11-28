@@ -10,6 +10,11 @@ const WEBS=[
  {id:'w-baby-ii',ev:'Baby shower',name:'Baby shower II',dir:'baby-shower-ii',pair:'baby-arcoiris',cover:'baby-shower-ii.jpg',fill:'baby'},
  {id:'w-baby-iii',ev:'Baby shower',name:'Baby shower III',dir:'baby-shower-iii',pair:'baby-globo',cover:'baby-shower-iii.jpg',fill:'baby'},
  {id:'w-baby-iv',ev:'Baby shower',name:'Baby shower IV',dir:'baby-shower-iv',pair:'baby-telon',cover:'baby-shower-iv.jpg',fill:'baby'},
+ {id:'w-inf-bloques',ev:'Infantiles',name:'Infantiles I · Bloques',dir:'infantiles-i-bloques',pair:'web-bloques',cover:'infantiles-i-bloques.jpg',fill:'bloques'},
+ {id:'w-inf-pixeles',ev:'Infantiles',name:'Infantiles II · Pixeles',dir:'infantiles-ii-pixeles',pair:'web-pixeles',cover:'infantiles-ii-pixeles.jpg',fill:'pixeles'},
+ {id:'w-inf-autos',ev:'Infantiles',name:'Infantiles III · Autos de carrera',dir:'infantiles-iii-autos',pair:'web-autos',cover:'infantiles-iii-autos.jpg',fill:'autos'},
+ {id:'w-inf-sheriff',ev:'Infantiles',name:'Infantiles IV · Sheriff',dir:'infantiles-iv-sheriff',pair:'web-sheriff',cover:'infantiles-iv-sheriff.jpg',fill:'sheriff'},
+ {id:'w-inf-estrellas',ev:'Infantiles',name:'Infantiles V · Estrellas',dir:'infantiles-v-estrellas',pair:'web-estrellas',cover:'infantiles-v-estrellas.jpg',fill:'estrellas'},
 ];
 const WEB_BASE='../demos/',WEB_IMG='../img/';
 const webById=id=>WEBS.find(w=>w.id===id);
@@ -19,6 +24,14 @@ const hesc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;'
 function wDate(d){const f=parseDate(d.fecha);return f?{f,dia:DIAS[f.getDay()],n:f.getDate(),mes:MESES[f.getMonth()],mm:String(f.getMonth()+1).padStart(2,'0'),dd:String(f.getDate()).padStart(2,'0'),y:f.getFullYear()}:null}
 const cap=s=>s?s[0].toUpperCase()+s.slice(1):s;
 function splitPadres(txt){const out={padres:'',padrinos:'',otros:[]};String(txt||'').split(/\n+/).map(x=>x.trim()).filter(Boolean).forEach(l=>{const v=l.replace(/^[^:]{0,30}:\s*/,'');if(/padrin/i.test(l))out.padrinos=v;else if(/pap|padres|mam/i.test(l))out.padres=v;else out.otros.push(l)});if(!out.padres&&out.otros.length)out.padres=out.otros.shift().replace(/^[^:]{0,30}:\s*/,'');return out}
+/* inserta código justo después de un objeto "var X={...};" (llaves balanceadas) */
+function afterObj(h,start,code){const i=h.indexOf(start);if(i<0)return h;let j=h.indexOf('{',i),dep=0,k=j,q=null;for(;k<h.length;k++){const c=h[k];if(q){if(c==='\\'){k++;continue}if(c===q)q=null;continue}if(c==='"'||c==="'")q=c;else if(c==='{')dep++;else if(c==='}'){dep--;if(!dep)break}}let e=k+1;while(h[e]===')'||h[e]===' ')e++;if(h[e]===';')e++;return h.slice(0,e)+'\n'+code+'\n'+h.slice(e)}
+/* datos comunes de las webs infantiles */
+function infD(d){const D=wDate(d);const ini=d.hora||'16:00';const [hh,mm]=ini.split(':').map(Number);const fin=String(Math.min(23,(hh||0)+3)).padStart(2,'0')+':'+String(mm||0).padStart(2,'0');
+  const edad=(String(d.numero||'').match(/\d+/)||[''])[0];return {D,ini,fin,edad,nom:d.nombre||'',lugar:d.lugar||'',dir:d.direccion||'',mapa:[d.lugar,d.direccion].filter(Boolean).join(', '),wa:d.wa||'',alias:d.alias||'',dress:d.dress||''}}
+const J=o=>JSON.stringify(o).replace(/</g,'\\u003c');
+/* las demos infantiles toman sus datos de window.__C (si está) y si no de var C */
+function setC(h,o){return h.includes('window.__C=')?afterObj(h,'window.__C=','Object.assign(window.__C,'+J(o)+');'):afterObj(h,'var C=','Object.assign(C,'+J(o)+');')}
 function rep(h,a,b,all){if(!a)return h;return all?h.split(a).join(b):h.replace(a,()=>b)}
 function hideCss(h,css){return h.replace('</head>','<style id="digi-fill">'+css+'</style></head>')}
 function sectionWith(h,txt){const i=h.indexOf(txt);if(i<0)return h;const s=h.lastIndexOf('<section',i);if(s<0)return h;return h.slice(0,s+8)+' hidden style="display:none!important"'+h.slice(s+8)}
@@ -61,6 +74,35 @@ const FILLS={
   h=sectionWith(h,'Cómo será la noche');return hideCss(h,'#pbtn,#pnl{display:none!important}')},
  holo(h,d){const o={name:d.nombre||'',date:d.fecha||'',time:d.hora||'',place:d.lugar||'',address:d.direccion||'',alias:d.alias||'',wa:d.wa||'',frase:d.frase||'',dress:d.dress||'',prog:d.programa||''};
   return h.replace(/(var EV=\{[^\n]*\};)/,(m)=>m+'\nObject.assign(EV,'+JSON.stringify(o).replace(/</g,'\\u003c')+');')},
+ bloques(h,d){const I=infD(d);const o={nombre:I.nom.toUpperCase(),fecha:d.fecha||'',lugar:I.lugar,dir:I.dir,alias:I.alias?I.alias.toUpperCase():''};if(I.dress)o.vest=I.dress;
+  h=afterObj(h,'var SAMPLE=','Object.assign(SAMPLE,'+J(o)+');');
+  h=afterObj(h,'var S=','Object.assign(S,'+J({nombre:I.nom,fecha:d.fecha||'',ini:I.ini,fin:I.fin,lugar:I.lugar,dir:I.dir,alias:I.alias,vest:I.dress})+');'+(I.edad?'S.edad='+(+I.edad)+';':''));
+  /* la entregada se ve como invitación, sin el editor */
+  h=h.replace(/<\/body>(?![\s\S]*<\/body>)/,'<script>document.body.classList.add("vw")<\/script></body>');
+  return hideCss(h,'.tabs,.panel{display:none!important}')},
+ pixeles(h,d){const I=infD(d);const o={nombre:I.nom,fecha:d.fecha||'',horaInicio:I.ini,horaFin:I.fin,lugar:I.lugar,direccion:I.dir,mapa:I.mapa,whatsappAnfitrion:I.wa,alias:I.alias,aliasTitular:''};if(I.edad)o.edad=+I.edad;if(I.dress)o.vestimenta=I.dress;
+  return setC(h,o)},
+ autos(h,d){const I=infD(d);const o={nombre:I.nom,fecha:d.fecha||'',horaInicio:I.ini,horaFin:I.fin,lugar:I.lugar,direccion:I.dir,mapa:I.mapa};if(I.edad)o.edad=+I.edad;
+  return setC(h,o)},
+ estrellas(h,d){const I=infD(d);const o={nombre:I.nom,fecha:d.fecha||'',horaInicio:I.ini,horaFin:I.fin,lugar:I.lugar,direccion:I.dir,mapa:I.mapa,whatsappAnfitrion:I.wa};if(I.edad)o.edad=+I.edad;
+  return setC(h,o)},
+ sheriff(h,d){const I=infD(d),D=I.D,n=hesc(I.nom),e=I.edad||'';const hr=x=>{const [a,b]=x.split(':').map(Number);const t=a<12?'de la mañana':a<20?'de la tarde':'de la noche';return (a%12||12)+(b?':'+String(b).padStart(2,'0'):'')+' '+t};
+  const desde='De '+hr(I.ini).replace(/ de la (mañana|tarde|noche)$/,'')+' a '+hr(I.fin);
+  h=rep(h,'Marcos',n,true);h=rep(h,'MARCOS',n.toUpperCase(),true);
+  if(e){h=rep(h,'cumpliendo 5','cumpliendo '+e,true);h=rep(h,'<b>5</b>','<b>'+e+'</b>');h=rep(h,'<span class="five">5</span>','<span class="five">'+e+'</span>')}
+  if(D){const mesA=D.mes.slice(0,3).toUpperCase(),diaA=D.dia.slice(0,3).toUpperCase().replace('SÁ','SÁ');
+   h=rep(h,'Sábado 12 de diciembre de 2026, de 3 a 6 de la tarde',cap(D.dia)+' '+D.n+' de '+D.mes+' de '+D.y+', '+desde.toLowerCase(),true);
+   h=rep(h,'Sábado 12 de diciembre · 15:00 h',cap(D.dia)+' '+D.n+' de '+D.mes+' · '+I.ini+' h');
+   h=rep(h,'<span class="side">SÁB</span>','<span class="side">'+diaA+'</span>');h=rep(h,'<span class="day">12</span>','<span class="day">'+D.n+'</span>');h=rep(h,'DIC<small>2026</small>',mesA+'<small>'+D.y+'</small>');
+   h=rep(h,'sáb 12/12, de 15 a 18 h',D.dia.slice(0,3)+' '+D.n+'/'+(+D.mm)+', de '+I.ini+' a '+I.fin+' h',true);
+   h=rep(h,'new Date("2026-12-12T15:00:00-03:00")','new Date("'+d.fecha+'T'+I.ini+':00-03:00")');h=rep(h,'new Date("2026-12-12T18:00:00-03:00")','new Date("'+d.fecha+'T'+I.fin+':00-03:00")')}
+  h=rep(h,'De 3 a 6 de la tarde',desde);
+  h=rep(h,'<address>Salón El Rancho<br>Av. Libertador 1234, San Juan</address>','<address>'+hesc(I.lugar)+'<br>'+hesc(I.dir)+'</address>');
+  h=rep(h,'place:"Salón El Rancho, Av. Libertador 1234, San Juan"','place:'+JSON.stringify(I.mapa));
+  h=rep(h,'Av.+Libertador+1234%2C+San+Juan',encodeURIComponent(I.mapa).replace(/%20/g,'+'),true);h=rep(h,'Av.%20Libertador%201234%2C%20San%20Juan',encodeURIComponent(I.mapa),true);
+  if(I.wa)h=rep(h,'wa:"5490000000000"','wa:'+JSON.stringify(I.wa));
+  if(I.dress)h=rep(h,'¡Sombrero de vaquero bienvenido!',hesc(I.dress));
+  return h},
  baby(h,d){const P=splitPadres(d.padres);const o={bebe:d.nombre||'',mama:P.padres||'',fecha:d.fecha||'',hora:d.hora||'',lugar:d.lugar||'',dir:d.direccion||'',alias:d.alias||''};if(d.frase)o.frase=d.frase;if(d.dress)o.vest=d.dress;
   h=h.replace(/(var S=\{[\s\S]*?ok:false\};)/,(m)=>m+'\nObject.assign(S,'+JSON.stringify(o).replace(/</g,'\\u003c')+');');return h}
 };
