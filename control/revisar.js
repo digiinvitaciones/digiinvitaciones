@@ -28,9 +28,11 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
  if(await page.evaluate(()=>document.querySelectorAll('details[open]').length))mal('Catálogo','hay pestañas abiertas al iniciar');
  // ---------- panel ----------
  await page.goto(URL+'panel/');await page.waitForTimeout(3000);
- const P=await page.evaluate(()=>({t:TEMPLATES.map(t=>({id:t.id,ev:t.ev,photo:!!t.photo,kind:t.kind,d:t.d,noText:!!t.noText})),g:typeof TPL_G!=='undefined'?TPL_G:{},open:[...document.querySelectorAll('details[open]')].map(d=>d.id||d.className)}));
+ const P=await page.evaluate(()=>({t:TEMPLATES.map(t=>({id:t.id,ev:t.ev,photo:!!t.photo,kind:t.kind,d:t.d,noText:!!t.noText,datos:!!t.datos})),g:typeof TPL_G!=='undefined'?TPL_G:{},open:[...document.querySelectorAll('details[open]')].map(d=>d.id||d.className)}));
  if(P.open.length)mal('Panel','pestañas abiertas al iniciar: '+P.open.join(', '));
  for(const t of P.t){const d=t.d||{};
+  if(usados.has(t.id)){if(t.noText&&!t.datos)mal('Plantilla '+t.id,'el JPG/PDF/video no muestra los datos (fecha, hora y lugar)');
+   if(!t.noText&&!(d.fecha&&d.hora&&d.lugar))mal('Plantilla '+t.id,'le falta fecha, hora o lugar en el JPG/PDF/video')}
   if(t.photo)mal('Plantilla '+t.id,'usa foto de personas por defecto');
   if(d.padres)mal('Plantilla '+t.id,'tiene nombres de padres');
   if(P.g[t.id]==='todos'&&!t.noText&&d.nombre!=='Nombre')mal('Plantilla '+t.id,'es neutra y su nombre de ejemplo es "'+d.nombre+'" (debe ser "Nombre")');
@@ -41,6 +43,7 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
  const html=['index.html','panel/index.html','panel/web-inv.js',...fs.readdirSync(path.join(ROOT,'demos')).map(d=>'demos/'+d+'/index.html'),...fs.readdirSync(path.join(ROOT,'muestras/d')).filter(f=>f.endsWith('.html')).map(f=>'muestras/d/'+f)];
  for(const f of html){const s=R(f).replace(/data:[a-z]+\/[a-z0-9.+-]+;base64,[A-Za-z0-9+\/=]+/g,'');
   if(COBRE.test(s))mal(f,'usa el dorado cobrizo viejo ('+COBRE.exec(s)[0]+')');
+  if(/Siempre Viva|Calle cualquiera|Cualquier lugar/i.test(s))mal(f,'tiene una dirección de relleno o de una serie (usar Av. Libertador 1234, San Juan)');
   if(/floot/i.test(s)&&!/panel\/index\.html/.test(f))mal(f,'tiene un link o mención a Floot');
   if(PADRES.test(s))mal(f,'tiene nombres de padres');
   if(/class="rays"|#cover \.rays|repeating-conic-gradient\(from/.test(s))mal(f,'tiene el efecto de rayos que giran (a Sandra no le gusta)');
