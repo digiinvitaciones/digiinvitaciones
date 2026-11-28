@@ -7,8 +7,8 @@ const WEBS=[
  {id:'w-bodas-saten',ev:'Bodas',name:'Satén',dir:'bodas-saten',pair:'boda-saten',cover:'bodas-saten.jpg',fill:'saten'},
  {id:'w-xv-medianoche',ev:'15 años',name:'XV Medianoche',dir:'xv-medianoche',pair:'xv-medianoche',cover:'xv-medianoche.jpg',fill:'xv'},
  {id:'w-baby-ii',ev:'Baby shower',name:'Baby shower II',dir:'baby-shower-ii',pair:'baby-arcoiris',cover:'baby-shower-ii.jpg',fill:'baby'},
- {id:'w-baby-iii',ev:'Baby shower',name:'Baby shower III',dir:'baby-shower-iii',pair:'baby-ciguena',cover:'baby-shower-iii.jpg',fill:'baby'},
- {id:'w-baby-iv',ev:'Baby shower',name:'Baby shower IV',dir:'baby-shower-iv',pair:'baby-arcoiris',cover:'baby-shower-iv.jpg',fill:'baby'},
+ {id:'w-baby-iii',ev:'Baby shower',name:'Baby shower III',dir:'baby-shower-iii',pair:'baby-globo',cover:'baby-shower-iii.jpg',fill:'baby'},
+ {id:'w-baby-iv',ev:'Baby shower',name:'Baby shower IV',dir:'baby-shower-iv',pair:'baby-telon',cover:'baby-shower-iv.jpg',fill:'baby'},
 ];
 const WEB_BASE='../demos/',WEB_IMG='../img/';
 const webById=id=>WEBS.find(w=>w.id===id);
