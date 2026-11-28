@@ -435,7 +435,7 @@ var DISENOS=[
  {ev:'15 años',tipo:'tarjeta',n:'Carruaje de cristal',d:'Carruaje de cuento en noche azul',img:'img/t-xv-carruaje.jpg'},
  {ev:'15 años',tipo:'tarjeta',n:'Trono de la quinceañera',d:'Sillón dorado con rosas y luces',img:'img/t-xv-trono.jpg'},
  {ev:'15 años',tipo:'tarjeta',n:'Corona de princesa',d:'Violeta y dorado con corona de diamantes',img:'img/t-xv-corona.jpg'},
- {ev:'15 años',tipo:'web',n:'XV Medianoche',d:'Tarjeta holográfica y reloj de las 00:00',img:'img/t-xv-medianoche.jpg',demo:'demos/xv-medianoche/'},
+ {ev:'15 años',tipo:'web',last:true,n:'XV Medianoche',d:'Tarjeta holográfica y reloj de las 00:00',img:'img/t-xv-medianoche.jpg',demo:'demos/xv-medianoche/'},
  {ev:'15 años',tipo:'tarjeta',n:'Noche azul',d:'Imagen, video, PDF y web',img:'img/t-xv-medianoche.jpg'},
  {ev:'15 años',tipo:'tarjeta',n:'Bordó y oro',d:'Imagen, video, PDF y web',img:'img/t-xv-bordo.jpg'},
  {ev:'Cumpleaños',tipo:'tarjeta',n:'Negro y dorado',d:'Imagen, video, PDF y web',img:'img/t-cumple-negro.jpg'},
@@ -506,7 +506,7 @@ function showFmt(d,f){var t=tplOf(d);
  if(f==='video'){im.hidden=true;v.hidden=false;v.src='muestras/d/'+t+'.mp4';v.play().catch(function(){})}
  else{v.pause();v.hidden=true;v.removeAttribute('src');im.hidden=false;im.src=t?'muestras/d/'+t+(f==='pdf'?'-pdf':'')+'.jpg':d.img;im.alt=d.n}
  $('vWant').onclick=function(e){e.preventDefault();closeV();pickAndGo(d)};$('vWant').href='#';$('vWant').textContent='Elegir este';openV()}
-function cards(ds){var rk=function(d){return d.prem?2:d.demo?1:0};ds=ds.map(function(d,i){return [d,i]}).sort(function(a,b){return rk(b[0])-rk(a[0])||a[1]-b[1]}).map(function(x){return x[0]});return '<div class="grid">'+ds.map(card).join('')+'</div>'}
+function cards(ds){var rk=function(d){return d.last?-1:d.prem?2:d.demo?1:0};ds=ds.map(function(d,i){return [d,i]}).sort(function(a,b){return rk(b[0])-rk(a[0])||a[1]-b[1]}).map(function(x){return x[0]});return '<div class="grid">'+ds.map(card).join('')+'</div>'}
 function grid(){list=[];if(!cur){$('grid').innerHTML='<p class="gsub" style="padding:18px 0 8px">Tocá un evento para ver sus diseños.</p>';return}var ds=DISENOS.filter(function(d){return d.ev===cur});var gs=GRUPOS.filter(function(g){return ds.some(function(d){return d.g===g.k})});
  var h;
  if(gs.length>1){h=gs.map(function(g,ix){var x=ds.filter(function(d){return d.g===g.k});return '<details class="group"><summary><span>'+esc(g.n)+'</span><small>'+x.length+' diseño'+(x.length>1?'s':'')+'</small></summary>'+cards(x)+'</details>'}).join('')}
