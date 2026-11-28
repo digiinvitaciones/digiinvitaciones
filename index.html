@@ -427,6 +427,7 @@ var DISENOS=[
  {g:'varon',ev:'Infantiles',tipo:'web',n:'Infantiles II · Pixeles',d:'Aventura en bloques de pixeles',img:'img/infantiles-ii-pixeles.jpg',demo:'demos/infantiles-ii-pixeles/'},
  {g:'varon',ev:'Infantiles',tipo:'web',n:'Infantiles III · Autos de carrera',d:'Velocímetro y largada con semáforo',img:'img/infantiles-iii-autos.jpg',demo:'demos/infantiles-iii-autos/'},
  {g:'varon',ev:'Infantiles',tipo:'web',n:'Infantiles IV · Sheriff',d:'Estrella de sheriff y juegos del oeste',img:'img/infantiles-iv-sheriff.jpg',demo:'demos/infantiles-iv-sheriff/'},
+ {g:'nena',ev:'Infantiles',tipo:'web',n:'Infantiles V · Estrellas',d:'Estrellas mágicas y mini juego',img:'img/infantiles-v-estrellas.jpg',demo:'demos/infantiles-v-estrellas/'},
  {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Mariposas',d:'Imagen, video, PDF y web',img:'img/t-inf-mariposas.jpg'},
  {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Bailarina',d:'Imagen, video, PDF y web',img:'img/t-inf-ballet.jpg'},
  {g:'nena',ev:'Infantiles',tipo:'tarjeta',n:'Pastelería',d:'Imagen, video, PDF y web',img:'img/t-inf-pasteleria.jpg'},
@@ -472,7 +473,7 @@ function want(d,sel){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img)||(d.demo&&/dem
  var t=0;var names=FORMATOS.filter(function(f){return sel&&sel.indexOf(f.k)>=0}).map(function(f){t+=pr(d.ev,f.k)[1];return f.n});
  return wa('¡Hola! Me gusta el diseño "'+d.n+'" de '+d.ev+(code?' (código '+code+')':'')+'.\nLo quiero en: '+(names.length?names.join(', ')+'\nTotal: '+money(t):'(imagen / video / PDF / web)')+'\n¿Me pasás el formulario?')}
 var list=[];
-var DEMO_PAIR={'infantiles-i-bloques':'web-bloques','infantiles-ii-pixeles':'web-pixeles','infantiles-iii-autos':'web-autos','infantiles-iv-sheriff':'web-sheriff','bautismo-i':'bau-paloma-verde','bodas-saten':'boda-saten','xv-medianoche':'xv-medianoche','baby-shower-ii':'baby-arcoiris','baby-shower-iii':'baby-globo','baby-shower-iv':'baby-telon'};
+var DEMO_PAIR={'infantiles-i-bloques':'web-bloques','infantiles-ii-pixeles':'web-pixeles','infantiles-iii-autos':'web-autos','infantiles-iv-sheriff':'web-sheriff','infantiles-v-estrellas':'web-estrellas','bautismo-i':'bau-paloma-verde','bodas-saten':'boda-saten','xv-medianoche':'xv-medianoche','baby-shower-ii':'baby-arcoiris','baby-shower-iii':'baby-globo','baby-shower-iv':'baby-telon'};
 function tplOf(d){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);if(m)return m[1];m=d.demo&&/demos\/([a-z0-9-]+)/.exec(d.demo);return m?DEMO_PAIR[m[1]]:''}
 function card(d){var i=list.push(d)-1;
   return '<article class="card">'+
