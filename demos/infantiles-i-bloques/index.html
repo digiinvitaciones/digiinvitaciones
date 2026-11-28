@@ -23,7 +23,7 @@ button{font-family:inherit}
 .app{display:grid;grid-template-columns:430px 1fr;height:100dvh}
 .panel{overflow:auto;padding:18px 16px 40px;border-right:1px solid rgba(214,174,90,.25)}
 .stage{display:flex;align-items:center;justify-content:center;padding:20px;min-width:0}
-.phone{padding:9px;border-radius:42px;background:linear-gradient(135deg,#f6dc94,#b38a3a 50%,#f3d19a);box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 30px rgba(214,174,90,.25)}
+.phone{padding:9px;border-radius:42px;background:linear-gradient(135deg,#f6dc94,#b38a3a 50%,#f3d58c);box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 30px rgba(214,174,90,.25)}
 .screen-wrap{position:relative;width:390px;height:min(800px,calc(100dvh - 60px));border-radius:33px;overflow:hidden;background:#000}
 .screen{height:100%;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
 #fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
@@ -594,7 +594,7 @@ $("payBtn").onclick=function(){
   var b=$("payMsg");b.hidden=false;left[1]=left[3]=true;
   if(miss.length){b.innerHTML="<b>Falta completar:</b><ul>"+miss.map(function(m){return "<li>"+m[1]+"</li>"}).join("")+"</ul>";
     if(miss[0][0]!==4)openStep(miss[0][0],true);else marks()}
-  else{b.textContent="Todo listo. En este prototipo no se cobra: el pago con Mercado Pago, el mail con los links y el panel de invitados se conectan al subirlo a Floot."}
+  else{b.textContent="Todo listo. En este prototipo no se cobra: el pago con Mercado Pago, el mail con los links y el panel de invitados se conectan al publicarla."}
   marks()};
 
 /* ---------- invitación ---------- */
