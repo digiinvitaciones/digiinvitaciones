@@ -154,7 +154,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 90p
   </section>
 
   <section>
-    <details class="acc" open id="accClient">
+    <details class="acc" id="accClient">
       <summary><span class="n">1</span>Cliente y pedido</summary>
       <div class="accBody">
         <div class="row" style="margin-bottom:12px"><button class="btn small ghost" id="newClient">Empezar cliente nuevo</button></div>
@@ -371,7 +371,7 @@ function fmtHora(h){return h?h.replace(/^0(\d)/,'$1')+' hs':''}
 function fmtCorta(s){const d=parseDate(s);return d?d.getDate()+'/'+(d.getMonth()+1):''}
 
 /* ============ plantillas ============ */
-const IMG_SRC={'paloma-celeste':'img/paloma-celeste.jpg','paloma-rosa':'img/paloma-rosa.jpg','cuna-celeste':'img/cuna-celeste.jpg','cuna-rosa':'img/cuna-rosa.jpg',boda1:'img/boda1.jpg',boda2:'img/boda2.jpg',boda3:'img/boda3.jpg','paloma-verde':'img/paloma-verde.jpg','paloma-lila':'img/paloma-lila.jpg','cuna-verde':'img/cuna-verde.jpg','cuna-lila':'img/cuna-lila.jpg','baby-arcoiris':'img/baby-arcoiris.jpg','baby-ciguena':'img/baby-ciguena.jpg','inf-mariposas':'img/inf-mariposas.jpg','inf-ballet':'img/inf-ballet.jpg','inf-pasteleria':'img/inf-pasteleria.jpg','inf-autos':'img/inf-autos.jpg','inf-helados':'img/inf-helados.jpg','inf-espacio':'img/inf-espacio.jpg','inf-futbol':'img/inf-futbol.jpg','inf-granja':'img/inf-granja.jpg','inf-dinosaurios':'img/inf-dinosaurios.jpg','inf-piratas':'img/inf-piratas.jpg','inf-bloques':'img/inf-bloques.jpg','inf-princesa':'img/inf-princesa.jpg','inf-sirenas':'img/inf-sirenas.jpg','inf-superheroe':'img/inf-superheroe.jpg','inf-unicornio':'img/inf-unicornio.jpg','inf-invierno':'img/inf-invierno.jpg','inf-primer-luna':'img/inf-primer-luna.jpg','inf-primer-ciervo':'img/inf-primer-ciervo.jpg','inf-primer-ovejita':'img/inf-primer-ovejita.jpg','inf-osito':'img/inf-osito.jpg','inf-primer-ositos':'img/inf-primer-ositos.jpg','inf-safari':'img/inf-safari.jpg','baby-globo':'img/baby-globo.jpg','baby-telon':'img/baby-telon.jpg','web-bloques':'img/web-bloques.jpg','web-pixeles':'img/web-pixeles.jpg','web-autos':'img/web-autos.jpg','web-sheriff':'img/web-sheriff.jpg'};
+const IMG_SRC={'paloma-celeste':'img/paloma-celeste.jpg','paloma-rosa':'img/paloma-rosa.jpg','cuna-celeste':'img/cuna-celeste.jpg','cuna-rosa':'img/cuna-rosa.jpg',boda1:'img/boda1.jpg',boda2:'img/boda2.jpg',boda3:'img/boda3.jpg','paloma-verde':'img/paloma-verde.jpg','paloma-lila':'img/paloma-lila.jpg','cuna-verde':'img/cuna-verde.jpg','cuna-lila':'img/cuna-lila.jpg','baby-arcoiris':'img/baby-arcoiris.jpg','baby-ciguena':'img/baby-ciguena.jpg','inf-mariposas':'img/inf-mariposas.jpg','inf-ballet':'img/inf-ballet.jpg','inf-pasteleria':'img/inf-pasteleria.jpg','inf-autos':'img/inf-autos.jpg','inf-helados':'img/inf-helados.jpg','inf-espacio':'img/inf-espacio.jpg','inf-futbol':'img/inf-futbol.jpg','inf-granja':'img/inf-granja.jpg','inf-dinosaurios':'img/inf-dinosaurios.jpg','inf-piratas':'img/inf-piratas.jpg','inf-bloques':'img/inf-bloques.jpg','inf-princesa':'img/inf-princesa.jpg','inf-sirenas':'img/inf-sirenas.jpg','inf-superheroe':'img/inf-superheroe.jpg','inf-unicornio':'img/inf-unicornio.jpg','inf-invierno':'img/inf-invierno.jpg','inf-primer-luna':'img/inf-primer-luna.jpg','inf-primer-ciervo':'img/inf-primer-ciervo.jpg','inf-primer-ovejita':'img/inf-primer-ovejita.jpg','inf-osito':'img/inf-osito.jpg','inf-primer-ositos':'img/inf-primer-ositos.jpg','inf-safari':'img/inf-safari.jpg','baby-globo':'img/baby-globo.jpg','baby-telon':'img/baby-telon.jpg','web-bloques':'img/web-bloques.jpg','web-pixeles':'img/web-pixeles.jpg','web-autos':'img/web-autos.jpg','web-sheriff':'img/web-sheriff.jpg','saten':'img/saten.jpg'};
 const IMGS={};
 
 const BASE={programa:'',kicker:'',titulo:'',nombre:'',letra:'Great Vibes',numero:'',frase:'',fecha:'2027-03-13',hora:'11:00',lugar:'',direccion:'',lugar2:'',hora2:'',direccion2:'',padres:'',wa:'',limite:'',dress:'',alias:'',showConfirm:false};
@@ -397,7 +397,8 @@ const TEMPLATES=[
  {id:'boda-foto',ev:'Bodas',name:'Champagne',kind:'gala',deco:true,light:true,bgA:'#fdf6ea',bgB:'#ecdcbf',zone:[.12,.93],maxW:.8,ink:'#3b2f24',soft:'#6b5845',gold:GOLD_DEEP,glow:'rgba(255,255,255,0)',page:'#f6eedf',d:{...D_BODA,numero:''}},
  {id:'boda-marfil',ev:'Bodas',name:'Marfil y oro',kind:'marfil',zone:[.505,.94],maxW:.78,ink:'#3b2f24',soft:'#6b5845',gold:GOLD_DEEP,glow:'rgba(255,255,255,.0)',page:'#f5efe4',d:{...D_BODA}},
  {id:'boda-anillos',ev:'Bodas',name:'Anillos · noche',kind:'fotoTop',zone:[.47,.95],maxW:.82,ink:'#f4ecdf',soft:'#d8cbb4',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.4)',page:'#101826',dark:true,bgA:'#16233a',bgB:'#0a111d',d:{...D_BODA,nombre:'Camila & Tomás'}},
- {id:'boda-saten',ev:'Bodas',name:'Satén esmeralda',kind:'gala',deco:true,bgA:'#167a5a',bgB:'#03170f',zone:[.12,.93],maxW:.8,ink:'#f4ecd6',soft:'#cfd9c4',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.4)',page:'#03170f',dark:true,d:{...D_BODA,nombre:'Sofía & Mateo',numero:'',fecha:'2027-03-20',hora:'19:00',lugar:'Estancia Los Aromos',direccion:'Pilar, Buenos Aires',alias:'sofia.mateo.boda'}},
+ {id:'boda-saten',ev:'Bodas',name:'Satén',img:'saten',noCard:true,zone:[.16,.71],maxW:.6,ink:'#f4ecd6',soft:'#cfd9c4',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.35)',page:'#03170f',dark:true,d:{...D_BODA,nombre:'Sofía & Mateo',fecha:'2027-03-20',hora:'19:00',lugar:'Estancia Los Aromos',direccion:'Pilar, Buenos Aires',alias:'sofia.mateo.boda'}},
+ {id:'boda-esmeralda',ev:'Bodas',name:'Esmeralda',kind:'gala',deco:true,bgA:'#167a5a',bgB:'#03170f',zone:[.12,.93],maxW:.8,ink:'#f4ecd6',soft:'#cfd9c4',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.4)',page:'#03170f',dark:true,d:{...D_BODA,nombre:'Valentina & Joaquín',numero:'',fecha:'2027-10-09',hora:'20:30',lugar:'Finca Las Magnolias',direccion:'Ruta 40 km 8, San Juan',alias:'vale.joaco.boda'}},
  {id:'baby-globo',noCard:true,ev:'Baby shower',name:'Globo (Baby shower III)',img:'baby-globo',zone:[.33,.70],maxW:.48,ink:'#2f5a4c',soft:'#4a7566',gold:GOLD_DEEP,glow:'rgba(255,255,255,.8)',page:'#dcefe6',d:{...D_BABY,nombre:'Nombre'}},
  {id:'baby-telon',noCard:true,ev:'Baby shower',name:'Telón (Baby shower IV)',img:'baby-telon',zone:[.22,.72],maxW:.48,ink:'#f4ecd6',soft:'#d7e6dc',gold:GOLD_LIGHT,glow:'rgba(0,0,0,.45)',page:'#0b3b33',dark:true,d:{...D_BABY,nombre:'Nombre'}},
  {id:'web-bloques',hidden:true,noText:true,noCard:true,ev:'Infantiles',name:'Bloques (web)',img:'web-bloques',zone:[.1,.9],maxW:.8,ink:'#1d1d1d',soft:'#3a3a3a',gold:GOLD_DEEP,glow:'rgba(255,255,255,.9)',page:'#1b2a6b',dark:true,d:{...D_INF,nombre:'Mateo',fecha:'2026-12-12',hora:'16:00',lugar:'Salón Mundo Bloques'}},
@@ -608,7 +609,7 @@ function buildPicker(){
   const groups=EVENTOS.filter(ev=>ev!=='Primer año').map(ev=>[ev,allTpls().filter(t=>inEv(t,ev)),WEBS.filter(w=>inEv(w,ev))]).filter(g=>g[1].length||g[2].length);
   groups.forEach(([ev,list,webs])=>{
     const det=document.createElement('details');det.className='sub';det.dataset.ev=ev;
-    if(state.web?webs.some(w=>w.id===state.web):list.some(t=>t.id===state.tpl))det.open=true;
+    
     const cnt=[list.length?list.length+' tarjeta'+(list.length>1?'s':''):'',webs.length?webs.length+' web':''].filter(Boolean).join(' · ');
     det.innerHTML=`<summary>${ev}<span>${cnt}</span></summary>${webs.length?'<div class="lbl wlbl">Invitaciones web completas</div><div class="grid wgrid"></div>':''}${list.length?(webs.length?'<div class="lbl wlbl">Tarjetas</div>':'')+'<div class="grid tgrid"></div>':''}`;
     const wg=det.querySelector('.wgrid');if(wg)webs.forEach(w=>{const b=document.createElement('button');b.className='tpl web'+(w.id===state.web?' sel':'');b.type='button';b.dataset.web=w.id;b.innerHTML=`<img loading="lazy" alt="" src="${webCover(w)}"><span class="badge">Web</span>${esc(w.name)}`;b.onclick=()=>selectWeb(w.id);wg.appendChild(b)});
@@ -789,9 +790,11 @@ footer a{display:inline-block;margin-top:6px;color:inherit;text-decoration:none;
 @media(min-aspect-ratio:3/4){#cover .glass{top:50%}}
 @keyframes up{from{opacity:0;margin-top:26px}to{opacity:1;margin-top:0}}
 #cover .kk{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);text-shadow:0 0 10px ${dark?'rgba(0,0,0,.6)':'rgba(255,255,255,.95)'}}
-#cover .nm{position:relative;font-family:"${esc(d.letra||'Great Vibes')}",cursive;font-size:clamp(52px,15vw,96px);line-height:1.15;background:var(--champ);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;padding:10px 26px;filter:drop-shadow(0 2px 2px ${dark?'rgba(0,0,0,.5)':'rgba(120,70,10,.3)'});animation:shine 4.5s ease-in-out 1.2s infinite;white-space:nowrap}
+#cover .nm{position:relative;font-family:"${esc(d.letra||'Great Vibes')}",cursive;font-size:clamp(44px,14vw,88px);line-height:1.12;max-width:100%;background:var(--champ);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;padding:10px 26px;filter:drop-shadow(0 2px 2px ${dark?'rgba(0,0,0,.5)':'rgba(120,70,10,.3)'});animation:shine 4.5s ease-in-out 1.2s infinite;white-space:nowrap}
 @keyframes shine{0%,100%{background-position:0 0}50%{background-position:100% 0}}${tpl.nameColor?`#cover .nm{background:none;color:${tpl.nameColor};-webkit-text-fill-color:${tpl.nameColor};font-family:"${esc(d.letra||'Great Vibes')}",cursive;font-weight:${tpl.nameW||400};text-shadow:0 0 2px #fff,0 0 4px #fff,0 3px 10px rgba(60,30,10,.3);filter:none;animation:none}`:''}
-#cover .wr{display:inline-block;clip-path:inset(0 100% 0 0);animation:write 2.4s .8s cubic-bezier(.6,.1,.3,1) forwards}
+#cover .wr{display:inline-block;clip-path:inset(0 100% 0 0);animation:write 2.4s .8s cubic-bezier(.6,.1,.3,1) forwards;padding:0 .12em}
+#cover .wr.l{display:block;width:max-content;margin:0 auto}#cover .wr.l+.amp+.wr.l{animation-delay:1.6s}
+#cover .amp{display:block;font-size:.55em;line-height:1;opacity:0;animation:fadeIn 1s 1.4s forwards}@keyframes fadeIn{to{opacity:1}}
 @keyframes write{to{clip-path:inset(0 0 0 0)}}
 #cover .dt{font-family:"Cormorant Garamond",serif;font-size:20px;color:var(--ink);text-shadow:0 0 10px ${dark?'rgba(0,0,0,.6)':'rgba(255,255,255,.95)'}}
 #open{margin:18px auto 0;padding:14px 34px;animation:pulse 2.4s ease-in-out 2.6s infinite}
@@ -828,17 +831,30 @@ footer a{display:inline-block;margin-top:6px;color:inherit;text-decoration:none;
 .opt2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.opt2 label{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:1.5px solid #cfa352;border-radius:14px;font:600 14px Montserrat,sans-serif;color:inherit;background:#fffdf8;cursor:pointer}
 .opt2 input{width:auto}.opt2 label:has(input:checked){background:var(--foil);color:#2a1d0c}
 .err{color:#b3261e;font-size:13px;min-height:1em;text-align:center}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 1.1s ease,transform 1.1s ease}.reveal.on{opacity:1;transform:none}
+.reveal>*{opacity:0;transform:translateY(30px) scale(.97);filter:blur(5px);transition:opacity .9s ease,transform 1s cubic-bezier(.2,.7,.2,1),filter .9s ease}
+.reveal.on>*{opacity:1;transform:none;filter:none}
+.reveal.on>*:nth-child(2){transition-delay:.12s}.reveal.on>*:nth-child(3){transition-delay:.24s}.reveal.on>*:nth-child(4){transition-delay:.36s}.reveal.on>*:nth-child(5){transition-delay:.48s}.reveal.on>*:nth-child(n+6){transition-delay:.6s}
+.zoomin{transform:scale(.94);opacity:.6;transition:transform 1.4s cubic-bezier(.2,.7,.2,1),opacity 1.4s}.zoomin.on{transform:none;opacity:1}
+.msg .big{font-size:26px;font-style:italic;max-width:400px;margin:8px auto}
+.orn{font-size:18px;letter-spacing:.4em;background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;max-width:340px;margin:14px auto 0;font:500 14px Montserrat,sans-serif}
+.cal span{font-size:11px;letter-spacing:.12em;color:var(--soft);padding-bottom:6px}.cal i{font-style:normal;display:flex;align-items:center;justify-content:center;aspect-ratio:1;color:var(--ink);opacity:.8}
+.cal i.hit{position:relative;opacity:1}.cal i.hit::before{content:"";position:absolute;inset:6%;border-radius:50%;background:var(--foil);box-shadow:0 0 0 4px rgba(214,174,90,.18),0 0 18px rgba(214,174,90,.8);animation:beat 1.8s ease-in-out infinite}.cal i.hit b{position:relative;color:#2a1d0c;font-weight:700}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.sw{display:flex;justify-content:center;gap:12px;margin-top:12px}.sw i{width:38px;height:38px;border-radius:50%;border:2px solid #cfa352;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.end{padding-bottom:20px}.end .nm2{font-family:"${esc(d.letra||'Great Vibes')}",cursive;font-size:clamp(40px,12vw,64px);line-height:1.15;background:var(--champ);-webkit-background-clip:text;background-clip:text;color:transparent;padding:6px 18px;margin-top:8px}
 #stars{position:fixed;inset:0;pointer-events:none;z-index:25}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}#stars,#cover .rays{display:none}#cover .bgi,#cover .nm,#open,#cover .glass{animation:none}#cover .wr{animation:none;clip-path:none}#cover{transition:none}}
+@media (prefers-reduced-motion:reduce){.reveal>*,.zoomin{opacity:1;transform:none;filter:none;transition:none}.cal i.hit::before{animation:none}#stars,#cover .rays{display:none}#cover .bgi,#cover .nm,#open,#cover .glass{animation:none}#cover .wr{animation:none;clip-path:none}#cover{transition:none}}
 </style></head><body class="lock">
 <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc94"/><stop offset=".5" stop-color="#d6ae5a"/><stop offset="1" stop-color="#b38a3a"/></linearGradient></defs></svg>
-<div id="cover"><div class="bgi"></div><div class="rays"></div><div class="glass">${d.kicker?`<div class="kk">${esc(d.kicker)}</div>`:''}${d.titulo?`<div class="dt">${esc(d.titulo)}</div>`:''}<div class="nm"><span class="wr">${esc(d.nombre||'')}</span></div><button class="btn" id="open">Tocá para abrir</button></div></div>
+<div id="cover"><div class="bgi"></div><div class="rays"></div><div class="glass">${d.kicker?`<div class="kk">${esc(d.kicker)}</div>`:''}${d.titulo?`<div class="dt">${esc(d.titulo)}</div>`:''}<div class="nm" id="nm">${(()=>{const ps=String(d.nombre||'').split(/\s*&\s*/).filter(Boolean);return ps.length===2?`<span class="wr l">${esc(ps[0])}</span><span class="amp">&amp;</span><span class="wr l">${esc(ps[1])}</span>`:`<span class="wr">${esc(d.nombre||'')}</span>`})()}</div><button class="btn" id="open">Tocá para abrir</button></div></div>
 <div id="flash"></div>
 <canvas id="stars"></canvas>
 <div class="wrap">
-<img class="card" src="${img}" alt="Invitación de ${esc(d.nombre)}">
+<img class="card zoomin" src="${img}" alt="Invitación de ${esc(d.nombre)}">
+${d.frase?`<section class="reveal msg"><div class="orn">✦</div><div class="k">${esc(d.kicker||'Con mucha alegría')}</div><p class="big">“${esc(d.frase)}”</p><div class="line"></div></section>`:''}
 ${target?`<section class="reveal"><div class="k">Falta muy poco</div><h2>Cuenta regresiva</h2><div class="rings" id="cd">${[['D','días',365],['H','horas',24],['M','min',60],['S','seg',60]].map(([k,n,m])=>`<div class="ring" data-max="${m}"><svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="44"/><circle class="pr" id="pr${k}" cx="50" cy="50" r="44" stroke-dasharray="276.5" stroke-dashoffset="276.5"/></svg><b id="cd${k}">0</b><span>${n}</span></div>`).join('')}</div></section>`:''}
+${fd?(()=>{const y=fd.getFullYear(),m=fd.getMonth(),first=(new Date(y,m,1).getDay()+6)%7,days=new Date(y,m+1,0).getDate();let c='';for(let i=0;i<first;i++)c+='<i></i>';for(let k=1;k<=days;k++)c+=k===fd.getDate()?`<i class="hit"><b>${k}</b></i>`:`<i>${k}</i>`;return `<section class="reveal"><div class="k">Agendá la fecha</div><h2>${MESES[m].charAt(0).toUpperCase()+MESES[m].slice(1)} ${y}</h2><div class="cal"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>${c}</div></section>`})():''}
 <section class="reveal"><div class="k">Cuándo y dónde</div><h2>${esc(d.titulo||'La celebración')}</h2><div class="line"></div>
 ${fechaTxt?`<p>${esc(fechaTxt.charAt(0).toUpperCase()+fechaTxt.slice(1))}${d.hora?' · '+esc(fmtHora(d.hora)):''}</p>`:''}
 ${d.lugar?`<p><b>${esc(d.lugar)}</b></p>`:''}${d.direccion?`<div class="small">${esc(d.direccion)}</div>`:''}
@@ -847,14 +863,15 @@ ${d.lugar2?`<div class="line" style="margin-top:26px"></div><div class="k">Despu
 </section>
 ${prog.length?`<section class="reveal"><div class="k">Así será el festejo</div><h2>Programa</h2><div class="tl" id="tl"><div class="fill" id="tlf"></div>${prog.map(x=>`<div class="st">${x.h?`<b>${esc(x.h)} hs</b>`:''}<span>${esc(x.t)}</span></div>`).join('')}</div></section>`:''}
 ${gal.length?`<section class="reveal"><div class="k">Momentos</div><h2>Galería</h2><div class="gal" id="gal">${gal.map((g,i)=>`<img src="${g}" alt="Foto ${i+1}">`).join('')}</div></section>`:''}
-${d.dress?`<section class="reveal"><div class="k">Código de vestimenta</div><h2>${esc(d.dress)}</h2></section>`:''}
+${d.dress?`<section class="reveal"><div class="k">Código de vestimenta</div><h2>${esc(d.dress)}</h2><p class="small">Te sugerimos estos tonos</p><div class="sw">${[tpl.page,tpl.soft,tpl.ink,'#d6ae5a'].map(c=>`<i style="background:${c}"></i>`).join('')}</div></section>`:''}
 ${d.alias?`<section class="reveal"><div class="k">Regalos</div><h2>Tu presencia es el mejor regalo</h2><p class="small">Si querés hacer un obsequio, podés usar este alias</p><div class="box"><div class="alias" id="alias">${esc(d.alias)}</div><button class="btn" id="copy" style="width:100%">Copiar alias</button></div></section>`:''}
 ${waFull?`<section class="reveal"><div class="k">Te esperamos</div><h2>Confirmá tu asistencia</h2>${d.limite?`<p class="small">Antes del ${esc(fmtCorta(d.limite))}</p>`:''}
 <form class="acc" id="rsvp" novalidate>
-<details open><summary>1 · Tus datos</summary><div class="in"><div class="opt2"><label><input type="radio" name="as" value="si" checked>Sí, voy</label><label><input type="radio" name="as" value="no">No puedo</label></div><label>Nombre y apellido</label><input id="rn" autocomplete="name"></div></details>
+<details><summary>1 · Tus datos</summary><div class="in"><div class="opt2"><label><input type="radio" name="as" value="si" checked>Sí, voy</label><label><input type="radio" name="as" value="no">No puedo</label></div><label>Nombre y apellido</label><input id="rn" autocomplete="name"></div></details>
 <details class="ifyes"><summary>2 · Quiénes vienen</summary><div class="in"><label>Adultos</label><input id="ra" type="number" min="1" max="20" value="1" inputmode="numeric"><label>Chicos</label><input id="rc" type="number" min="0" max="20" value="0" inputmode="numeric"><label>Menú especial (vegetariano, sin TACC, etc.)</label><input id="rm"></div></details>
 <details class="ifyes"><summary>3 · Alergias y mensaje</summary><div class="in"><label>Alergias o algo que tengamos que saber</label><input id="rl"><label>Un mensaje para ${esc(d.nombre||'nosotros')}</label><textarea id="rt" rows="3"></textarea></div></details>
 <div class="err" id="rerr"></div><button class="btn full" type="submit">Enviar confirmación por WhatsApp</button></form></section>`:''}
+<section class="reveal end"><div class="orn">✦ ✦ ✦</div><div class="k">Gracias</div><h2>¡Te esperamos!</h2><p>Gracias por ser parte de este día tan especial.<br>Será inolvidable compartirlo con vos.</p><div class="nm2">${esc(d.nombre||'')}</div><div class="line"></div><div class="k" style="margin-top:6px">#${esc(String(d.nombre||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/&/g,'Y').replace(/[^A-Za-z0-9]/g,''))}${fd?fd.getFullYear():''}</div></section>
 <footer>CREADA CON<br><a href="https://digiinvitaciones.github.io/digiinvitaciones/" target="_blank" rel="noopener">DIGI INVITACIONES</a></footer>
 </div>
 <script>
@@ -863,7 +880,9 @@ var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var cover=document.getElementById('cover'),flash=document.getElementById('flash');
 document.getElementById('open').onclick=function(e){if(!RM){flash.classList.add('go');burst(e.clientX,e.clientY)}setTimeout(function(){cover.classList.add('off');document.body.classList.remove('lock')},RM?0:350)};
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+document.querySelectorAll('.reveal,.zoomin').forEach(function(el){io.observe(el)});
+function fitNm(){var n=document.getElementById('nm');if(!n)return;n.style.fontSize='';var box=n.parentNode.clientWidth-8,fs=parseFloat(getComputedStyle(n).fontSize),k=0;while(n.scrollWidth>box&&fs>22&&k<60){fs-=2;n.style.fontSize=fs+'px';k++}}
+fitNm();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitNm);addEventListener('resize',fitNm);
 var T=${target?`new Date(${JSON.stringify(target)}).getTime()`:'0'};
 function setR(k,v,m){var b=document.getElementById('cd'+k),p=document.getElementById('pr'+k);if(!b)return;b.textContent=v;p.style.strokeDashoffset=276.5*(1-Math.min(1,v/m))}
 function tick(){if(!T)return;var s=Math.max(0,Math.floor((T-Date.now())/1000));setR('D',Math.floor(s/86400),365);setR('H',Math.floor(s%86400/3600),24);setR('M',Math.floor(s%3600/60),60);setR('S',s%60,60)}
