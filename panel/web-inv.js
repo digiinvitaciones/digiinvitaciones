@@ -26,7 +26,7 @@ const FILLS={
  bautismo(h,d,w){const D=wDate(d);const nom=d.nombre||'';const hora=d.hora||'00:00';
   if(D){h=h.replace(/var CFG=\{[^\n]*\};/,()=>'var CFG={date:new Date('+jsq(d.fecha+'T'+hora+':00-03:00')+'),endH:5,title:'+jsq('Bautismo de '+nom)+',loc:'+jsq([d.lugar,d.direccion].filter(Boolean).join(', '))+',alias:'+jsq(d.alias||'')+'};');
    h=rep(h,'id="dsmall">Sábado 16 de enero de 2027<','id="dsmall">'+hesc(D.dia+' '+D.n+' de '+D.mes+' de '+D.y)+'<');}
-  h=rep(h,'id="nm">Mateo<','id="nm">'+hesc(nom)+'<');h=rep(h,'id="nm2">Mateo<','id="nm2">'+hesc(nom)+'<');
+  h=rep(h,'id="nm">Nombre<','id="nm">'+hesc(nom)+'<');h=rep(h,'id="nm2">Nombre<','id="nm2">'+hesc(nom)+'<');
   h=h.replace('<html lang="es" data-pal="cielo">','<html lang="es" data-pal="'+w.pal+'">');
   const P=splitPadres(d.padres);
   h=rep(h,'<div class="nm">Lucía y Diego</div>','<div class="nm">'+hesc(P.padres)+'</div>');h=rep(h,'<div class="nm">Carla y Juan</div>','<div class="nm">'+hesc(P.padrinos)+'</div>');
