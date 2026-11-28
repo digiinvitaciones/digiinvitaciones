@@ -45,3 +45,9 @@ Se publica recién cuando `revisar.js` muestra **"✓ Todo cumple la lista de co
 **Catálogo**
 - No cambiar su estilo general sin que Sandra lo pida.
 - No tocar `precios.js`.
+
+**Protección de muestras**
+- Ninguna muestra del catálogo se puede guardar tocándola ni arrastrándola: tarjetas, JPG, PDF, video y webs.
+- Todas las muestras llevan el sello "DIGI INVITACIONES · MUESTRA" encima, elegante y suave. Así una captura de pantalla también sale sellada.
+- No se baja la calidad de las muestras.
+- Lo que se entrega al cliente desde el panel va sin sello: el bloque `<!--WM-->` se quita al entregar.
