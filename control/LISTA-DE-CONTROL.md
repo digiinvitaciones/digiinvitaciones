@@ -51,3 +51,8 @@ Se publica recién cuando `revisar.js` muestra **"✓ Todo cumple la lista de co
 - Todas las muestras llevan el sello elegido por Sandra (28/11): marco dorado fino con diamantes en las esquinas, "DIGI INVITACIONES" arriba y su logo con "MUESTRA" abajo (img/sello-*.png). Así una captura de pantalla también sale sellada.
 - No se baja la calidad de las muestras.
 - Lo que se entrega al cliente desde el panel va sin sello: el bloque `<!--WM-->` se quita al entregar.
+
+**Datos completos**
+- El JPG, el PDF y el video de cada diseño muestran fecha, hora, lugar y dirección completos.
+- Las webs infantiles usan carteles armados con `control/carteles-web/poster.js`: la portada de la web arriba y los datos abajo. Las plantillas llevan `datos:true`.
+- Direcciones de muestra: "Av. Libertador 1234, San Juan". Nunca de series ("Siempre Viva") ni de relleno ("Calle cualquiera").
