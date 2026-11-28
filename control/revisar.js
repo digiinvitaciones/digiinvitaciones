@@ -37,6 +37,17 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
   if(d.padres)mal('Plantilla '+t.id,'tiene nombres de padres');
   if(P.g[t.id]==='todos'&&!t.noText&&d.nombre!=='Nombre')mal('Plantilla '+t.id,'es neutra y su nombre de ejemplo es "'+d.nombre+'" (debe ser "Nombre")');
  }
+ // precios: el panel cobra lo mismo que muestra el catálogo, y el pedido pegado marca los formatos correctos
+ {const cp=await (async()=>{await page.goto(URL);await page.waitForTimeout(1500);return page.evaluate(()=>PRECIOS)})();
+  await page.goto(URL+'panel/');await page.waitForTimeout(2500);
+  const pp=await page.evaluate(()=>({p:PRODUCTS_DEF,f:formatosDe('Lo quiero en: Imagen JPG, PDF interactivo, Video animado, Web Premium'),g:formatosDe('Lo quiero en: Invitación web')}));
+  const MAPA={tarjeta:'imagen',pdf:'pdf',video:'video',web:'web',webp:'premium'};
+  for(const x of pp.p){const k=MAPA[x.id];if(!k)continue;
+   if(!cp.normal[k]||cp.normal[k][1]!==x.now||cp.normal[k][0]!==x.old)mal('Precios',x.n+' (resto de eventos): panel '+x.now+'/'+x.old+' y catálogo '+(cp.normal[k]||[]).slice().reverse().join('/'));
+   if(!cp.gala[k]||cp.gala[k][1]!==x.nowG||cp.gala[k][0]!==x.oldG)mal('Precios',x.n+' (bodas y 15): panel '+x.nowG+'/'+x.oldG+' y catálogo '+(cp.gala[k]||[]).slice().reverse().join('/'))}
+  if(JSON.stringify(pp.f)!==JSON.stringify(['tarjeta','video','pdf','webp']))mal('Panel','al pegar el pedido no marca bien los formatos: '+JSON.stringify(pp.f));
+  {await page.goto(URL);await page.waitForTimeout(1200);const fx=await page.evaluate(()=>({i:digiFmts('Infantiles').map(f=>f.k),b:digiFmts('Bodas').map(f=>f.k),q:digiFmts('15 años').map(f=>f.k)}));if(fx.i.includes('premium')||fx.q.includes('premium'))mal('Catálogo','ofrece Web Premium fuera de Bodas');if(!fx.b.includes('premium'))mal('Catálogo','Bodas no ofrece Web Premium');await page.goto(URL+'panel/');await page.waitForTimeout(2500);}
+  if(JSON.stringify(pp.g)!==JSON.stringify(['web']))mal('Panel','al pegar un pedido de web común no marca "Invitación web"');}
  if(!/const card=false/.test(R('panel/index.html')))mal('Panel','los diseños vuelven a tener recuadro de vidrio esmerilado');
  {const c=R('index.html');if(!/addEventListener\('contextmenu'/.test(c)||!/class="wmk" id="vBox"/.test(c)||!/class="wmk" data-fmt/.test(c)||!/-webkit-touch-callout:none/.test(c)||!/\.wmk::after[^}]*sello-bot\.png/.test(c))mal('Catálogo','las muestras se pueden descargar o no tienen el sello de muestra')}
  // ---------- archivos: dorado, Floot, padres ----------
@@ -65,6 +76,8 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
   if(r.open.length)mal(w,'pestañas abiertas al iniciar: '+r.open.join(' / '));
   const OK_ILU={'demos/baby-shower-ii/':1};if(r.fotos.length&&!OK_ILU[w])mal(w,'muestra '+r.fotos.length+' foto(s): revisar que no sean de personas ('+r.fotos.join(', ')+')');
   if(pe.length)mal(w,'error en la página: '+pe[0]);await p.close()}
+ // ---------- pedidos de punta a punta: cada diseño y cada combinación de formatos, del catálogo al panel ----------
+ {const r=await require('./pedidos.js')(URL);r.fallas.forEach(f=>fallas.push(f));console.log('Pedidos probados del catálogo al panel: '+r.total)}
  await b.close();
  console.log(fallas.length?fallas.join('\n')+`\n\n${fallas.length} cosa(s) para corregir.`:'✓ Todo cumple la lista de control.');
  process.exit(fallas.length?1:0)})();

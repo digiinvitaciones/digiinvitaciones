@@ -45,6 +45,11 @@ Se publica recién cuando `revisar.js` muestra **"✓ Todo cumple la lista de co
 **Catálogo**
 - No cambiar su estilo general sin que Sandra lo pida.
 - No tocar `precios.js`.
+- Cada diseño del catálogo, con cada combinación de formatos, se prueba pegando su mensaje "Quiero este" en el panel: mismo diseño, mismos formatos y mismo total (control/pedidos.js, lo corre revisar.js). Web Premium solo en Bodas.
+- El panel cobra lo mismo que el catálogo en todos los formatos y eventos (también Web Premium), y al pegar el pedido "Quiero este" marca los mismos formatos. revisar.js lo controla.
+- Formulario del pedido (#pform en el catálogo): datos del cliente + invitación, borrador guardado, avisos de errores (fecha pasada, teléfono sin 10 números, alias o CBU mal escrito, nombres largos). Sus claves "Clave: valor" son las que lee el panel; control/pedidos.js completa el formulario en cada diseño y verifica que el panel cargue todo.
+- Condiciones (página, formulario y mensajes del panel iguales): seña 50%, 2 cambios sin cargo y después $2.000 c/u, entrega 48 hs hábiles desde seña + datos, cambio de fecha/hora/lugar post entrega sin cargo, seña no reembolsable.
+- El panel arranca con la vista previa vacía (logo de DIGI); arriba aparece el diseño que pidió el cliente. El paso 2 avisa "Ya elegido".
 
 **Protección de muestras**
 - Ninguna muestra del catálogo se puede guardar tocándola ni arrastrándola: tarjetas, JPG, PDF, video y webs.

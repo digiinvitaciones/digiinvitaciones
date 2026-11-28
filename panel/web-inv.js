@@ -90,7 +90,7 @@ async function previewWeb(){const w=webById(state.web);if(!w)return;status('Arma
 function closeWebPrev(){const ov=$('webPrev');ov.classList.remove('on');ov.querySelector('iframe').srcdoc='';document.body.style.overflow=''}
 function selectWeb(id){const w=webById(id);if(!w)return;state.web=id;const old=curTpl();const pt=tplById(w.pair);
   if(pt&&(!old||old.ev!==pt.ev||!state.touched)){state.data={...BASE,...pt.d,letra:pt.d.letra||'Great Vibes'};state.touched=false}
-  if(pt)state.tpl=pt.id;
+  if(pt)state.tpl=pt.id;state.blank=false;
   document.querySelectorAll('.tpl').forEach(b=>b.classList.toggle('sel',b.dataset.web===id));
   fillForm();updatePhotoUI();redraw();updateWebUI();renderItems();renderMsg();toast('Elegiste la invitación web "'+w.name+'". Completá los datos y tocá "Ver invitación web".')}
 function updateWebUI(){const w=state.web&&webById(state.web);['webPrevBtn','webPrevBtn2'].forEach(k=>{const e=$(k);if(e)e.style.display=w?'':'none'});const sub=$('exWebSub');if(sub)sub.textContent=w?'invitación web "'+w.name+'"':'archivo listo para subir';
