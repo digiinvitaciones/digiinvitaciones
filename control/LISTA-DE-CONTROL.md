@@ -48,6 +48,6 @@ Se publica recién cuando `revisar.js` muestra **"✓ Todo cumple la lista de co
 
 **Protección de muestras**
 - Ninguna muestra del catálogo se puede guardar tocándola ni arrastrándola: tarjetas, JPG, PDF, video y webs.
-- Todas las muestras llevan el sello "DIGI INVITACIONES · MUESTRA" encima, elegante y suave. Así una captura de pantalla también sale sellada.
+- Todas las muestras llevan el sello elegido por Sandra (28/11): marco dorado fino con diamantes en las esquinas, "DIGI INVITACIONES" arriba y su logo con "MUESTRA" abajo (img/sello-*.png). Así una captura de pantalla también sale sellada.
 - No se baja la calidad de las muestras.
 - Lo que se entrega al cliente desde el panel va sin sello: el bloque `<!--WM-->` se quita al entregar.
