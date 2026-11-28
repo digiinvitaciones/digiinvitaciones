@@ -4,7 +4,7 @@ const WEBS=[
  {id:'w-bautismo-i-rosa',ev:'Bautismo',name:'Bautismo I · rosa',dir:'bautismo-i',pal:'rosa',pair:'bau-paloma-rosa',cover:'bautismo-i-rosa.jpg',fill:'bautismo'},
  {id:'w-bautismo-i-verde',ev:'Bautismo',name:'Bautismo I · verde',dir:'bautismo-i',pal:'verde',pair:'bau-paloma-verde',cover:'bautismo-i-verde.jpg',fill:'bautismo'},
  {id:'w-bautismo-i-lila',ev:'Bautismo',name:'Bautismo I · lila',dir:'bautismo-i',pal:'lavanda',pair:'bau-paloma-lila',cover:'bautismo-i-lila.jpg',fill:'bautismo'},
- {id:'w-bodas-saten',ev:'Bodas',name:'Satén',dir:'bodas-saten',pair:'boda-foto',cover:'bodas-saten.jpg',fill:'saten'},
+ {id:'w-bodas-saten',ev:'Bodas',name:'Satén',dir:'bodas-saten',pair:'boda-saten',cover:'bodas-saten.jpg',fill:'saten'},
  {id:'w-xv-medianoche',ev:'15 años',name:'XV Medianoche',dir:'xv-medianoche',pair:'xv-medianoche',cover:'xv-medianoche.jpg',fill:'xv'},
  {id:'w-baby-ii',ev:'Baby shower',name:'Baby shower II',dir:'baby-shower-ii',pair:'baby-arcoiris',cover:'baby-shower-ii.jpg',fill:'baby'},
  {id:'w-baby-iii',ev:'Baby shower',name:'Baby shower III',dir:'baby-shower-iii',pair:'baby-ciguena',cover:'baby-shower-iii.jpg',fill:'baby'},
