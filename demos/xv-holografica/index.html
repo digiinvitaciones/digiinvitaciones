@@ -25,11 +25,11 @@ body.lock{overflow:hidden;height:100vh}
  radial-gradient(45% 30% at 40% calc(90% - var(--ty)*8%),rgba(255,182,232,.16),transparent 70%),var(--obs)}
 
 /* ===== portada cerrada ===== */
-#cover{position:fixed;inset:0;z-index:40;background:#2a0a2c url(../../panel/img/xv-corona.jpg) center 70%/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:7vh 20px 0;transition:opacity 1.1s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)}
+#cover{position:fixed;inset:0;z-index:40;background:#2a0a2c url(cover.jpg) center 70%/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:7vh 20px 0;transition:opacity 1.1s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)}
 #cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,4,24,.35),rgba(18,4,24,0) 28%);pointer-events:none}
 #cover.gone{opacity:0;transform:scale(1.12);pointer-events:none}
 #cover .k{position:relative;z-index:1;font:600 11px var(--sans);letter-spacing:.5em;color:#fff;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.6)}
-#cover h1{position:relative;z-index:1;font:400 clamp(58px,17vw,96px)/1.15 var(--script);padding:0 .2em;color:#fff;text-shadow:0 0 26px rgba(200,107,255,.75)}
+#cover h1{white-space:nowrap;max-width:100%;position:relative;z-index:1;font:400 clamp(58px,17vw,96px)/1.15 var(--script);padding:0 .2em;color:#fff;text-shadow:0 0 26px rgba(200,107,255,.75)}
 .openbox{position:absolute;z-index:2;left:50%;bottom:calc(5vh + env(safe-area-inset-bottom,0px) + 34px);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px}
 .seal{position:relative;width:78px;height:78px;border:none;border-radius:50%;cursor:pointer;background:none;-webkit-appearance:none;padding:0}
 .seal .half{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at calc(35% + var(--tx)*25%) calc(30% + var(--ty)*20%),rgba(255,255,255,.55),rgba(255,255,255,.08) 55%),rgba(255,255,255,.12);-webkit-backdrop-filter:blur(8px) saturate(1.3);backdrop-filter:blur(8px) saturate(1.3);box-shadow:inset 0 0 0 1.5px rgba(246,220,148,.85),0 8px 26px rgba(0,0,0,.3);transition:transform 1s cubic-bezier(.3,.7,.2,1),opacity 1s}
@@ -79,7 +79,7 @@ h2 i{font-style:italic;font-weight:500}
 /* pase VIP */
 .pass{max-width:400px;margin:0 auto;padding:26px 22px 22px;text-align:left;overflow:hidden}
 .pass .top{display:flex;justify-content:space-between;font:400 11px var(--mono);letter-spacing:.12em;color:var(--soft)}
-.pass .who{font:400 46px/1.2 var(--script);color:#fff;margin:10px 0 4px;padding:0 .1em;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.pass .who{font:400 46px/1.2 var(--script);color:#fff;margin:10px 0 4px;padding:0 .1em;white-space:nowrap}
 .pass .row{display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px dashed rgba(233,230,242,.22)}
 .pass .row svg{flex:0 0 34px;width:34px;height:34px}
 .pass .row small{display:block;font:400 10px var(--mono);letter-spacing:.2em;color:var(--soft)}
@@ -100,11 +100,11 @@ h2 i{font-style:italic;font-weight:500}
 .stage{perspective:1100px;height:420px;display:grid;place-items:center;touch-action:pan-y;cursor:grab;user-select:none}
 .card3d{width:250px;height:370px;position:relative;transform-style:preserve-3d;transform:rotateY(var(--ry,0deg)) rotateX(calc(var(--ty)*-8deg))}
 .face{position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;box-shadow:0 30px 60px rgba(0,0,0,.55)}
-.front{background:#1a0d22 url(../../panel/img/xv-corona.jpg) center 80%/cover}
+.front{background:#1a0d22 url(cover.jpg) center 80%/cover}
 .front::after,.back::after{content:"";position:absolute;inset:0;background:linear-gradient(calc(110deg + var(--ry,0deg)*.5),rgba(255,255,255,0) 35%,rgba(255,255,255,.35) 50%,rgba(184,146,255,.2) 55%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;pointer-events:none}
 .front .t{position:absolute;top:26px;left:0;right:0;text-align:center}
 .front .t small{font:600 9px var(--sans);letter-spacing:.4em;color:#fff}
-.front .t div{font:400 50px/1.2 var(--script);color:#fff;text-shadow:0 0 18px rgba(200,107,255,.9)}
+.front .t div{white-space:nowrap;padding:0 .15em;font:400 50px/1.2 var(--script);color:#fff;text-shadow:0 0 18px rgba(200,107,255,.9)}
 .back{transform:rotateY(180deg);background:
  radial-gradient(circle at 30% 20%,rgba(255,255,255,.5),transparent 40%),
  repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2px,transparent 2px 6px),
@@ -181,8 +181,8 @@ footer a{display:inline-block;margin-top:6px;color:var(--g2);text-decoration:non
 <div id="cover" role="dialog" aria-label="Portada">
   <button id="skip" type="button">SALTAR</button>
   <div class="k">Mis XV · Te invito</div>
-  <h1>Emilia</h1>
-  <div class="openbox"><button class="seal" id="seal" type="button" aria-label="Tocá el sello para abrir"><i class="half h1"></i><i class="half h2"></i><b>E</b></button>
+  <h1 data-f="name">Emilia</h1>
+  <div class="openbox"><button class="seal" id="seal" type="button" aria-label="Tocá el sello para abrir"><i class="half h1"></i><i class="half h2"></i><b data-f="ini">E</b></button>
   <div class="hint">Tocá el sello para abrir</div></div>
 </div>
 
@@ -190,9 +190,9 @@ footer a{display:inline-block;margin-top:6px;color:var(--g2);text-decoration:non
   <header class="hero">
     <div class="mis">MIS</div>
     <div class="holo" aria-label="XV">XV</div>
-    <div class="namebox"><span id="nm" class="kin">Emilia</span></div>
-    <div class="date">22 · 05 · 2027</div>
-    <p class="frase">“Una noche que voy a recordar para siempre”</p>
+    <div class="namebox"><span id="nm" class="kin" data-f="name">Emilia</span></div>
+    <div class="date" data-f="dnum">22 · 05 · 2027</div>
+    <p class="frase" data-f="frase">“Una noche que voy a recordar para siempre”</p>
     <div class="tilt" id="tiltTxt">Mové el celular: el brillo cambia con la luz</div>
     <div class="scroll">DESLIZÁ</div>
   </header>
@@ -202,13 +202,13 @@ footer a{display:inline-block;margin-top:6px;color:var(--g2);text-decoration:non
     <h2>Acceso <i>VIP</i></h2>
     <div class="pass iri">
       <i class="notch l"></i><i class="notch r"></i>
-      <div class="top"><span>PASE Nº 015</span><span>XV · 2027</span></div>
-      <div class="who">Emilia</div>
-      <div class="row"><svg viewBox="0 0 34 34" fill="none" stroke="#f3d58c" stroke-width="2" stroke-linecap="round"><rect x="5" y="8" width="24" height="21" rx="4"/><path d="M5 14h24M11 5v6M23 5v6"/><circle cx="12" cy="20" r="1" fill="#f3d58c"/><circle cx="17" cy="20" r="1" fill="#f3d58c"/><circle cx="22" cy="20" r="1" fill="#f3d58c"/></svg><div><small>FECHA</small><strong>Sábado 22 de mayo</strong></div></div>
-      <div class="row"><svg viewBox="0 0 34 34" fill="none" stroke="#f3d58c" stroke-width="2" stroke-linecap="round"><circle cx="17" cy="17" r="12"/><path d="M17 10v7l5 3"/></svg><div><small>HORA</small><strong>21:30 hs</strong></div></div>
-      <div class="row"><svg viewBox="0 0 34 34" fill="none" stroke="#f3d58c" stroke-width="2" stroke-linejoin="round"><path d="M17 30s-9-9-9-15a9 9 0 0 1 18 0c0 6-9 15-9 15z"/><circle cx="17" cy="15" r="3.2"/></svg><div><small>LUGAR</small><strong>Salón Imperial</strong><span>Av. del Libertador 4500, CABA</span></div></div>
+      <div class="top"><span>PASE Nº 015</span><span data-f="xvy">XV · 2027</span></div>
+      <div class="who" data-f="name">Emilia</div>
+      <div class="row"><svg viewBox="0 0 34 34" fill="none" stroke="#f3d58c" stroke-width="2" stroke-linecap="round"><rect x="5" y="8" width="24" height="21" rx="4"/><path d="M5 14h24M11 5v6M23 5v6"/><circle cx="12" cy="20" r="1" fill="#f3d58c"/><circle cx="17" cy="20" r="1" fill="#f3d58c"/><circle cx="22" cy="20" r="1" fill="#f3d58c"/></svg><div><small>FECHA</small><strong data-f="dlong">Sábado 22 de mayo</strong></div></div>
+      <div class="row"><svg viewBox="0 0 34 34" fill="none" stroke="#f3d58c" stroke-width="2" stroke-linecap="round"><circle cx="17" cy="17" r="12"/><path d="M17 10v7l5 3"/></svg><div><small>HORA</small><strong data-f="hora">21:30 hs</strong></div></div>
+      <div class="row"><svg viewBox="0 0 34 34" fill="none" stroke="#f3d58c" stroke-width="2" stroke-linejoin="round"><path d="M17 30s-9-9-9-15a9 9 0 0 1 18 0c0 6-9 15-9 15z"/><circle cx="17" cy="15" r="3.2"/></svg><div><small>LUGAR</small><strong data-f="place">Salón Imperial</strong><span data-f="addr">Av. del Libertador 4500, CABA</span></div></div>
       <div class="bar"></div>
-      <div class="code">34.5689° S · 58.4120° O</div>
+      <div class="code" data-f="code">XV · EMILIA · 22.05.27</div>
     </div>
   </section>
 
@@ -228,8 +228,8 @@ footer a{display:inline-block;margin-top:6px;color:var(--g2);text-decoration:non
     <h2>Girala con <i>el dedo</i></h2>
     <div class="stage" id="stage">
       <div class="card3d" id="card">
-        <div class="face front"><div class="t"><small>MIS XV</small><div>Emilia</div></div></div>
-        <div class="face back"><div class="mono">E</div><h3>22 · 05 · 2027</h3><p>SALÓN IMPERIAL</p><div class="faltan" id="faltan"></div></div>
+        <div class="face front"><div class="t"><small>MIS XV</small><div data-f="name">Emilia</div></div></div>
+        <div class="face back"><div class="mono" data-f="ini">E</div><h3 data-f="dnum">22 · 05 · 2027</h3><p data-f="placeU">SALÓN IMPERIAL</p><div class="faltan" id="faltan"></div></div>
       </div>
     </div>
     <div class="hint2">Deslizá hacia los costados para ver el reverso</div>
@@ -239,21 +239,21 @@ footer a{display:inline-block;margin-top:6px;color:var(--g2);text-decoration:non
     <div class="k">La fiesta</div>
     <h2>Dónde y <i>cuándo</i></h2>
     <div class="place iri">
-      <h3>Salón Imperial</h3>
-      <p>Av. del Libertador 4500, CABA</p>
-      <div class="when">SÁB 22·05·2027 · 21:30 HS</div>
+      <h3 data-f="place">Salón Imperial</h3>
+      <p data-f="addr">Av. del Libertador 4500, CABA</p>
+      <div class="when" data-f="when">SÁB 22·05·2027 · 21:30 HS</div>
       <div class="btns">
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Av.%20del%20Libertador%204500%2C%20CABA" target="_blank" rel="noopener">Google Maps</a>
-        <a class="btn" href="https://waze.com/ul?q=Av.%20del%20Libertador%204500%2C%20CABA&navigate=yes" target="_blank" rel="noopener">Waze</a>
+        <a class="btn" id="lmaps" href="https://www.google.com/maps/search/?api=1&query=Av.%20del%20Libertador%204500%2C%20CABA" target="_blank" rel="noopener">Google Maps</a>
+        <a class="btn" id="lwaze" href="https://waze.com/ul?q=Av.%20del%20Libertador%204500%2C%20CABA&navigate=yes" target="_blank" rel="noopener">Waze</a>
       </div>
     </div>
   </section>
 
   <section class="reveal">
     <div class="k">Agendá la fecha</div>
-    <h2>Mayo <i>2027</i></h2>
+    <h2 id="calT">Mayo <i>2027</i></h2>
     <div class="cal" id="cal"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
-    <div class="btns"><a class="btn full iri-b" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis%20XV%20Emilia&dates=20270522T213000/20270523T050000&location=Sal%C3%B3n%20Imperial" target="_blank" rel="noopener">Agendar en mi calendario</a></div>
+    <div class="btns"><a class="btn full iri-b" id="lcal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis%20XV%20Emilia&dates=20270522T213000/20270523T050000&location=Sal%C3%B3n%20Imperial" target="_blank" rel="noopener">Agendar en mi calendario</a></div>
   </section>
 
   <section class="reveal">
@@ -267,14 +267,14 @@ footer a{display:inline-block;margin-top:6px;color:var(--g2);text-decoration:non
     </div>
   </section>
 
-  <section class="reveal">
+  <section class="reveal" id="secDress">
     <div class="k">Vestimenta</div>
-    <h2><i>Elegante</i></h2>
+    <h2><i data-f="dress">Elegante</i></h2>
     <p style="color:var(--soft);font:500 14px var(--sans)">Tonos sugeridos para la noche</p>
     <div class="sw"><i style="background:#2a1240"></i><i style="background:#b892ff"></i><i style="background:#e9e6f2"></i><i style="background:linear-gradient(135deg,#f6dc94,#b8913f)"></i></div>
   </section>
 
-  <section class="reveal">
+  <section class="reveal" id="secRegalos">
     <div class="k">Regalos</div>
     <h2>Si querés <i>hacerme un regalo</i></h2>
     <div class="alias iri"><div class="k" style="letter-spacing:.3em">ALIAS</div><code id="alias">emi.xv.2027</code><button class="btn full" id="copy" type="button" style="width:100%">Copiar alias</button></div>
@@ -298,7 +298,7 @@ footer a{display:inline-block;margin-top:6px;color:var(--g2);text-decoration:non
       </div></div>
       <div class="acc"><button type="button">4 · Canción y mensaje</button><div class="body">
         <label for="rc">Una canción que no puede faltar</label><input id="rc">
-        <label for="rmsg">Mensaje para Emilia</label><textarea id="rmsg" rows="3"></textarea>
+        <label for="rmsg">Tu mensaje</label><textarea id="rmsg" rows="3"></textarea>
       </div></div>
       <button class="btn full" type="submit" style="width:100%;margin-top:8px">Enviar por WhatsApp</button>
     </form>
@@ -307,16 +307,37 @@ footer a{display:inline-block;margin-top:6px;color:var(--g2);text-decoration:non
   <section class="reveal end">
     <div class="bye">¡Te espero!</div>
     <p>Gracias por ser parte de mi noche</p>
-    <div class="tag">#LosXVdeEmi</div>
+    <div class="tag" data-f="tag">#LosXVdeEmi</div>
     <button class="btn iri-b party" id="party" type="button">¡Que empiece la fiesta!</button>
   </section>
   <footer>CREADA CON<br><a href="https://digiinvitaciones.github.io/digiinvitaciones/" target="_blank" rel="noopener">DIGI INVITACIONES</a></footer>
 </main>
 
 <script>
+var EV={name:'Emilia',date:'2027-05-22',time:'21:30',place:'Salón Imperial',address:'Av. del Libertador 4500, CABA',alias:'emi.xv.2027',wa:'5491155555555',frase:'Una noche que voy a recordar para siempre',dress:'Elegante',prog:'21:30 Recepción\n22:30 Entrada y vals\n00:00 Brindis y torta\n01:00 Carnaval y fiesta'};
 (function(){
 var R=document.documentElement,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-var T=new Date(2027,4,22,21,30).getTime();
+var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var dp=(EV.date||'2027-05-22').split('-').map(Number),tp=(EV.time||'21:30').split(':').map(Number);
+var FD=new Date(dp[0],dp[1]-1,dp[2],tp[0]||0,tp[1]||0),T=FD.getTime();
+var p2=function(n){return String(n).padStart(2,'0')},cap=function(t){return t.charAt(0).toUpperCase()+t.slice(1)};
+var first=(EV.name||'').trim().split(/\s+/)[0]||'';
+var loc=[EV.place,EV.address].filter(Boolean).join(', '),q=encodeURIComponent(loc||EV.place||'');
+var V={name:EV.name,ini:(EV.name||'?').trim().charAt(0),dnum:p2(dp[2])+' · '+p2(dp[1])+' · '+dp[0],frase:EV.frase?'“'+EV.frase+'”':'',xvy:'XV · '+dp[0],
+ dlong:cap(DIAS[FD.getDay()])+' '+dp[2]+' de '+MES[dp[1]-1],hora:EV.time?EV.time+' hs':'',place:EV.place,addr:EV.address,placeU:(EV.place||'').toUpperCase(),
+ code:('XV · '+first+' · '+p2(dp[2])+'.'+p2(dp[1])+'.'+String(dp[0]).slice(2)).toUpperCase(),when:(DIAS[FD.getDay()].slice(0,3)+' '+p2(dp[2])+'·'+p2(dp[1])+'·'+dp[0]+(EV.time?' · '+EV.time+' HS':'')).toUpperCase(),
+ dress:EV.dress,tag:'#LosXVde'+first.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9]/g,'')};
+document.querySelectorAll('[data-f]').forEach(function(el){var v=V[el.getAttribute('data-f')];if(v!=null)el.textContent=v});
+document.title='Mis XV · '+(EV.name||'');
+if(q){document.getElementById('lmaps').href='https://www.google.com/maps/search/?api=1&query='+q;document.getElementById('lwaze').href='https://waze.com/ul?q='+q+'&navigate=yes'}
+var end=new Date(T+7.5*3600e3),gd=function(d){return d.getFullYear()+p2(d.getMonth()+1)+p2(d.getDate())+'T'+p2(d.getHours())+p2(d.getMinutes())+'00'};
+document.getElementById('lcal').href='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent('Mis XV · '+EV.name)+'&dates='+gd(FD)+'/'+gd(end)+'&location='+encodeURIComponent(loc);
+document.getElementById('calT').innerHTML=cap(MES[dp[1]-1])+' <i>'+dp[0]+'</i>';
+if(!EV.alias)document.getElementById('secRegalos').style.display='none';else document.getElementById('alias').textContent=EV.alias;
+if(!EV.dress)document.getElementById('secDress').style.display='none';
+if(!EV.frase){var fz=document.querySelector('.frase');if(fz)fz.style.display='none'}
+if(EV.prog){var ls=String(EV.prog).split(/\n+/).map(function(l){var m=l.trim().match(/^(\d{1,2}[:.]\d{2})\s*(.*)$/);return m?[m[1],m[2]]:null}).filter(Boolean);
+ if(ls.length){var tl=document.getElementById('tl');tl.innerHTML='<i class="line" id="tlLine"></i>'+ls.map(function(x){var d=document.createElement('div');d.textContent=x[1];return '<div class="st"><b>'+x[0]+'</b><div>'+d.innerHTML+'</div></div>'}).join('')}}
 /* ---- inclinación: giroscopio con respaldo de dedo/mouse ---- */
 var tx=0,ty=0,gx=0,gy=0,gyro=false;
 function setT(x,y){gx=Math.max(-1,Math.min(1,x));gy=Math.max(-1,Math.min(1,y))}
@@ -337,12 +358,12 @@ seal.addEventListener('click',function(){open()});
 document.getElementById('skip').addEventListener('click',function(){open(true)});
 
 /* ---- nombre: entra completo ---- */
-function fitNm(){var n=document.getElementById('nm');n.style.fontSize='';var box=n.parentNode.clientWidth-8,fs=parseFloat(getComputedStyle(n).fontSize);var i=0;while(n.scrollWidth>box&&i++<40){fs*=.95;n.style.fontSize=fs+'px'}}
+function fitNm(){['#nm','#cover h1','.pass .who','.front .t div'].forEach(function(q){var n=document.querySelector(q);if(!n)return;n.style.fontSize='';var box=(q==='#cover h1'?n.parentNode.clientWidth-40:n.parentNode.clientWidth-8),fs=parseFloat(getComputedStyle(n).fontSize);var i=0;while(n.scrollWidth>box&&i++<40){fs*=.95;n.style.fontSize=fs+'px'}})}
 var nm=document.getElementById('nm');nm.innerHTML=nm.textContent.split('').map(function(c,i){return '<span style="--i:'+i+'">'+c+'</span>'}).join('');
 fitNm();if(document.fonts){document.fonts.ready.then(fitNm);document.fonts.addEventListener&&document.fonts.addEventListener('loadingdone',fitNm)}setTimeout(fitNm,800);setTimeout(fitNm,2000);addEventListener('resize',fitNm);
 /* letras que respiran con el scroll */
 var sp=nm.querySelectorAll('span');
-function kin(){var y=scrollY;R.style.setProperty('--sc',(y/600%1).toFixed(3));sp.forEach(function(s,i){s.style.setProperty('--b',Math.sin(y/90+i*.7).toFixed(3))})}
+function kin(){var y=scrollY,k=Math.min(1,y/160);R.style.setProperty('--sc',(y/600%1).toFixed(3));sp.forEach(function(s,i){s.style.setProperty('--b',(k*Math.sin(y/90+i*.7)).toFixed(3))})}
 addEventListener('scroll',kin,{passive:true});kin();
 
 /* ---- cuenta regresiva ---- */
@@ -359,7 +380,7 @@ stage.addEventListener('pointermove',function(e){if(!drag)return;var d=e.clientX
 
 
 /* ---- calendario ---- */
-(function(){var c=document.getElementById('cal'),y=2027,m=4,first=(new Date(y,m,1).getDay()+6)%7,days=new Date(y,m+1,0).getDate(),h='';for(var i=0;i<first;i++)h+='<i></i>';for(var k=1;k<=days;k++)h+=k===22?'<i class="hit"><b>'+k+'</b></i>':'<i>'+k+'</i>';c.insertAdjacentHTML('beforeend',h)})();
+(function(){var c=document.getElementById('cal'),y=dp[0],m=dp[1]-1,first=(new Date(y,m,1).getDay()+6)%7,days=new Date(y,m+1,0).getDate(),h='';for(var i=0;i<first;i++)h+='<i></i>';for(var k=1;k<=days;k++)h+=k===dp[2]?'<i class="hit"><b>'+k+'</b></i>':'<i>'+k+'</i>';c.insertAdjacentHTML('beforeend',h)})();
 
 /* ---- alias ---- */
 document.getElementById('copy').addEventListener('click',function(){var b=this;try{navigator.clipboard.writeText(document.getElementById('alias').textContent)}catch(e){}b.textContent='¡Copiado!';setTimeout(function(){b.textContent='Copiar alias'},1800)});
@@ -368,7 +389,7 @@ document.getElementById('copy').addEventListener('click',function(){var b=this;t
 var accs=[].slice.call(document.querySelectorAll('.acc'));
 accs.forEach(function(a){a.querySelector('button').addEventListener('click',function(){var o=a.classList.contains('open');accs.forEach(function(x){x.classList.remove('open')});if(!o)a.classList.add('open')})});
 document.querySelectorAll('input[name=va]').forEach(function(r){r.addEventListener('change',function(){var no=document.querySelector('input[name=va]:checked').value==='no';document.querySelectorAll('[data-si]').forEach(function(x){x.style.display=no?'none':''})})});
-document.getElementById('rsvp').addEventListener('submit',function(e){e.preventDefault();burst(innerWidth/2,innerHeight*.6,90);var n=document.getElementById('rn').value||'';var t='Confirmo asistencia a los XV de Emilia'+(n?' — '+n:'');window.open('https://wa.me/5491155555555?text='+encodeURIComponent(t),'_blank')});
+document.getElementById('rsvp').addEventListener('submit',function(e){e.preventDefault();burst(innerWidth/2,innerHeight*.6,90);var n=document.getElementById('rn').value||'';var va=document.querySelector('input[name=va]:checked').value==='si';var L=['¡Hola! '+(va?'Confirmo asistencia':'No voy a poder ir')+' a los XV de '+EV.name];if(n)L.push('Nombre: '+n);if(va){L.push('Adultos: '+document.getElementById('ra').value);L.push('Menores: '+document.getElementById('rm').value);L.push('Menú: '+document.getElementById('rmenu').value);var al=document.getElementById('ral').value;if(al)L.push('Alergias: '+al)}var cn=document.getElementById('rc').value,ms=document.getElementById('rmsg').value;if(cn)L.push('Canción: '+cn);if(ms)L.push('Mensaje: '+ms);window.open('https://wa.me/'+String(EV.wa||'').replace(/\D/g,'')+'?text='+encodeURIComponent(L.join('\n')),'_blank')});
 
 /* ---- aparición al deslizar y cronograma ---- */
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});

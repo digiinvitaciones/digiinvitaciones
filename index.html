@@ -431,6 +431,7 @@ var DISENOS=[
  {ev:'Bodas',tipo:'tarjeta',n:'Champagne',d:'Marfil champagne con detalles dorados',img:'img/t-boda-foto.jpg'},
  {ev:'Bodas',tipo:'tarjeta',n:'Marfil y oro',d:'Arco dorado con sus iniciales',img:'img/t-boda-marfil.jpg'},
  {ev:'Bodas',tipo:'tarjeta',n:'Anillos · noche',d:'Azul noche y anillos dorados',img:'img/t-boda-anillos.jpg'},
+ {ev:'15 años',tipo:'web',n:'XV Holográfica',d:'Brillo tornasol, sello que se rompe, pase VIP y fuegos artificiales',img:'img/t-xv-holo.jpg',demo:'demos/xv-holografica/'},
  {ev:'15 años',tipo:'tarjeta',n:'Vestido soñado',d:'Azul noche con vestido de gala y luces doradas',img:'img/t-xv-vestido.jpg'},
  {ev:'15 años',tipo:'tarjeta',n:'Zapato de cristal',d:'Rosa y dorado con zapato de cristal',img:'img/t-xv-zapato.jpg'},
  {ev:'15 años',tipo:'tarjeta',n:'Cajita musical',d:'Cajita con bailarina, rosas y perlas',img:'img/t-xv-cajita.jpg'},
@@ -492,7 +493,7 @@ function want(d,sel){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img)||(d.demo&&/dem
  var t=0;var names=FORMATOS.filter(function(f){return sel&&sel.indexOf(f.k)>=0}).map(function(f){t+=pr(d.ev,f.k)[1];return f.n});
  return wa('¡Hola! Me gusta el diseño "'+d.n+'" de '+d.ev+(code?' (código '+code+')':'')+'.\nLo quiero en: '+(names.length?names.join(', ')+'\nTotal: '+money(t):'(imagen / video / PDF / web)')+'\n¿Me pasás el formulario?')}
 var list=[];
-var DEMO_PAIR={'infantiles-i-bloques':'web-bloques','infantiles-ii-pixeles':'web-pixeles','infantiles-iii-autos':'web-autos','infantiles-iv-sheriff':'web-sheriff','infantiles-v-estrellas':'web-estrellas','bautismo-i':'bau-paloma-verde','bodas-saten':'boda-saten','xv-medianoche':'xv-medianoche','baby-shower-ii':'baby-arcoiris','baby-shower-iii':'baby-globo','baby-shower-iv':'baby-telon'};
+var DEMO_PAIR={'xv-holografica':'xv-holo','infantiles-i-bloques':'web-bloques','infantiles-ii-pixeles':'web-pixeles','infantiles-iii-autos':'web-autos','infantiles-iv-sheriff':'web-sheriff','infantiles-v-estrellas':'web-estrellas','bautismo-i':'bau-paloma-verde','bodas-saten':'boda-saten','xv-medianoche':'xv-medianoche','baby-shower-ii':'baby-arcoiris','baby-shower-iii':'baby-globo','baby-shower-iv':'baby-telon'};
 function tplOf(d){var m=/img\/t-([a-z0-9-]+)\.jpg/.exec(d.img);if(m)return m[1];m=d.demo&&/demos\/([a-z0-9-]+)/.exec(d.demo);return m?DEMO_PAIR[m[1]]:''}
 function card(d){var i=list.push(d)-1;
   return '<article class="card">'+
