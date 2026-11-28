@@ -36,7 +36,7 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
   if(P.g[t.id]==='todos'&&!t.noText&&d.nombre!=='Nombre')mal('Plantilla '+t.id,'es neutra y su nombre de ejemplo es "'+d.nombre+'" (debe ser "Nombre")');
  }
  if(!/const card=false/.test(R('panel/index.html')))mal('Panel','los diseños vuelven a tener recuadro de vidrio esmerilado');
- {const c=R('index.html');if(!/addEventListener\('contextmenu'/.test(c)||!/class="wmk" id="vBox"/.test(c)||!/class="wmk" data-fmt/.test(c)||!/-webkit-touch-callout:none/.test(c))mal('Catálogo','las muestras se pueden descargar o no tienen el sello de muestra')}
+ {const c=R('index.html');if(!/addEventListener\('contextmenu'/.test(c)||!/class="wmk" id="vBox"/.test(c)||!/class="wmk" data-fmt/.test(c)||!/-webkit-touch-callout:none/.test(c)||!/\.wmk::after[^}]*sello-bot\.png/.test(c))mal('Catálogo','las muestras se pueden descargar o no tienen el sello de muestra')}
  // ---------- archivos: dorado, Floot, padres ----------
  const html=['index.html','panel/index.html','panel/web-inv.js',...fs.readdirSync(path.join(ROOT,'demos')).map(d=>'demos/'+d+'/index.html'),...fs.readdirSync(path.join(ROOT,'muestras/d')).filter(f=>f.endsWith('.html')).map(f=>'muestras/d/'+f)];
  for(const f of html){const s=R(f).replace(/data:[a-z]+\/[a-z0-9.+-]+;base64,[A-Za-z0-9+\/=]+/g,'');
@@ -45,7 +45,7 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
   if(PADRES.test(s))mal(f,'tiene nombres de padres');
   if(/class="rays"|#cover \.rays|repeating-conic-gradient\(from/.test(s))mal(f,'tiene el efecto de rayos que giran (a Sandra no le gusta)');
   if(/^(demos|muestras)/.test(f)&&!/<!--WM-->/.test(s))mal(f,'falta el bloqueo de botones de muestra (sello WM)');
-  if(/^(demos|muestras)/.test(f)&&!/id="digiProt"[\s\S]*<!--\/WM-->/.test(s))mal(f,'la muestra no tiene el sello DIGI INVITACIONES · MUESTRA ni el bloqueo de descarga');
+  if(/^(demos|muestras)/.test(f)&&!/id="digiProt">#digiMark\{[^}]*sello-bot\.png[\s\S]*<!--\/WM-->/.test(s))mal(f,'la muestra no tiene el sello DIGI INVITACIONES · MUESTRA ni el bloqueo de descarga');
   if(/^(demos|muestras)/.test(f)&&!/IntersectionObserver/.test(s))mal(f,'no tiene efectos al deslizar');
   if(/^muestras/.test(f)){if(!/class="reveal end"/.test(s))mal(f,'no tiene cierre/despedida');
    const ic=s.indexOf('class="cal"'),ia=s.indexOf('Agendar en mi calendario');if(ic>0&&ia>0&&ia<ic)mal(f,'el botón Agendar no está debajo del calendario')}
