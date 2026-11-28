@@ -1045,7 +1045,7 @@ function renderPriceEd(){$('priceEd').innerHTML='<div class="priceHead"><span></
 $('priceEd').addEventListener('input',e=>{const t=e.target;if(!t.dataset.k)return;const p=SET.products[+t.dataset.i];p[t.dataset.k]=t.dataset.k==='n'?t.value:+(t.value.replace(/\D/g,''))||0;saveSet();renderItems();renderMsg()});
 ['cobro','titular','marca'].forEach(k=>$('s_'+k).addEventListener('input',e=>{SET[k]=e.target.value;saveSet();renderMsg()}));
 /* ===== publicar precios en la página (precios.js del repo) ===== */
-const GH_REPO='digiinvitaciones/digiinvitaciones',GH_FILE='precios.js',FMAP={tarjeta:'imagen',pdf:'pdf',video:'video',web:'web'};
+const GH_REPO='digiinvitaciones/digiinvitaciones',GH_FILE='precios.js',FMAP={tarjeta:'imagen',pdf:'pdf',video:'video',web:'web',webp:'premium'};
 const ghTok=()=>{try{return localStorage.getItem('digi_gh_token')||''}catch(e){return ''}};
 function pubMsg(h,cls){$('pubRes').innerHTML=`<span class="${cls||''}">${h}</span>`}
 function preciosObj(){const o={normal:{},gala:{}};SET.products.forEach(p=>{const k=FMAP[p.id];if(!k)return;o.normal[k]=[+p.old||+p.now,+p.now];o.gala[k]=[+(p.oldG??p.old)||+(p.nowG??p.now),+(p.nowG??p.now)]});o.actualizado=new Date().toISOString().slice(0,10);return o}
