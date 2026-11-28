@@ -19,7 +19,7 @@ async function pedidos(URL){
    set('cnombre','María Gómez');set('ctel','0264 15 555-1234');set('ciudad','San Juan');set('origen','Instagram');set('nombre','Sofía Luna');set('edad','15');set('fecha',iso);set('hora','21:30');
    set('lugar','Salón Los Olivos');set('direccion','Av. Libertador 1200, San Juan');set('mismo',true);set('alias','sofia.fiesta.15');set('acepto',true);set('notas','Colores pastel');
    const ch=digiForm.check();const t=fs.reduce((a,k)=>a+digiPr(d.ev,k)[1],0);
-   out.push({n:d.n,ev:d.ev,err:ch.err,msg:digiForm.msg(),t,iso,edad:!document.getElementById('fEdadW').hidden});
+   out.push({n:d.n,ev:d.ev,err:ch.err,msg:digiForm.msg(),sena:digiForm.sena(),t,iso,edad:!document.getElementById('fEdadW').hidden});
    document.getElementById('fClear').click();}
   document.getElementById('fClose').click();return out});
  // casos con errores: el formulario tiene que frenarlos
@@ -45,7 +45,7 @@ async function pedidos(URL){
    const c=state.client,d=state.data,e=[];const exp=(a,b,n)=>{if(a!==b)e.push(n+': '+a+' en vez de '+b)};
    exp(c.nombre,'María Gómez','cliente');exp(c.tel,'5492645551234','WhatsApp del cliente');exp(c.ciudad,'San Juan','ciudad');exp(c.origen,'Instagram','cómo nos conoció');
    exp(d.nombre,'Sofía Luna','nombre');exp(d.fecha,f.iso,'fecha');exp(d.hora,'21:30','hora');exp(d.lugar,'Salón Los Olivos','lugar');exp(d.direccion,'Av. Libertador 1200, San Juan','dirección');
-   exp(d.wa,'5492645551234','WhatsApp para confirmar');exp(d.alias,'sofia.fiesta.15','alias');exp(totals().now,f.t,'total');if(!(c.notas||'').includes('Colores pastel'))e.push('no guardó los comentarios');
+   exp(d.wa,'5492645551234','WhatsApp para confirmar');exp(d.alias,'sofia.fiesta.15','alias');exp(totals().now,f.t,'total');exp(senaDe(totals().now),f.sena,'seña');if(!(c.notas||'').includes('Colores pastel'))e.push('no guardó los comentarios');
    if(e.length)out.push(f.n+' ('+f.ev+'): '+e.join('; '))}return out},forms);
  res2.forEach(r=>fallas.push('✗ Formulario → panel '+r));errs.forEach(e=>fallas.push('✗ Error en página: '+e));
  await b.close();return {fallas,total:casos.length+forms.length}}
