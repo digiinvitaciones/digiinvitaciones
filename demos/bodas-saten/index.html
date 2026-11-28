@@ -569,7 +569,8 @@ body.go .palpanel{display:block}
 .pedbody{display:none;padding:6px;max-height:62vh;overflow:auto;border-top:1px solid color-mix(in srgb,var(--glow) 40%,transparent)}
 .palpanel.open .pedbody{display:block}
 </style>
-<style id="perf">canvas{transform:translateZ(0)}@media (hover:none),(max-width:640px){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;mix-blend-mode:normal!important}}</style></head>
+<style id="perf">canvas{transform:translateZ(0)}@media (hover:none),(max-width:640px){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;mix-blend-mode:normal!important}}</style><style>#galeria{display:none!important}</style>
+</head>
 <body class="lock">
 <div class="pbar"><i id="pbar"></i></div>
 <div class="bgfx"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>
@@ -618,8 +619,8 @@ body.go .palpanel{display:block}
 <canvas id="fx"></canvas>
 
 <!-- HÉROE -->
-<section id="hero" class="photo">
-  <div class="hp"><div class="hpimg pd" id="hpimg"></div><div class="hpveil"></div></div>
+<section id="hero">
+  <div class="hp"><div class="hpimg" id="hpimg"></div><div class="hpveil"></div></div>
   <div class="hf"></div>
   
   <div class="label reveal in">Nos casamos</div>
