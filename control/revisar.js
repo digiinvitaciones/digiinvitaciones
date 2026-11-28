@@ -41,8 +41,8 @@ const PADRES=/Junto a (mis|sus|nuestros) padres, [A-ZÁÉÍÓÚ]|Laura y Mart[i�
  for(const f of html){const s=R(f).replace(/data:[a-z]+\/[a-z0-9.+-]+;base64,[A-Za-z0-9+\/=]+/g,'');
   if(COBRE.test(s))mal(f,'usa el dorado cobrizo viejo ('+COBRE.exec(s)[0]+')');
   if(/floot/i.test(s)&&!/panel\/index\.html/.test(f))mal(f,'tiene un link o mención a Floot');
-  if(/class="rays"/.test(s))mal(f,'tiene rayos de sol que giran en la portada (Sandra no los quiere)');
   if(PADRES.test(s))mal(f,'tiene nombres de padres');
+  if(/class="rays"|#cover \.rays|repeating-conic-gradient\(from/.test(s))mal(f,'tiene el efecto de rayos que giran (a Sandra no le gusta)');
   if(/^(demos|muestras)/.test(f)&&!/<!--WM-->/.test(s))mal(f,'falta el bloqueo de botones de muestra (sello WM)');
   if(/^(demos|muestras)/.test(f)&&!/IntersectionObserver/.test(s))mal(f,'no tiene efectos al deslizar');
   if(/^muestras/.test(f)){if(!/class="reveal end"/.test(s))mal(f,'no tiene cierre/despedida');
