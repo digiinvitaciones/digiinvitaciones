@@ -400,7 +400,7 @@ var FORMATOS=[
  {k:'web',n:'Invitación web',d:'Página completa con cuenta regresiva y confirmación'},
  {k:'premium',n:'Web Premium',d:'Web con sobre que se abre, la canción de ustedes y "Subí tus fotos"'}
 ];
-var EVENTOS=['15 años','Bodas','Baby shower','Bautismo','Infantiles','Cumpleaños'];
+var EVENTOS=['Navidad','Año nuevo','Despedidas','Graduaciones','15 años','Bodas','Baby shower','Bautismo','Infantiles','18 años','Cumpleaños'];
 /* grupos dentro de cada evento (pestañas desplegables) */
 var GRUPOS=[{k:'nena',n:'Nena'},{k:'varon',n:'Nene'},{k:'todos',n:'Neutro'},{k:'bebe',n:'Bebés · primer añito'}];
 var DISENOS=[
@@ -441,6 +441,20 @@ var DISENOS=[
  {ev:'15 años',tipo:'web',last:true,n:'XV Medianoche',d:'Tarjeta holográfica y reloj de las 00:00',img:'img/t-xv-medianoche.jpg',demo:'demos/xv-medianoche/'},
  {ev:'15 años',tipo:'tarjeta',n:'Noche azul',d:'Imagen, video, PDF y web',img:'img/t-xv-medianoche.jpg'},
  {ev:'15 años',tipo:'tarjeta',n:'Bordó y oro',d:'Imagen, video, PDF y web',img:'img/t-xv-bordo.jpg'},
+ {ev:'Navidad',tipo:'tarjeta',n:'Papá Noel · claro',d:'Papá Noel en su trineo dorado con regalos, en la nieve',img:'img/t-nav-noel.jpg'},
+ {ev:'Navidad',tipo:'tarjeta',n:'Papá Noel · oscuro',d:'Papá Noel volando bajo la luna y las estrellas',img:'img/t-nav-noel-noche.jpg'},
+ {ev:'Navidad',tipo:'tarjeta',n:'Árbol de Navidad · claro',d:'Árbol con luces, moños rojos y regalos',img:'img/t-nav-arbol.jpg'},
+ {ev:'Año nuevo',tipo:'tarjeta',n:'Fuegos sobre la ciudad · oscuro',d:'Fuegos artificiales de colores sobre la ciudad',img:'img/t-anio-fuegos.jpg'},
+ {ev:'Año nuevo',tipo:'tarjeta',n:'Lluvia de confeti · claro',d:'Explosión de confeti dorado y plateado',img:'img/t-anio-confeti.jpg'},
+ {ev:'Año nuevo',tipo:'tarjeta',n:'Reloj de medianoche · oscuro',d:'Fuegos artificiales y reloj dorado a las 00:00',img:'img/t-anio-reloj.jpg'},
+ {ev:'Despedidas',tipo:'tarjeta',n:'Globos dorados · oscuro',d:'Globos dorados y azules con luces, de noche',img:'img/t-desp-noche.jpg'},
+ {ev:'Despedidas',tipo:'tarjeta',n:'Globos dorados · claro',d:'Para empresas, egresados y grupos de amigos',img:'img/t-desp-globos.jpg'},
+ {ev:'Graduaciones',tipo:'tarjeta',n:'Birrete y diploma',d:'Marfil y dorado con confeti',img:'img/t-grad-birrete.jpg'},
+ {g:'varon',ev:'18 años',tipo:'tarjeta',n:'Bola de luces · azul',d:'Bola disco con luces azules y plateadas',img:'img/t-dieci-disco-azul.jpg'},
+ {g:'varon',ev:'18 años',tipo:'tarjeta',n:'Neón',d:'Luces de neón: bola disco, música y rayos',img:'img/t-dieci-neon.jpg'},
+ {g:'nena',ev:'18 años',tipo:'tarjeta',n:'Bola de luces · rosa',d:'Bola disco con brillos rosa y lila',img:'img/t-dieci-disco.jpg'},
+ {ev:'Cumpleaños',tipo:'tarjeta',n:'Neón',d:'Torta y globos en luces de neón',img:'img/t-cumple-neon.jpg'},
+ {ev:'Cumpleaños',tipo:'tarjeta',n:'Torta y peonías',d:'Torta con bengalas, peonías y globos',img:'img/t-cumple-torta.jpg'},
  {ev:'Cumpleaños',tipo:'tarjeta',n:'Negro y dorado',d:'Imagen, video, PDF y web',img:'img/t-cumple-negro.jpg'},
  {ev:'Cumpleaños',tipo:'tarjeta',n:'Marfil clásico',d:'Imagen, video, PDF y web',img:'img/t-cumple-marfil.jpg'},
  {g:'varon',ev:'Infantiles',tipo:'web',n:'Infantiles I · Bloques',d:'Bloques de colores y mini juego',img:'img/infantiles-i-bloques.jpg',demo:'demos/infantiles-i-bloques/'},
@@ -510,16 +524,16 @@ function showFmt(d,f){var t=tplOf(d);
  else{v.pause();v.hidden=true;v.removeAttribute('src');im.hidden=false;im.src=t?'muestras/d/'+t+(f==='pdf'?'-pdf':'')+'.jpg':d.img;im.alt=d.n}
  $('vWant').onclick=function(e){e.preventDefault();closeV();pickAndGo(d)};$('vWant').href='#';$('vWant').textContent='Elegir este';openV()}
 function cards(ds){var rk=function(d){return d.last?-1:d.prem?2:d.demo?1:0};ds=ds.map(function(d,i){return [d,i]}).sort(function(a,b){return rk(b[0])-rk(a[0])||a[1]-b[1]}).map(function(x){return x[0]});return '<div class="grid">'+ds.map(card).join('')+'</div>'}
-function grid(){list=[];if(!cur){$('grid').innerHTML='<p class="gsub" style="padding:18px 0 8px">Tocá un evento para ver sus diseños.</p>';return}var ds=DISENOS.filter(function(d){return d.ev===cur});var gs=GRUPOS.filter(function(g){return ds.some(function(d){return d.g===g.k})});
+function grid(){list=[];if(!cur){$('grid').innerHTML='<p class="gsub" style="padding:18px 0 8px">Tocá un evento para ver sus diseños.</p>';return}var ds=DISENOS.filter(function(d){return d.ev===cur});var gs=GRUPOS.filter(function(g){return ds.some(function(d){return d.g===g.k})});if(cur==='18 años')gs.reverse();
  var h;
- if(gs.length>1){h=gs.map(function(g,ix){var x=ds.filter(function(d){return d.g===g.k});return '<details class="group"><summary><span>'+esc(g.n)+'</span><small>'+x.length+' diseño'+(x.length>1?'s':'')+'</small></summary>'+cards(x)+'</details>'}).join('')}
+ if(gs.length>1){h=gs.map(function(g,ix){var x=ds.filter(function(d){return d.g===g.k});return '<details class="group"><summary><span>'+esc(cur==='18 años'?({nena:'Chicas',varon:'Varones'}[g.k]||g.n):g.n)+'</span><small>'+x.length+' diseño'+(x.length>1?'s':'')+'</small></summary>'+cards(x)+'</details>'}).join('')}
  else h=cards(ds);
  $('grid').innerHTML=h;
  [].forEach.call($('grid').querySelectorAll('details.group'),function(dt){dt.addEventListener('toggle',function(){if(dt.open)[].forEach.call($('grid').querySelectorAll('details.group'),function(o){if(o!==dt)o.open=false})})});
  [].forEach.call($('grid').querySelectorAll('[data-fmt]'),function(b){b.onclick=function(){showFmt(list[+b.dataset.i],b.dataset.fmt)}});
  [].forEach.call(document.querySelectorAll('[data-pick]'),function(b){b.onclick=function(){pickAndGo(list[+b.dataset.pick])}})}
 /* tabla de precios y "desde" de los formatos */
-$('ptable').innerHTML='<div class="prow h"><span>Formato</span><span class="v">Bautismo, baby shower, infantiles y cumpleaños</span><span class="v">Bodas y 15 años</span></div>'+FORMATOS.map(function(f){return '<div class="prow"><span class="f">'+esc(f.n)+'<small>'+esc(f.d)+'</small></span><span class="v">'+priceHTML(PRECIOS.normal[f.k])+'</span><span class="v">'+priceHTML(PRECIOS.gala[f.k])+'</span></div>'}).join('');
+$('ptable').innerHTML='<div class="prow h"><span>Formato</span><span class="v">Fin de año, graduaciones, 18, cumpleaños, bautismo, baby shower e infantiles</span><span class="v">Bodas y 15 años</span></div>'+FORMATOS.map(function(f){return '<div class="prow"><span class="f">'+esc(f.n)+'<small>'+esc(f.d)+'</small></span><span class="v">'+priceHTML(PRECIOS.normal[f.k])+'</span><span class="v">'+priceHTML(PRECIOS.gala[f.k])+'</span></div>'}).join('');
 [].forEach.call(document.querySelectorAll('[data-from]'),function(e){var k=e.dataset.from,a=Math.min(PRECIOS.normal[k][1],PRECIOS.gala[k][1]);e.innerHTML='desde <b>'+money(a)+'</b>'});
 $('exPdf').onclick=function(){$('vWant').textContent='Consultar por WhatsApp';$('vCap').textContent='Ejemplo · PDF interactivo';$('vImg').src='muestras/d/xv-medianoche-pdf.jpg';$('vImg').alt='Ejemplo de PDF';$('vWant').onclick=null;$('vWant').href=wa('¡Hola! Quiero consultar por una invitación digital.');openV()};
 $('exImg').onclick=function(){$('vWant').textContent='Consultar por WhatsApp';$('vCap').textContent='Ejemplo · imagen JPG';$('vImg').src='muestras/d/xv-medianoche.jpg';$('vImg').alt='Ejemplo de imagen';$('vWant').onclick=null;$('vWant').href=wa('¡Hola! Quiero consultar por una invitación digital.');openV()};
